@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel CRM — Settings (Tablet)</title>
+    <style>
+        :root {
+            /* Colors - Material Design Green Theme */
+            --primary: #4CAF50;
+            --on-primary: #FFFFFF;
+            --primary-container: #81D4FA;
+            --on-primary-container: #000000;
+            --primary-fixed: #C8E6C9;
+            --primary-fixed-dim: #A5D6A7;
+            --on-primary-fixed: #000000;
+            --on-primary-fixed-variant: #1B5E20;
+
+            --secondary: #FFC107;
+            --on-secondary: #000000;
+            --secondary-container: #FFCC80;
+            --on-secondary-container: #000000;
+
+            --surface: #FFFFFF;
+            --surface-dim: #F5F5F5;
+            --surface-bright: #FFFFFF;
+            --surface-container-lowest: #FAFAFA;
+            --surface-container-low: #F0F0F0;
+            --surface-container: #E0E0E0;
+            --surface-container-high: #BDBDBD;
+            --surface-container-highest: #9E9E9E;
+            --on-surface: #212121;
+            --on-surface-variant: #616161;
+            --inverse-surface: #212121;
+            --inverse-on-surface: #FFFFFF;
+            --outline: #757575;
+            --outline-variant: #B0B0B0;
+            --error: #E53935;
+            --on-error: #FFFFFF;
+            --error-container: #FDEDEC;
+            --on-error-container: #B00000;
+
+            --background: #FAFAFA;
+            --on-background: #212121;
+            --surface-variant: #EEEEEE;
+            --on-surface-variant-on: #616161;
+            --surface-variant-lowest: #F5F5F5;
+            --surface-variant-low: #F0F0F0;
+            --surface-variant-high: #E0E0E0;
+            --surface-variant-highest: #E0E0E0;
+
+            --font-family: 'Roboto', 'DM Sans', sans-serif;
+            --font-display-large: clamp(36px, 4vw, 48px);
+            --font-headline-large: clamp(28px, 3.5vw, 32px);
+            --font-title-large: clamp(18px, 2.5vw, 20px);
+            --font-body-large: 16px;
+            --font-label-large: 13px;
+
+            --spacing-unit: 8px;
+            --spacing-gutter: 24px;
+            --spacing-mobile: 20px;
+            --spacing-desktop: 64px;
+            --spacing-editorial-gap: 80px;
+
+            --shadow-level1: 0 1px 3px 0 rgba(0,0,0,0.12), 0 1px 2px 0 rgba(0,0,0,0.24);
+            --shadow-level2: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px -1px rgba(0,0,0,0.14);
+            --shadow-level3: 0 4px 6px -1px rgba(0,0,0,0.1), 0 1px 3px 0 rgba(0,0,0,0.08);
+            --shadow-level4: 0 10px 20px -1px rgba(0,0,0,0.04), 0 10px 20px -2px rgba(0,0,0,0.04);
+
+            --radius-medium: 8px;
+            --radius-small: 4px;
+            --radius-tiny: 2px;
+
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-family), sans-serif;
+            font-size: var(--font-body-large);
+            color: var(--on-surface);
+            background: var(--background);
+            min-height: 100vh;
+        }
+
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; }
+        button { font-family: inherit; font-size: inherit; cursor: pointer; border: none; background: none; }
+
+        /* --- Page Header (Tablet) --- */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-gutter);
+            padding: 0 var(--spacing-desktop);
+        }
+
+        .page-header h2 {
+            font-size: var(--font-headline-large);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        /* --- Settings Sections (Tablet: 2-column layout) --- */
+        .settings-section {
+            background: var(--surface);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-medium);
+            padding: var(--spacing-gutter);
+            margin-bottom: var(--spacing-gutter);
+            transition: var(--transition-fast);
+        }
+
+        .settings-section:hover {
+            border-color: var(--on-surface-variant);
+        }
+
+        .settings-section h3 {
+            font-size: var(--font-headline-large);
+            font-weight: 500;
+            margin: 0 0 var(--spacing-gutter) 0;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+        }
+
+        .settings-section h3 svg {
+            color: var(--on-surface-variant);
+        }
+
+        /* --- User Preferences (Tablet: 2-column) --- */
+        .preference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-gutter);
+        }
+
+        .preference-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-unit) 0;
+            border-bottom: 1px solid var(--outline-variant);
+        }
+
+        .preference-item:last-child { border-bottom: none; }
+
+        .preference-label {
+            font-size: var(--font-body-small);
+            color: var(--on-surface-variant);
+        }
+
+        .preference-switch {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+        }
+
+        /* --- API Keys --- */
+        .api-key-item {
+            background: var(--surface);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-small);
+            padding: var(--spacing-gutter);
+            margin-top: var(--spacing-gutter);
+        }
+
+        .api-key-item h4 {
+            font-size: var(--font-title-large);
+            font-weight: 500;
+            margin: 0 0 var(--spacing-unit) 0;
+        }
+
+        .api-key-input {
+            width: 100%;
+            padding: var(--spacing-unit) var(--spacing-gutter);
+            background: var(--background);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-small);
+            font-size: var(--font-body-large);
+            color: var(--on-surface);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: var(--spacing-gutter);
+            right: var(--spacing-gutter);
+            padding: var(--spacing-unit) var(--spacing-gutter);
+            background: var(--primary);
+            color: var(--on-primary);
+            font-size: var(--font-label-large);
+            font-weight: 500;
+            border-radius: var(--radius-small);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .copy-btn:hover { background: #45a049; }
+
+        /* --- Notification Preferences --- */
+        .notification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-unit) 0;
+            border-bottom: 1px solid var(--outline-variant);
+        }
+
+        .notification-item:last-child { border-bottom: none; }
+
+        .notification-label {
+            font-size: var(--font-body-small);
+            color: var(--on-surface-variant);
+        }
+
+        .notification-switch .switch {
+            margin-left: var(--spacing-gutter);
+        }
+
+        /* --- Security --- */
+        .security-item {
+            background: var(--surface);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-medium);
+            padding: var(--spacing-gutter);
+            margin-top: var(--spacing-gutter);
+        }
+
+        .security-item h4 {
+            font-size: var(--font-title-large);
+            font-weight: 500;
+            margin: 0 0 var(--spacing-unit) 0;
+        }
+
+        .security-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-unit);
+        }
+
+        .security-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-unit) 0;
+        }
+
+        .security-item-row:last-child { border-bottom: none; }
+
+        .security-item-label {
+            font-size: var(--font-body-small);
+            color: var(--on-surface-variant);
+        }
+
+        .security-item-value {
+            font-size: var(--font-body-small);
+            color: var(--primary);
+        }
+
+        .security-item-remove {
+            padding: var(--spacing-xtiny) var(--spacing-small);
+            background: rgba(229, 57, 53, 0.1);
+            border-radius: var(--radius-tiny);
+            font-size: var(--font-label-small);
+            color: var(--error);
+            cursor: pointer;
+        }
+
+        /* --- RESPONSIVE BREAKPOINTS --- */
+        @media (min-width: 1280px) {
+            .page-header { padding: 0 var(--spacing-desktop); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .settings-section { transition: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h2>Settings</h2>
+    </header>
+
+    <!-- User Preferences -->
+    <section class="settings-section">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/></svg>User Preferences</h3>
+
+        <div class="preference-grid">
+            <div class="preference-item">
+                <span class="preference-label">Dark Mode</span>
+                <div class="preference-switch">
+                    <div class="switch" id="dark-mode-switch"></div>
+                </div>
+            </div>
+            <div class="preference-item">
+                <span class="preference-label">Notifications</span>
+                <div class="preference-switch">
+                    <div class="switch" id="notifications-switch"></div>
+                </div>
+            </div>
+            <div class="preference-item">
+                <span class="preference-label">Auto-logout</span>
+                <div class="preference-switch">
+                    <div class="switch" id="auto-logout-switch"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Keys -->
+    <section class="settings-section">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H5a2 2 0 0 0 2 2h3m0 0h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-3m0 0h-2a2 2 0 0 0-2 2v2a2 2 0 0 1-2 2h-3m0 0h-2"/><circle cx="12" cy="12" r="3"/></svg>API Keys</h3>
+
+        <div class="api-key-item">
+            <h4>Default API Key</h4>
+            <input class="api-key-input" type="text" value="sk_live_abc123def456ghi789" readonly>
+            <button class="copy-btn">Copy</button>
+        </div>
+
+        <div class="api-key-item">
+            <h4>Secondary API Key</h4>
+            <input class="api-key-input" type="text" value="sk_test_789xyz012abc345def" readonly>
+            <button class="copy-btn">Copy</button>
+        </div>
+    </section>
+
+    <!-- Notification Preferences -->
+    <section class="settings-section">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12" y2="16"/></svg>Notification Preferences</h3>
+
+        <div class="notification-item">
+            <span class="notification-label">New Booking Alerts</span>
+            <div class="notification-switch">
+                <div class="switch" id="new-booking-switch"></div>
+            </div>
+        </div>
+
+        <div class="notification-item">
+            <span class="notification-label">Price Change Alerts</span>
+            <div class="notification-switch">
+                <div class="switch" id="price-change-switch"></div>
+            </div>
+        </div>
+
+        <div class="notification-item">
+            <span class="notification-label">Daily Digest</span>
+            <div class="notification-switch">
+                <div class="switch" id="daily-digest-switch"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security -->
+    <section class="settings-section">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 3h6v5h-4v6h4v5h-6v-5H9v-5h4V9h2V3h4Vz"/><circle cx="3" cy="3" r="1"/><circle cx="21" cy="3" r="1"/><circle cx="3" cy="21" r="1"/><circle cx="21" cy="21" r="1"/></svg>Security</h3>
+
+        <div class="security-item">
+            <h4>Active Sessions</h4>
+            <div class="security-list">
+                <div class="security-item-row">
+                    <span class="security-item-label">Session 1</span>
+                    <span class="security-item-value">2 hours ago</span>
+                </div>
+                <div class="security-item-row">
+                    <span class="security-item-label">Session 2</span>
+                    <span class="security-item-value">4 hours ago</span>
+                </div>
+                <div class="security-item-row">
+                    <span class="security-item-label">Session 3</span>
+                    <span class="security-item-value">6 hours ago</span>
+                </div>
+            </div>
+            <button class="security-item-remove">Revoke All</button>
+        </div>
+
+        <div class="security-item">
+            <h4>Two-Factor Authentication</h4>
+            <p class="security-item-label">Currently disabled</p>
+            <button style="background: var(--primary); color: var(--on-primary); padding: var(--spacing-unit) var(--spacing-gutter); border-radius: var(--radius-small); font-size: var(--font-label-large); cursor: pointer;">Enable 2FA</button>
+        </div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+You are building one HTML mockup page for a hotel CRM, using an existing
+design system ("friendly bento": borderless white tiles on a soft grey-green
+background, big rounded corners, Plus Jakarta Sans). You are composing pages,
+not designing a new style.
+
+READ FIRST, in this order:
+1. docs/planning-artifacts/ux-designs/bento-starter/tokens.css
+2. docs/planning-artifacts/ux-designs/bento-starter/components.css
+3. docs/planning-artifacts/ux-designs/bento-starter/dashboard.html  (the reference page)
+4. docs/planning-artifacts/ux-designs/bento-starter/rooms.html      (a second finished page)
+
+HARD RULES
+- Create exactly ONE file: docs/planning-artifacts/ux-designs/bento-starter/<name>.html
+- It must be responsive (one file for all widths). Never create -mobile/-tablet/-desktop copies.
+- Copy the <head> links and the whole <nav class="nav"> block from dashboard.html.
+  Change only which nav item has aria-current="page".
+- Copy <header class="top-bar" id="topBar"> from dashboard.html; change only the <h1> title.
+  It goes directly inside <div class="main">, ABOVE <main class="content">.
+- Link tokens.css and components.css. Do NOT copy their contents into the page.
+- Do NOT define new CSS variables. Do NOT write hex colors, rgb() or font sizes in the page.
+  Use only var(--md-*), var(--ch-*), var(--st-*), var(--warn*), var(--sp-*), the .t-* type classes,
+  and the components in components.css (.card, .btn--filled/.btn--tonal/.btn--outlined/.btn--text,
+  .chip, .tag, .list, .table, .field, .banner, .segmented, .avatar, .icon, .progress, .divider).
+- Icons: <span class="icon">icon_name</span> using Material Symbols Rounded names.
+- Every card is <article class="card card--outlined"> (a white tile). Never put a card inside a card.
+  For a tinted box inside a card use a <div> with background: var(--md-surface-container-low)
+  and border-radius: var(--md-shape-sm).
+- Buttons always need two classes: class="btn btn--filled" (or --tonal/--outlined/--text).
+- Put the page sections inside <div class="stack"> with
+  `.stack { display: grid; gap: var(--layout-gutter); }` so they never touch.
+- Every page grid you define needs `grid-template-columns: minmax(0, 1fr)` for the one-column (phone)
+  case, and minmax(0, …) for its columns, otherwise a table or timeline stretches the page on phones.
+- Elements inside a card need a layout class (flex column + gap var(--sp-3)), otherwise
+  they run together on one line.
+- A page-specific <style> block is allowed ONLY for layout (grid, flex, gap, widths, position)
+  and must stay under about 70 lines.
+- Use EXACTLY the data given in the page brief. Do not invent other guests, prices or dates.
+- Copy the <script> from the end of dashboard.html (chips, segmented buttons, scrolled top bar).
+- Before writing, list the sections of the page and which component each one uses.
+  Then write the file in one go.
+- When done, say which parts you are unsure about. Do not write a validation report and do
+  not claim everything is correct: a person will check it in a browser.
+
+SHARED FACTS (Casa Verde, a 6-room guest house; today is Saturday 7 November 2026)
+Rooms: 1 Garden double, 2 Garden twin, 3 Terrace suite, 4 Courtyard double, 5 Family room, 6 Attic single.
+Staff: Maria Avetisyan (owner), Sofia Hakobyan (reception), Ana Grigoryan and Luis Ortega (housekeeping).
+Channels and commission: Booking.com 15%, Airbnb 13%, Expedia 12%, Direct 0%.
+Channel tag classes: tag--booking, tag--airbnb, tag--expedia, tag--direct.
+Room status tag classes: tag--ready, tag--clean, tag--dirty, tag--inspect, tag--ooo.
+Bookings, 7–20 Nov (check-in → check-out date):
+  Room 1: Anna Petrosyan, Booking.com, 7→10 · Léa Moreau, Direct, 11→15 · Kenji Tanaka, Airbnb, 17→20
+  Room 2: James Smith, Airbnb, 5→7 (departed today) · Marco Rossi, Expedia, 13→17
+  Room 3: Weber family, Booking.com, 9→13 · Rita Silva, Airbnb, 11→13 (OVERLAP with Weber, unresolved)
+  Room 4: Novak family, Direct, 7→11 · Wei Chen, Booking.com, 15→20
+  Room 5: out of order 7→9 (boiler repair) · García family, Expedia, 12→16
+  Room 6: Hyun Kim, Booking.com, 8→10 · Sofia Ivanova, Direct, 14→17 · Thomas Müller, Airbnb, 18→20
+November so far: gross €13,580, commission €1,371, net €12,209. Occupancy next 7 days 65%, ADR €94, RevPAR €61.
+
+PAGE: Automation (automation.html, nav item: Automation, top-bar title "Automation").
+Guest messages that send themselves (PRD FR-5/FR-6).
+
+LAYOUT
+.flows { display: grid; gap: var(--layout-gutter); }
+@media (min-width: 1200px) { .flows { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; } }
+.flow { display: flex; flex-direction: column; gap: var(--sp-3); }
+.flow .preview { background: var(--md-surface-container-low); border-radius: var(--md-shape-sm); padding: var(--sp-4); }
+.flow .btn--text { margin-top: auto; align-self: flex-start; }
+
+SECTIONS
+1. .page-head: <h2 class="t-headline-small">Guest messages</h2>, muted "3 automations · 41 messages sent this month",
+   right: class="btn btn--filled" icon add "New automation".
+2. .flows with 3 cards (<article class="card card--outlined flow">). Each card:
+   - .card__header: <h2>title</h2> + on the right a .segmented with "On" / "Off" (the active one pressed)
+   - muted line with icon schedule: when it sends
+   - channel order: tags with icons: chat "WhatsApp" then arrow_forward then mail "Email"
+   - .preview: the message text (t-body-medium), first line in t-title-small
+   - stats line t-body-small muted
+   - class="btn btn--text" icon edit "Edit template"
+   Cards:
+   a) "Booking confirmation" — On — "Right after a booking is made"
+      Preview: "Thank you, {first name}!" / "Your stay at Casa Verde is confirmed: {dates}, {room}. We'll send
+      check-in details 3 days before you arrive."
+      Stats: "Sent 18 · Read 16"
+   b) "Pre-arrival instructions" — On — "3 days before check-in, 10:00"
+      Preview: "See you on {weekday}, {first name}!" / "Check-in from 14:00. Please upload your ID here: {link}.
+      Parking is free in the courtyard. Arriving late? The key box code will follow."
+      Stats: "Sent 15 · ID received 12"
+   c) "Upsell offer" — Off — "2 days before check-in"
+      Preview: "Make it special" / "Add breakfast (€12 per person) or late check-out until 14:00 (€20). Reply 1 or 2."
+      Stats: "Paused · last month 4 extras sold, €88"
+3. "Activity" card: .card__header <h2>Activity</h2> + muted "Last 24 hours".
+   <ul class="list"> with 6 items (avatar initials, headline, supporting, trailing time + status tag):
+     Hyun Kim — Pre-arrival instructions · WhatsApp — 10:00 — tag tag--ready "Read"
+     Weber family — Pre-arrival instructions · Email — 10:00 — tag "Delivered"
+     Novak family — ID reminder · WhatsApp — 09:30 — tag tag--dirty "No ID yet"
+     Anna Petrosyan — Pre-arrival instructions · WhatsApp — Wed 10:00 — tag tag--ready "ID received"
+     Rita Silva — Booking confirmation · held — 08:12 — tag tag--ooo "Held: overlap"
+     Marco Rossi — Booking confirmation · Email — Fri 18:40 — tag tag--ready "Read"

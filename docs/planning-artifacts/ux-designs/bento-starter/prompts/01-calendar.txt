@@ -1,0 +1,93 @@
+You are building one HTML mockup page for a hotel CRM, using an existing
+design system ("friendly bento": borderless white tiles on a soft grey-green
+background, big rounded corners, Plus Jakarta Sans). You are composing pages,
+not designing a new style.
+
+READ FIRST, in this order:
+1. docs/planning-artifacts/ux-designs/bento-starter/tokens.css
+2. docs/planning-artifacts/ux-designs/bento-starter/components.css
+3. docs/planning-artifacts/ux-designs/bento-starter/dashboard.html  (the reference page)
+4. docs/planning-artifacts/ux-designs/bento-starter/rooms.html      (a second finished page)
+
+HARD RULES
+- Create exactly ONE file: docs/planning-artifacts/ux-designs/bento-starter/<name>.html
+- It must be responsive (one file for all widths). Never create -mobile/-tablet/-desktop copies.
+- Copy the <head> links and the whole <nav class="nav"> block from dashboard.html.
+  Change only which nav item has aria-current="page".
+- Copy <header class="top-bar" id="topBar"> from dashboard.html; change only the <h1> title.
+  It goes directly inside <div class="main">, ABOVE <main class="content">.
+- Link tokens.css and components.css. Do NOT copy their contents into the page.
+- Do NOT define new CSS variables. Do NOT write hex colors, rgb() or font sizes in the page.
+  Use only var(--md-*), var(--ch-*), var(--st-*), var(--warn*), var(--sp-*), the .t-* type classes,
+  and the components in components.css (.card, .btn--filled/.btn--tonal/.btn--outlined/.btn--text,
+  .chip, .tag, .list, .table, .field, .banner, .segmented, .avatar, .icon, .progress, .divider).
+- Icons: <span class="icon">icon_name</span> using Material Symbols Rounded names.
+- Every card is <article class="card card--outlined"> (a white tile). Never put a card inside a card.
+  For a tinted box inside a card use a <div> with background: var(--md-surface-container-low)
+  and border-radius: var(--md-shape-sm).
+- Buttons always need two classes: class="btn btn--filled" (or --tonal/--outlined/--text).
+- Put the page sections inside <div class="stack"> with
+  `.stack { display: grid; gap: var(--layout-gutter); }` so they never touch.
+- Every page grid you define needs `grid-template-columns: minmax(0, 1fr)` for the one-column (phone)
+  case, and minmax(0, …) for its columns, otherwise a table or timeline stretches the page on phones.
+- Elements inside a card need a layout class (flex column + gap var(--sp-3)), otherwise
+  they run together on one line.
+- A page-specific <style> block is allowed ONLY for layout (grid, flex, gap, widths, position)
+  and must stay under about 70 lines.
+- Use EXACTLY the data given in the page brief. Do not invent other guests, prices or dates.
+- Copy the <script> from the end of dashboard.html (chips, segmented buttons, scrolled top bar).
+- Before writing, list the sections of the page and which component each one uses.
+  Then write the file in one go.
+- When done, say which parts you are unsure about. Do not write a validation report and do
+  not claim everything is correct: a person will check it in a browser.
+
+SHARED FACTS (Casa Verde, a 6-room guest house; today is Saturday 7 November 2026)
+Rooms: 1 Garden double, 2 Garden twin, 3 Terrace suite, 4 Courtyard double, 5 Family room, 6 Attic single.
+Staff: Maria Avetisyan (owner), Sofia Hakobyan (reception), Ana Grigoryan and Luis Ortega (housekeeping).
+Channels and commission: Booking.com 15%, Airbnb 13%, Expedia 12%, Direct 0%.
+Channel tag classes: tag--booking, tag--airbnb, tag--expedia, tag--direct.
+Room status tag classes: tag--ready, tag--clean, tag--dirty, tag--inspect, tag--ooo.
+Bookings, 7–20 Nov (check-in → check-out date):
+  Room 1: Anna Petrosyan, Booking.com, 7→10 · Léa Moreau, Direct, 11→15 · Kenji Tanaka, Airbnb, 17→20
+  Room 2: James Smith, Airbnb, 5→7 (departed today) · Marco Rossi, Expedia, 13→17
+  Room 3: Weber family, Booking.com, 9→13 · Rita Silva, Airbnb, 11→13 (OVERLAP with Weber, unresolved)
+  Room 4: Novak family, Direct, 7→11 · Wei Chen, Booking.com, 15→20
+  Room 5: out of order 7→9 (boiler repair) · García family, Expedia, 12→16
+  Room 6: Hyun Kim, Booking.com, 8→10 · Sofia Ivanova, Direct, 14→17 · Thomas Müller, Airbnb, 18→20
+November so far: gross €13,580, commission €1,371, net €12,209. Occupancy next 7 days 65%, ADR €94, RevPAR €61.
+
+PAGE: Calendar (calendar.html, nav item: Calendar, top-bar title "Calendar").
+Reuse the .tl timeline CSS from dashboard.html (copy those rules into your <style>; they count
+as layout). Show 14 days, Sat 7 Nov → Fri 20 Nov, all 6 rooms.
+
+SECTIONS (in this order)
+1. .page-head (copy the CSS from dashboard.html):
+   left: icon buttons chevron_left / chevron_right around <h2 class="t-headline-small">November 2026</h2>,
+   a text button "Today";
+   right: .segmented "2 weeks" (pressed) / "Month", and class="btn btn--filled" with icon add "New booking".
+2. .banner.banner--error: title "Overlap on Room 3 · 11–13 Nov", text "Rita Silva (Airbnb) overlaps
+   the Weber family (Booking.com). Room 3 is closed on all channels until you decide.",
+   buttons class="btn btn--error" "Resolve overlap" and class="btn btn--text" "Keep both, move Silva".
+3. Layout row .cal-grid:
+   .cal-grid { display: grid; gap: var(--layout-gutter); }
+   @media (min-width: 1200px) { .cal-grid { grid-template-columns: minmax(0, 1fr) 340px; align-items: start; } }
+   a) Timeline card (<article class="card card--outlined tl-card">):
+      .card__header: <h2>Bookings</h2> + .chip-row: All channels (pressed, with check icon),
+      Booking.com, Airbnb, Expedia, Direct.
+      Then .tl-scroll > .tl with 14 day columns (Sat 7 is .is-today, Sat/Sun are .is-weekend)
+      and one .tl-row per room with bars from SHARED FACTS. Bar grid-column = day column:
+      column 2 = 7 Nov, column 3 = 8 Nov ... column 15 = 20 Nov; span = number of nights.
+      James Smith is not shown (left before 7 Nov). Room 5 out of order: .tl-bar.tag--ooo.
+      Rita Silva bar: class "tl-bar tag--airbnb is-conflict" on grid-row 2 of Room 3.
+      Weber family bar has an extra class "is-selected" and style outline: 2px solid var(--md-on-surface).
+      Below the grid: the channel legend from dashboard.html.
+   b) Details card (<article class="card card--outlined">) "Booking details" for the Weber family:
+      - header: avatar "WF", name "Weber family", tag tag--booking "Booking.com"
+      - rows (label muted left, value right, use a 2-column grid):
+        Room: 3 · Terrace suite / Dates: Mon 9 → Fri 13 Nov · 4 nights / Guests: 2 adults, 1 child
+        Rate: €110 / night
+      - .divider
+      - money rows: Gross €440 / Commission (15%) −€66 / Net to you €374 (net in t-title-medium)
+      - pre-arrival: tag tag--ready with icon task_alt "ID received" and tag with icon mail "Instructions sent 6 Nov"
+      - buttons: class="btn btn--tonal" "Open guest", class="btn btn--outlined" "Move booking"
+      On screens below 1200px this card simply goes under the timeline.

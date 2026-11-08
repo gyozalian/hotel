@@ -1,0 +1,35 @@
+PAGE: Users (users.html, nav item: Users, top-bar title "Users").
+Staff accounts, shown with the "Invite user" dialog OPEN on top.
+
+SECTIONS
+1. .page-head: <h2 class="t-headline-small">4 people</h2>, muted "Owner, reception and housekeeping",
+   right: class="btn btn--outlined" icon shield_person "Access levels", class="btn btn--filled" icon person_add "Invite user".
+2. Staff card. At ≥600px a .table; below 600px a .list with the same people. Do it with two blocks and
+   @media rules: .staff-table { display: none; } @media (min-width: 600px) { .staff-table { display: block; } .staff-list { display: none; } }
+   Table columns: Name (avatar + name) / Email / Role / Last active / (icon button more_vert)
+     Maria Avetisyan · maria@casaverde.am · tag tag--direct "Owner" · Now
+     Sofia Hakobyan · sofia@casaverde.am · tag tag--booking "Reception" · Today 09:12
+     Ana Grigoryan · ana@casaverde.am · tag tag--clean "Housekeeping" · Today 10:42
+     Luis Ortega · luis@casaverde.am · tag tag--clean "Housekeeping" · Today 08:50
+   List version: avatar, headline name, supporting "role · last active", trailing more_vert icon button.
+3. Pending invite row under the table: muted "Invite sent to nina@casaverde.am (Reception) · 2 days ago"
+   with class="btn btn--text" "Resend".
+4. DIALOG (open). Markup at the end of <body>:
+   <div class="scrim"></div>
+   <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle"> ... </div>
+   Layout CSS:
+   .scrim { position: fixed; inset: 0; z-index: 30; background: color-mix(in srgb, var(--md-scrim) 40%, transparent); }
+   .dialog { position: fixed; z-index: 31; left: 50%; top: 50%; transform: translate(-50%, -50%);
+     width: min(440px, calc(100vw - 32px)); background: var(--md-surface-container-lowest);
+     border-radius: var(--md-shape-xl); box-shadow: var(--md-elev-3); padding: var(--sp-6);
+     display: flex; flex-direction: column; gap: var(--sp-4); }
+   .dialog__actions { display: flex; justify-content: flex-end; gap: var(--sp-2); }
+   Content:
+   - icon person_add in a 40px tinted square (background var(--md-primary-container), radius var(--md-shape-sm))
+   - <h2 id="dlgTitle" class="t-title-large">Invite a team member</h2>
+   - muted "They get an email link to set a password. You can change their role later."
+   - .field label "Full name" value "Karen Melkonyan"
+   - .field label "Email" value "karen@casaverde.am"
+   - .field label "Role" with a <select>: Owner, Manager, Reception (selected), Housekeeping;
+     <p class="supporting">Reception can manage bookings and guests, not pricing or users.</p>
+   - .dialog__actions: class="btn btn--text" "Cancel", class="btn btn--filled" "Send invite"

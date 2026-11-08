@@ -1,0 +1,32 @@
+I opened settings.html in a browser at 1440px. Fix these by editing settings.html only:
+
+1. TWO COLUMNS: the outer wrapper is <div class="stack">, so the section list is full width above the rules.
+   Change the OUTER wrapper (the one right inside <main class="content">) to <div class="settings">. Its two children stay:
+   <div class="sections"> and the right-hand <div class="stack">. Also add `grid-template-columns: minmax(0, 1fr);` to the base .settings rule.
+2. SECTION LIST: remove the empty <span class="chip"> from "Pricing rules"; instead give that <li> style="background: var(--md-secondary-container); border-radius: var(--md-shape-sm);".
+3. INTRO TEXT has stray quote marks. Exact text:
+   muted: "Rules adjust your base rate automatically on all channels. They run every night at 02:00 and before each sync."
+   Banner: <p class="t-title-small">Last week rules added €186</p><p class="t-body-medium">Weekend +10% applied 4 times · last-minute −15% filled Room 6 on 3 Nov.</p>
+   Give the intro card `style="display:flex; flex-direction:column; gap: var(--sp-3);"`.
+4. RULE CARD HEADER: put the On/Off .segmented INSIDE .card__header, on the right after the tag:
+   <div class="card__header"><h3 class="t-title-medium">Busy weekend</h3><span class="tag tag--ready">Active</span><span style="flex:1"></span><div class="segmented">…</div></div>
+   Give every rule card `style="display:flex; flex-direction:column; gap: var(--sp-4);"`.
+5. RULE ROW: the selects are cut off ("is abo", "raise p") and the "If"/"then" words are missing. Use this column rule instead:
+   @media (min-width: 1000px) { .rule { grid-template-columns: auto minmax(0, 1.4fr) minmax(0, 1fr) 96px auto minmax(0, 1.4fr) 96px; } }
+   and the row is exactly 7 children:
+   <span class="t-title-small">If</span> [field select] [field select] [field input] <span class="t-title-small">then</span> [field select] [field input]
+   Put the unit inside the input's field as a suffix: <div class="field"><input type="number" value="70"><span class="suffix">%</span></div>
+   with `.field .suffix { position: absolute; right: var(--sp-4); top: 50%; transform: translateY(-50%); color: var(--md-on-surface-variant); }`
+   and `.field { position: relative; }`. Days rule units: "days" for Last-minute, "nights" for Long stay.
+6. UNDER THE RULE ROW (not inside .rule): one row
+   <div style="display:flex; align-items:center; gap: var(--sp-2); flex-wrap:wrap;"><span class="t-body-medium muted" style="flex:1">Applies to: all rooms · Fri–Sat nights</span><button class="btn btn--text">Edit</button><button class="btn btn--text"><span class="icon">delete</span>Delete</button></div>
+   Last-minute: "Applies to: rooms 2 and 6 · any night". Long stay: "Applies to: all rooms · any night".
+   Last-minute condition is "is below" 3; Long stay is "is at least" 7.
+7. FLOOR / CEILING card: <article class="card card--outlined"> with header "Price limits", then two fields side by side
+   (<div style="display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-3);">):
+   <div class="field"><label>Never below</label><input value="€65"></div> and <div class="field"><label>Never above</label><input value="€180"></div>,
+   then <p class="t-body-small muted">Rules never move the price outside this range.</p>
+8. BUTTON ROW at the end of the right column:
+   <div style="display:flex; align-items:center; gap: var(--sp-2);"><button class="btn btn--tonal"><span class="icon">add</span>Add rule</button><span style="flex:1"></span><button class="btn btn--text">Discard</button><button class="btn btn--filled">Save rules</button></div>
+
+Change nothing else. When done, list what you changed in one short list.

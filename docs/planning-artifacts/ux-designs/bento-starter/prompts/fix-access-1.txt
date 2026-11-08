@@ -1,0 +1,22 @@
+I opened access.html in a browser at 1440px. The layout is close. Fix these by editing access.html only:
+
+1. PAGE-HEAD needs the back button: <a class="icon-btn" href="users.html" aria-label="Back to users"><span class="icon">arrow_back</span></a>
+   before the text block. Muted text must be exactly "4 roles · changes apply the next time someone signs in".
+2. MATRIX CARD has a big empty header area and the table looks like a second card. Use ONE card:
+   <article class="card card--outlined"><div class="table-wrap"><table class="table"> ... </table></div></article>
+   and delete the "Permission matrix" title. Delete your .table-wrap and .table rules except the sticky thead rule
+   (components.css already has them). Centre the role columns: `.table td.c, .table th.c { text-align: center; }` on all 4 role cells.
+3. CHECKBOX DATA is wrong. Owner: all checked + disabled. Then Manager / Reception / Housekeeping exactly:
+   Bookings:  View bookings ✓ ✓ –  ·  Create and edit bookings ✓ ✓ –  ·  Cancel bookings ✓ ✓(the unsaved change) –
+   Rooms:     See room status ✓ ✓ ✓  ·  Change room status ✓ ✓ ✓  ·  Edit rooms and rates ✓ – –
+   Guests:    View guest profiles ✓ ✓ –  ·  See ID documents ✓ ✓ –  ·  Message guests ✓ ✓ –
+   Pricing:   Change prices ✓ – –  ·  Edit pricing rules – – –
+   Reports:   View revenue reports ✓ – –  ·  Export CSV ✓ – –
+   Users:     Invite and remove users – – –
+   Settings:  Property settings ✓ – –  ·  Billing and plan – – –
+   (✓ = checked, – = not checked). Make sure the "Settings" group and its two rows exist.
+4. SAVE BAR: add the muted text first and fix the button classes:
+   <div class="savebar"><span class="t-body-medium muted" style="flex:1">1 unsaved change</span><button class="btn btn--text">Discard</button><button class="btn btn--filled">Save changes</button></div>
+   The save bar must be inside <div class="main">, after </main>, so it sticks to the bottom of the screen.
+
+Change nothing else. When done, list what you changed in one short list.

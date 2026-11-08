@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Automation · Hotel CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    /* ---- Page-specific layout only. Colors come from tokens. ---- */
+    .page-head { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--sp-4); margin: var(--sp-2) 0 var(--sp-6); }
+    .page-head__text { flex: 1 1 260px; min-width: 0; }
+    .page-head__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+
+    .flows { display: grid; gap: var(--layout-gutter); grid-template-columns: minmax(0, 1fr); }
+    @media (min-width: 1200px) { .flows { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; } }
+
+    .flow { display: flex; flex-direction: column; gap: var(--sp-3); }
+
+    .preview { background: var(--md-surface-container-low); border-radius: var(--md-shape-sm); padding: var(--sp-4); }
+
+    .flow .btn--text { margin-top: auto; align-self: flex-start; }
+
+    /* Activity list */
+    .activity-list { list-style: none; padding: 0; }
+    .activity-list__item { display: flex; align-items: center; gap: var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--md-outline-variant); }
+    .activity-list__item:first-child { border-top: 0; padding-top: 0; }
+
+
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- ================= Navigation (drawer ≥1200 · rail 600–1199 · bottom bar <600) ================= -->
+    <nav class="nav" aria-label="Main">
+      <div class="nav__brand"><span class="logo"><span class="icon filled">hotel</span></span>Casa Verde</div>
+      <button class="fab nav__fab" aria-label="New booking"><span class="icon">add</span></button>
+
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">space_dashboard</span></span><span class="nav__label">Dashboard</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">calendar_month</span></span><span class="nav__label">Calendar</span><span class="nav__badge">1</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">bed</span></span><span class="nav__label">Rooms</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">group</span></span><span class="nav__label">Guests</span></a>
+      <a class="nav__item nav__item--extra" href="#" aria-current="page"><span class="nav__indicator"><span class="icon">forward_to_inbox</span></span><span class="nav__label">Automation</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">monitoring</span></span><span class="nav__label">Reports</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">hub</span></span><span class="nav__label">Channels</span></a>
+
+      <div class="nav__section">Admin</div>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">manage_accounts</span></span><span class="nav__label">Users</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">settings</span></span><span class="nav__label">Settings</span></a>
+      <a class="nav__item nav__item--more" href="#"><span class="nav__indicator"><span class="icon">menu</span></span><span class="nav__label">More</span></a>
+    </nav>
+
+    <div class="main">
+      <!-- ================= Top app bar ================= -->
+      <header class="top-bar" id="topBar">
+        <h1 class="top-bar__title">Automation</h1>
+        <label class="search"><span class="icon">search</span><input type="search" placeholder="Search guests, bookings, rooms" aria-label="Search"></label>
+        <div class="top-bar__actions">
+          <button class="icon-btn search-toggle" aria-label="Search"><span class="icon">search</span></button>
+          <button class="icon-btn" aria-label="Notifications, 2 unread"><span class="icon">notifications</span><span class="dot"></span></button>
+          <button class="icon-btn" aria-label="Account: Maria"><span class="avatar avatar--sm">M</span></button>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="stack">
+          <!-- Section 1: Page head -->
+          <section class="page-head">
+            <div class="page-head__text">
+              <h2 class="t-headline-small">Guest messages</h2>
+              <p class="t-body-medium muted">3 automations · 41 messages sent this month</p>
+            </div>
+            <div class="page-head__actions">
+              <button class="btn btn--filled"><span class="icon">add</span>New automation</button>
+            </div>
+          </section>
+
+          <!-- Section 2: Flows -->
+          <section class="flows">
+            <!-- Card a: Booking confirmation -->
+            <article class="card card--outlined flow">
+              <div class="card__header">
+                <h2>Booking confirmation</h2>
+                <div class="segmented">
+                  <button aria-pressed="true">On</button>
+                  <button aria-pressed="false">Off</button>
+                </div>
+              </div>
+              <div class="muted" style="display: flex; align-items: center; gap: var(--sp-2);"><span class="icon">schedule</span> Right after a booking is made</div>
+              <div style="display:flex; align-items:center; gap: var(--sp-2);">
+                <span class="tag"><span class="icon">chat</span> WhatsApp</span>
+                <span class="icon">arrow_forward</span>
+                <span class="tag"><span class="icon">mail</span> Email</span>
+              </div>
+              <div class="preview">
+                <p class="t-title-small">Thank you, {first name}!</p>
+                <p class="t-body-medium">Your stay at Casa Verde is confirmed: {dates}, {room}. We'll send check-in details 3 days before you arrive.</p>
+              </div>
+              <p class="t-body-small muted">Sent 18 · Read 16</p>
+              <button class="btn btn--text"><span class="icon">edit</span>Edit template</button>
+            </article>
+
+            <!-- Card b: Pre-arrival instructions -->
+            <article class="card card--outlined flow">
+              <div class="card__header">
+                <h2>Pre-arrival instructions</h2>
+                <div class="segmented">
+                  <button aria-pressed="true">On</button>
+                  <button aria-pressed="false">Off</button>
+                </div>
+              </div>
+              <div class="muted" style="display: flex; align-items: center; gap: var(--sp-2);"><span class="icon">schedule</span> 3 days before check-in, 10:00</div>
+              <div style="display:flex; align-items:center; gap: var(--sp-2);">
+                <span class="tag"><span class="icon">chat</span> WhatsApp</span>
+                <span class="icon">arrow_forward</span>
+                <span class="tag"><span class="icon">mail</span> Email</span>
+              </div>
+              <div class="preview">
+                <p class="t-title-small">See you on {weekday}, {first name}!</p>
+                <p class="t-body-medium">Check-in from 14:00. Please upload your ID here: {link}. Parking is free in the courtyard. Arriving late? The key box code will follow.</p>
+              </div>
+              <p class="t-body-small muted">Sent 15 · ID received 12</p>
+              <button class="btn btn--text"><span class="icon">edit</span>Edit template</button>
+            </article>
+
+            <!-- Card c: Upsell offer -->
+            <article class="card card--outlined flow">
+              <div class="card__header">
+                <h2>Upsell offer</h2>
+                <div class="segmented">
+                  <button aria-pressed="false">On</button>
+                  <button aria-pressed="true">Off</button>
+                </div>
+              </div>
+              <div class="muted" style="display: flex; align-items: center; gap: var(--sp-2);"><span class="icon">schedule</span> 2 days before check-in</div>
+              <div style="display:flex; align-items:center; gap: var(--sp-2);">
+                <span class="tag"><span class="icon">chat</span> WhatsApp</span>
+                <span class="icon">arrow_forward</span>
+                <span class="tag"><span class="icon">mail</span> Email</span>
+              </div>
+              <div class="preview">
+                <p class="t-title-small">Make it special</p>
+                <p class="t-body-medium">Add breakfast (€12 per person) or late check-out until 14:00 (€20). Reply 1 or 2.</p>
+              </div>
+              <p class="t-body-small muted">Paused · last month 4 extras sold, €88</p>
+              <button class="btn btn--text"><span class="icon">edit</span>Edit template</button>
+            </article>
+          </section>
+
+          <!-- Section 3: Activity -->
+          <article class="card card--outlined">
+            <div class="card__header">
+              <h2 class="t-title-medium">Activity</h2>
+              <span class="t-body-small muted">Last 24 hours</span>
+            </div>
+            <ul class="activity-list">
+              <li class="activity-list__item">
+                <span class="avatar">HK</span>
+                <div class="list__text">
+                  <p class="list__headline">Hyun Kim</p>
+                  <p class="list__supporting">Pre-arrival instructions · WhatsApp</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="t-label-medium">10:00</span>
+                  <span class="tag tag--ready"><span class="icon sm">task_alt</span>Read</span>
+                </div>
+              </li>
+              <li class="activity-list__item">
+                <span class="avatar">WF</span>
+                <div class="list__text">
+                  <p class="list__headline">Weber family</p>
+                  <p class="list__supporting">Pre-arrival instructions · Email</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="t-label-medium">10:00</span>
+                  <span class="tag">Delivered</span>
+                </div>
+              </li>
+              <li class="activity-list__item">
+                <span class="avatar">NF</span>
+                <div class="list__text">
+                  <p class="list__headline">Novak family</p>
+                  <p class="list__supporting">ID reminder · WhatsApp</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="t-label-medium">09:30</span>
+                  <span class="tag tag--dirty"><span class="icon sm">schedule</span>No ID yet</span>
+                </div>
+              </li>
+              <li class="activity-list__item">
+                <span class="avatar">AP</span>
+                <div class="list__text">
+                  <p class="list__headline">Anna Petrosyan</p>
+                  <p class="list__supporting">Pre-arrival instructions · WhatsApp</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="t-label-medium">Wed 10:00</span>
+                  <span class="tag tag--ready"><span class="icon sm">task_alt</span>ID received</span>
+                </div>
+              </li>
+              <li class="activity-list__item">
+                <span class="avatar">RS</span>
+                <div class="list__text">
+                  <p class="list__headline">Rita Silva</p>
+                  <p class="list__supporting">Booking confirmation · held</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="t-label-medium">08:12</span>
+                  <span class="tag tag--ooo"><span class="icon sm">error</span>Held: overlap</span>
+                </div>
+              </li>
+              <li class="activity-list__item">
+                <span class="avatar">MR</span>
+                <div class="list__text">
+                  <p class="list__headline">Marco Rossi</p>
+                  <p class="list__supporting">Booking confirmation · Email</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="t-label-medium">Fri 18:40</span>
+                  <span class="tag tag--ready"><span class="icon sm">task_alt</span>Read</span>
+                </div>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Top app bar gets a tinted surface once content scrolls under it (M3 behaviour)
+    const bar = document.getElementById('topBar');
+    addEventListener('scroll', () => bar.classList.toggle('is-scrolled', scrollY > 4), { passive: true });
+    // Toggle groups
+    document.querySelectorAll('.segmented, .chip-row').forEach(group => {
+      group.addEventListener('click', e => {
+        const btn = e.target.closest('button'); if (!btn) return;
+        group.querySelectorAll('button').forEach(b => { b.setAttribute('aria-pressed', 'false'); b.classList.remove('is-selected'); b.querySelector('.icon')?.remove(); });
+        btn.setAttribute('aria-pressed', 'true'); btn.classList.add('is-selected');
+        btn.insertAdjacentHTML('afterbegin', '<span class="icon' + (group.classList.contains('segmented') ? ' sm' : '') + '">check</span>');
+      });
+    });
+  </script>
+</body>
+</html>

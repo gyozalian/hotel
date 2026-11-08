@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel CRM — Booking Calendar (Tablet)</title>
+    <style>
+        :root {
+            /* Colors - Material Design Green Theme */
+            --primary: #4CAF50;
+            --on-primary: #FFFFFF;
+            --primary-container: #81D4FA;
+            --on-primary-container: #000000;
+            --primary-fixed: #C8E6C9;
+            --primary-fixed-dim: #A5D6A7;
+            --on-primary-fixed: #000000;
+            --on-primary-fixed-variant: #1B5E20;
+
+            --secondary: #FFC107;
+            --on-secondary: #000000;
+            --secondary-container: #FFCC80;
+            --on-secondary-container: #000000;
+
+            --surface: #FFFFFF;
+            --surface-dim: #F5F5F5;
+            --surface-bright: #FFFFFF;
+            --surface-container-lowest: #FAFAFA;
+            --surface-container-low: #F0F0F0;
+            --surface-container: #E0E0E0;
+            --surface-container-high: #BDBDBD;
+            --surface-container-highest: #9E9E9E;
+            --on-surface: #212121;
+            --on-surface-variant: #616161;
+            --inverse-surface: #212121;
+            --inverse-on-surface: #FFFFFF;
+            --outline: #757575;
+            --outline-variant: #B0B0B0;
+            --error: #E53935;
+            --on-error: #FFFFFF;
+            --error-container: #FDEDEC;
+            --on-error-container: #B00000;
+
+            --background: #FAFAFA;
+            --on-background: #212121;
+            --surface-variant: #EEEEEE;
+            --on-surface-variant-on: #616161;
+            --surface-variant-lowest: #F5F5F5;
+            --surface-variant-low: #F0F0F0;
+            --surface-variant-high: #E0E0E0;
+            --surface-variant-highest: #E0E0E0;
+
+            --font-family: 'Roboto', 'DM Sans', sans-serif;
+            --font-display-large: clamp(36px, 4vw, 48px);
+            --font-headline-large: clamp(28px, 3.5vw, 32px);
+            --font-title-large: clamp(18px, 2.5vw, 20px);
+            --font-body-large: 16px;
+            --font-label-large: 13px;
+
+            --spacing-unit: 8px;
+            --spacing-gutter: 24px;
+            --spacing-mobile: 20px;
+            --spacing-desktop: 64px;
+            --spacing-editorial-gap: 80px;
+
+            --shadow-level1: 0 1px 3px 0 rgba(0,0,0,0.12), 0 1px 2px 0 rgba(0,0,0,0.24);
+            --shadow-level2: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px -1px rgba(0,0,0,0.14);
+            --shadow-level3: 0 4px 6px -1px rgba(0,0,0,0.1), 0 1px 3px 0 rgba(0,0,0,0.08);
+            --shadow-level4: 0 10px 20px -1px rgba(0,0,0,0.04), 0 10px 20px -2px rgba(0,0,0,0.04);
+
+            --radius-medium: 8px;
+            --radius-small: 4px;
+            --radius-tiny: 2px;
+
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-family), sans-serif;
+            font-size: var(--font-body-large);
+            color: var(--on-surface);
+            background: var(--background);
+            min-height: 100vh;
+        }
+
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; }
+        button { font-family: inherit; font-size: inherit; cursor: pointer; border: none; background: none; }
+
+        /* --- Page Header (Tablet) --- */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-gutter);
+            padding: 0 var(--spacing-desktop);
+        }
+
+        .page-header h2 {
+            font-size: var(--font-headline-large);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        .page-header .actions {
+            display: flex;
+            gap: var(--spacing-unit);
+        }
+
+        .btn-add-tablet {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-tiny);
+            padding: var(--spacing-unit) var(--spacing-gutter);
+            background: var(--primary);
+            color: var(--on-primary);
+            font-size: var(--font-label-large);
+            font-weight: 500;
+            border-radius: var(--radius-small);
+            transition: var(--transition-fast);
+        }
+
+        .btn-add-tablet:hover { background: #45a049; }
+
+        /* --- Calendar View (Tablet) --- */
+        .calendar {
+            background: var(--surface);
+            border-radius: var(--radius-medium);
+            padding: var(--spacing-gutter) var(--spacing-desktop);
+            box-shadow: var(--shadow-level2);
+            margin-bottom: var(--spacing-gutter);
+        }
+
+        .calendar-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: var(--spacing-unit);
+            margin-bottom: var(--spacing-gutter);
+            font-size: var(--font-body-small);
+            font-weight: 500;
+            color: var(--on-surface-variant);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+        }
+
+        .calendar-day-header div:first-child {
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 0.85em;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: var(--spacing-unit);
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            background: var(--surface);
+            border-radius: var(--radius-tiny);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: var(--spacing-xtiny) var(--spacing-tiny);
+            position: relative;
+            transition: var(--transition-fast);
+            border: 1px solid var(--outline-variant);
+            font-size: 11px;
+        }
+
+        .calendar-day:hover {
+            border-color: var(--primary);
+            background: var(--primary-container);
+        }
+
+        .calendar-day.today {
+            background: var(--primary);
+            color: var(--on-primary);
+            font-weight: 500;
+        }
+
+        .calendar-day.other-month {
+            color: var(--on-surface-variant);
+        }
+
+        .calendar-day.booked {
+            background: var(--primary);
+            color: var(--on-primary);
+        }
+
+        .calendar-day.booked:hover { background: #45a049; }
+
+        .calendar-day .badge {
+            position: absolute;
+            top: var(--spacing-tiny);
+            right: var(--spacing-tiny);
+            background: var(--error);
+            color: var(--on-error);
+            font-size: var(--font-label-small);
+            font-weight: 500;
+            padding: var(--spacing-xtiny) var(--spacing-small);
+            border-radius: var(--radius-tiny);
+        }
+
+        .calendar-day.channel-badge {
+            background: var(--secondary);
+            color: var(--on-secondary);
+        }
+
+        /* --- Room Grid (Tablet) --- */
+        .room-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: var(--spacing-gutter) var(--spacing-editorial-gap);
+            padding: 0 var(--spacing-desktop);
+            margin-bottom: var(--spacing-gutter);
+        }
+
+        .room-card {
+            background: var(--surface);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-medium);
+            padding: var(--spacing-gutter);
+            transition: var(--transition-fast);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .room-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-level2);
+        }
+
+        .room-card.status-available { background: #E8F5E9; }
+        .room-card.status-booked { background: #FFEBEE; }
+        .room-card.status-maintenance { background: #FFF3E0; }
+
+        .room-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-unit);
+        }
+
+        .room-name {
+            font-size: var(--font-title-large);
+            font-weight: 500;
+            color: var(--on-surface);
+        }
+
+        .room-status {
+            font-size: var(--font-label-small);
+            font-weight: 500;
+            padding: var(--spacing-xtiny) var(--spacing-small);
+            border-radius: var(--radius-tiny);
+        }
+
+        .room-status.available { background: var(--primary-container); color: var(--primary); }
+        .room.status-booked .room-status { background: var(--error-container); color: var(--error); }
+        .room.status-maintenance .room-status { background: var(--secondary-container); color: #FFC107; }
+
+        .room-details {
+            font-size: var(--font-body-small);
+            color: var(--on-surface-variant);
+            margin-bottom: var(--spacing-gutter);
+            flex-grow: 1;
+        }
+
+        .room-amenities {
+            display: flex;
+            gap: var(--spacing-unit);
+            margin-top: auto;
+            flex-wrap: wrap;
+        }
+
+        .amenity-tag {
+            padding: var(--spacing-xtiny) var(--spacing-small);
+            background: var(--surface-variant);
+            border-radius: var(--radius-tiny);
+            font-size: var(--font-label-small);
+            color: var(--on-surface-variant);
+        }
+
+        .room-rate {
+            margin-top: auto;
+            font-size: var(--font-body-medium);
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* --- Booking Details Panel --- */
+        .booking-panel {
+            background: var(--surface);
+            border-radius: var(--radius-medium);
+            padding: var(--spacing-gutter);
+            box-shadow: var(--shadow-level2);
+            margin-top: var(--spacing-gutter);
+        }
+
+        .booking-panel h3 {
+            font-size: var(--font-headline-large);
+            font-weight: 500;
+            margin-bottom: var(--spacing-gutter);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+        }
+
+        .booking-panel h3 svg {
+            color: var(--on-surface-variant);
+        }
+
+        .booking-list {
+            max-height: 400px;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .booking-list::-webkit-scrollbar { display: none; }
+
+        .booking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-unit) 0;
+            border-bottom: 1px solid var(--outline-variant);
+            font-size: var(--font-body-small);
+            color: var(--on-surface-variant);
+        }
+
+        .booking-item:last-child { border-bottom: none; }
+
+        .booking-item.channel-booking-com { color: var(--primary); }
+        .booking-item.channel-airbnb { color: var(--secondary); }
+        .booking-item.channel-expedia { color: #f44336; }
+        .booking-item.channel-direct { color: var(--on-surface); }
+
+        /* --- Reservations Filters --- */
+        .reservations-filters {
+            display: flex;
+            gap: var(--spacing-unit);
+            padding: 0 var(--spacing-desktop);
+            margin: var(--spacing-gutter) 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .reservations-filters::-webkit-scrollbar { display: none; }
+
+        .res-filter-button {
+            padding: var(--spacing-unit) var(--spacing-gutter);
+            background: var(--surface);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-small);
+            font-size: var(--font-label-large);
+            font-weight: 500;
+            color: var(--on-surface-variant);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition-fast);
+        }
+
+        .res-filter-button:hover { border-color: var(--on-surface-variant); color: var(--on-surface); }
+        .res-filter-button.active {
+            border-color: var(--primary);
+            color: var(--on-primary);
+            background: var(--primary);
+        }
+
+        /* --- RESPONSIVE BREAKPOINTS --- */
+        @media (min-width: 1280px) {
+            .page-header { padding: 0 var(--spacing-desktop); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .room-card, .calendar-day { transition: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h2>Booking Calendar</h2>
+        <div class="actions">
+            <button class="btn-add-tablet">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Add Booking
+            </button>
+        </div>
+    </header>
+
+    <!-- Calendar View -->
+    <section class="calendar">
+        <div class="calendar-header">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="calendar-grid">
+            <!-- Sample days -->
+            <div class="calendar-day today">25</div>
+            <div class="calendar-day booked">26</div>
+            <div class="calendar-day other-month">27</div>
+            <div class="calendar-day other-month">28</div>
+            <div class="calendar-day other-month">29</div>
+            <div class="calendar-day other-month">30</div>
+            <div class="calendar-day other-month">1</div>
+            <div class="calendar-day other-month">2</div>
+            <div class="calendar-day other-month">3</div>
+            <div class="calendar-day other-month">4</div>
+            <div class="calendar-day other-month">5</div>
+            <div class="calendar-day other-month">6</div>
+            <div class="calendar-day other-month">7</div>
+            <div class="calendar-day other-month">8</div>
+            <div class="calendar-day other-month">9</div>
+            <div class="calendar-day other-month">10</div>
+            <div class="calendar-day other-month">11</div>
+            <div class="calendar-day other-month">12</div>
+            <div class="calendar-day other-month">13</div>
+            <div class="calendar-day other-month">14</div>
+            <div class="calendar-day other-month">15</div>
+            <div class="calendar-day other-month">16</div>
+            <div class="calendar-day other-month">17</div>
+            <div class="calendar-day other-month">18</div>
+            <div class="calendar-day other-month">19</div>
+            <div class="calendar-day other-month">20</div>
+            <div class="calendar-day other-month">21</div>
+            <div class="calendar-day other-month">22</div>
+            <div class="calendar-day other-month">23</div>
+            <div class="calendar-day other-month">24</div>
+        </div>
+    </section>
+
+    <!-- Room Grid -->
+    <section class="room-grid">
+        <div class="room-card status-available">
+            <div class="room-header">
+                <div class="room-name">Room 101</div>
+                <span class="room-status available">Available</span>
+            </div>
+            <div class="room-details">
+                King Bed · 25 m² · WiFi · TV
+            </div>
+            <div class="amenities">
+                <span class="amenity-tag">WiFi</span>
+                <span class="amenity-tag">TV</span>
+                <span class="amenity-tag">AC</span>
+            </div>
+            <div class="room-rate">$180/night</div>
+        </div>
+
+        <div class="room-card status-booked">
+            <div class="room-header">
+                <div class="room-name">Room 102</div>
+                <span class="room-status booked">Booked</span>
+            </div>
+            <div class="room-details">
+                Queen Bed · 22 m² · WiFi
+            </div>
+            <div class="amenities">
+                <span class="amenity-tag">WiFi</span>
+                <span class="amenity-tag">TV</span>
+            </div>
+            <div class="room-rate">$220/night</div>
+        </div>
+
+        <div class="room-card status-maintenance">
+            <div class="room-header">
+                <div class="room-name">Room 103</div>
+                <span class="room-status maintenance">Maintenance</span>
+            </div>
+            <div class="room-details">
+                Twin Beds · 18 m² · WiFi
+            </div>
+            <div class="amenities">
+                <span class="amenity-tag">WiFi</span>
+            </div>
+            <div class="room-rate">$150/night</div>
+        </div>
+
+        <div class="room-card status-available">
+            <div class="room-header">
+                <div class="room-name">Room 104</div>
+                <span class="room-status available">Available</span>
+            </div>
+            <div class="room-details">
+                King Bed · 30 m² · WiFi · Balcony
+            </div>
+            <div class="amenities">
+                <span class="amenity-tag">WiFi</span>
+                <span class="amenity-tag">TV</span>
+                <span class="amenity-tag">Balcony</span>
+            </div>
+            <div class="room-rate">$250/night</div>
+        </div>
+
+        <div class="room-card status-booked">
+            <div class="room-header">
+                <div class="room-name">Room 105</div>
+                <span class="room-status booked">Booked</span>
+            </div>
+            <div class="room-details">
+                Queen Bed · 24 m² · WiFi · Sea View
+            </div>
+            <div class="amenities">
+                <span class="amenity-tag">WiFi</span>
+                <span class="amenity-tag">TV</span>
+                <span class="amenity-tag">Sea View</span>
+            </div>
+            <div class="room-rate">$300/night</div>
+        </div>
+    </section>
+
+    <!-- Booking Details Panel -->
+    <section class="booking-panel">
+        <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="8" y1="6" x2="21" y2="6"/>
+                <line x1="8" y1="18" x2="21" y2="18"/>
+                <line x1="3" y1="6" x2="5" y2="6"/>
+                <line x1=3 y1="18" x2="5" y2="18"/>
+            </svg>
+            Reservations
+        </h3>
+        <div class="booking-list">
+            <div class="booking-item channel-booking-com">Booking.com - Room 101, Jun 15-20</div>
+            <div class="booking-item channel-airbnb">Airbnb - Room 104, Jun 18-22</div>
+            <div class="booking-item channel-direct">Direct - Room 102, Jun 20-25</div>
+            <div class="booking-item channel-expedia">Expedia - Room 105, Jun 22-27</div>
+        </div>
+    </section>
+
+    <!-- Reservations Filters -->
+    <div class="reservations-filters">
+        <button class="res-filter-button active">All</button>
+        <button class="res-filter-button">Booking.com</button>
+        <button class="res-filter-button">Airbnb</button>
+        <button class="res-filter-button">Expedia</button>
+        <button class="res-filter-button">Direct</button>
+    </div>
+
+</body>
+</html>

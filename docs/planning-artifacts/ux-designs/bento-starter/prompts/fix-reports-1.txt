@@ -1,0 +1,27 @@
+I opened reports.html in a browser at 1440px. KPI cards are good. Fix these by editing reports.html only:
+
+1. PAGE-HEAD: the buttons sit under the title because .page-head has no display. Change the rule to start with
+   `.page-head { display: flex; flex-wrap: wrap; ...` and make sure the .segmented and Export CSV button are inside
+   <div class="page-head__actions">.
+2. TWO COLUMNS: .rep-grid has no base rule, so it never becomes a grid. Add before the media query:
+   `.rep-grid { display: grid; gap: var(--layout-gutter); grid-template-columns: minmax(0, 1fr); }`
+   The chart card and the channel card must be side by side at 1440px.
+3. CHART CARD needs a header: <div class="card__header"><h2 class="t-title-medium">Net revenue by month</h2></div>.
+   The SVG month labels and the €5k/€10k/€15k labels are huge. In the SVG use
+   font-size="12" on every <text> (SVG attribute, allowed here) and fill="var(--md-on-surface-variant)". The label for 0 is
+   not needed; delete the "€0" text.
+4. CHANNEL TABLE must be in its own card: <article class="card card--outlined"> with
+   <div class="card__header"><h2 class="t-title-medium">By channel, November</h2></div> then <div class="table-wrap"> table </div>.
+   Channel cells: only the tag, e.g. <span class="tag tag--booking">Booking.com</span>. Remove the round coloured dots.
+   Header cells of number columns get class="num". Totals row: first cell "Total", class="total" on the <tr>, and
+   `.table .total td { font: var(--md-title-small); border-bottom: 0; }`.
+   Delete the .table-wrap and .table rules from your <style>: components.css already has them.
+5. ROOM PERFORMANCE card needs <div class="card__header"><h2 class="t-title-medium">Room performance</h2></div>.
+   Each room is one row with a progress bar:
+   <div class="room-row"><span>Room 1 · Garden double</span><div class="progress"><span style="width:83%"></span></div><span class="num">83% · €2,480</span></div>
+   with `.room-row { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr) 120px; gap: var(--sp-4); align-items: center; padding: var(--sp-2) 0; }`
+   and `.room-row .num { text-align: right; font-variant-numeric: tabular-nums; }`.
+   Room names: 1 Garden double, 2 Garden twin, 3 Terrace suite, 4 Courtyard double, 5 Family room, 6 Attic single.
+   Room 5 gets a muted line under it: "5 days out of order".
+
+Change nothing else. When done, list what you changed in one short list.

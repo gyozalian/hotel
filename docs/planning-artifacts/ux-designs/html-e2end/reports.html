@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel CRM — Reports</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@8..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <!-- Shared App Shell -->
+    <div class="drawer" id="sidebar" aria-label="Main navigation">
+        <div class="drawer-header">
+            <h1 class="drawer-title display">Hotel CRM</h1>
+            <p style="font-size:11px; color:var(--ink-2); text-transform:uppercase; letter-spacing:0.1em;">Hotelsky</p>
+        </div>
+        <nav class="drawer-nav">
+            <a href="index.html" class="nav-item ${location.pathname === '/' || location.pathname === '' || location.pathname === 'index.html' ? 'active' : ''}" aria-current="page">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11h3a5 5 0 0 1 5 5v2a5 5 0 0 1-5 5h-3"></path></svg></span>
+                Dashboard
+            </a>
+            <a href="dashboard.html" class="nav-item ${location.pathname === 'dashboard.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+                Dashboard
+            </a>
+            <a href="bookings.html" class="nav-item ${location.pathname === 'bookings.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="9" x2="12" y2="13"></line></svg></span>
+                Bookings
+            </a>
+            <a href="guests.html" class="nav-item ${location.pathname === 'guests.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg></span>
+                Guests
+            </a>
+            <a href="room-status.html" class="nav-item ${location.pathname === 'room-status.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><circle cx="8.5" cy="4.5" r="1.5"></circle><circle cx="15.5" cy="4.5" r="1.5"></circle></svg></span>
+                Room Status
+            </a>
+            <a href="pricing-rules.html" class="nav-item ${location.pathname === 'pricing-rules.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></span>
+                Pricing Rules
+            </a>
+            <a href="reports.html" class="nav-item ${location.pathname === 'reports.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="20" height="20" rx="2" ry="2"></rect><path d="M3 9l9 -7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span>
+                Reports
+            </a>
+            <a href="settings.html" class="nav-item ${location.pathname === 'settings.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"></circle><path d="M2 12l10-7 10 7 10 7H2a2 2 0 0 1-2-2z"></path></svg></span>
+                Settings
+            </a>
+        </nav>
+        <div style="padding: 24px; border-top: 1px solid var(--line); text-align: center;">
+            <div class="avatar">SK</div>
+        </div>
+    </div>
+
+    <div class="page">
+        <!-- Top bar -->
+        <header class="top-bar">
+            <button class="btn btn-icon btn-ghost" id="sidebarToggle" aria-label="Toggle sidebar">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></span>
+            </button>
+            <h1 class="display" style="font-size:32px; margin:0 24px 0 0;">Reports</h1>
+            <div class="top-bar-right">
+                <div class="input-search" placeholder="⌘K Search reports...">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                <select class="select">
+                    <option>All Date Ranges</option>
+                    <option>Today</option>
+                    <option>This Week</option>
+                    <option>This Month</option>
+                </select>
+                <button class="btn btn-primary">Export</button>
+                <button class="btn btn-icon btn-ghost" aria-label="Notifications">
+                    <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="16"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>
+                    <span class="indicator" style="position:absolute; top:2px; right:2px; width:8px; height:8px; border-radius:50%; background:#Cf7"></span>
+                </button>
+            </div>
+        </header>
+
+        <main style="margin-top: 48px;">
+            <!-- Chart Comparison Section -->
+            <section style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:32px;">
+                <!-- Occupancy Comparison -->
+                <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px;">
+                    <p class="uppercase-micro" style="color:var(--ink-2); font-size:10px; margin-bottom:8px;">Occupancy Rate Comparison</p>
+                    <canvas id "occupancyComparisonChart" width="500" height="300" style="display:block; margin:0 auto;"></canvas>
+                </div>
+                <!-- RevPAR Comparison -->
+                <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px;">
+                    <p class="uppercase-micro" style="color:var(--ink-2); font-size:10px; margin-bottom:8px;">RevPAR Comparison</p>
+                    <canvas id="revparComparisonChart" width="500" height="300" style="display:block; margin:0 auto;"></canvas>
+                </div>
+            </section>
+
+            <!-- Performance Metrics -->
+            <section style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; margin-bottom:32px;">
+                <h2 class="display" style="font-size:20px; margin:0 0 16px 0;">Key Performance Metrics</h2>
+                <div class="table" style="width:100%; font-size:13px;">
+                    <table class="table" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th style="width:30%;">Metric</th>
+                                <th style="width:25%;">Current</th>
+                                <th style="width:25%;">Previous Period</th>
+                                <th style="width:20%;">Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid var(--line);">
+                                <td style="font-size:13px; color:var(--ink);">Occupancy Rate</td>
+                                <td class="number" style="font-size:14px; color:var(--status-success);">78%</td>
+                                <td class="number" style="font-size:14px; color:var(--ink-2);">72%</td>
+                                <td style="font-size:12px;">+6pp</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid var(--line);">
+                                <td style="font-size:13px; color:var(--ink);">RevPAR</td>
+                                <td class="number" style="font-size:14px; color:var(--accent);">$154</td>
+                                <td class="number" style="font-size:14px; color:var(--ink-2);">$138</td>
+                                <td style="font-size:12px;">+12%</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid var(--line);">
+                                <td style="font-size:13px; color:var(--ink);">ADR</td>
+                                <td class="number" style="font-size:14px; color:var(--accent);">$215</td>
+                                <td class="number" style="font-size:14px; color:var(--ink-2);">$212</td>
+                                <td style="font-size:12px;">+1.4%</td>
+                            </tr>
+                            <tr style="border-bottom:1px solid var(--line);">
+                                <td style="font-size:13px; color:var(--ink);">Total Revenue</td>
+                                <td class="number" style="font-size:14px;">$892,450</td>
+                                <td class="number" style="font-size:14px; color:var(--ink-2);">$841,200</td>
+                                <td style="font-size:12px;">+5.9%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Channel Performance -->
+            <section style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; margin-bottom:32px;">
+                <h2 class="display" style="font-size:20px; margin:0 0 16px 0;">Channel Performance</h2>
+                <div style="display:flex; justify-content:center; gap:32px;">
+                    <div class="kpi" style="text-align:center; min-width:120px;">
+                        <div class="kpi-value" style="font-size:24px; color:var(--accent);">45%</div>
+                        <div class="kpi-label uppercase-micro" style="font-size:10px; color:var(--ink-2);">Booking.com</div>
+                    </div>
+                    <div class="kpi" style="text-align:center; min-width:120px;">
+                        <div class="kpi-value" style="font-size:24px; color:var(--accent-2);">28%</div>
+                        <div class="kpi-label uppercase-micro" style="font-size:10px; color:var(--ink-2);">Airbnb</div>
+                    </div>
+                    <div class="kpi" style="text-align:center; min-width:120px;">
+                        <div class="kpi-value" style="font-size:24px; color:var(--accent-2);">18%</div>
+                        <div class="kpi-label uppercase-micro" style="font-size:10px; color:var(--ink-2);">Expedia</div>
+                    </div>
+                    <div class="kpi" style="text-align:center; min-width:120px;">
+                        <div class="kpi-value" style="font-size:24px; color:var(--accent-2);">9%</div>
+                        <div class="kpi-label uppercase-micro" style="font-size:10px; color:var(--ink-2);">Direct</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Property Distribution Heatmap -->
+            <section style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px;">
+                <h2 class="display" style="font-size:20px; margin:0 0 16px 0;">Revenue by Property</h2>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-top:16px;">
+                    <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px; text-align:center;">
+                        <div style="font-size:24px; color:var(--accent); margin-bottom:8px;">$42,300</div>
+                        <div class="kpi-label uppercase-micro" style="color:var(--ink-2); font-size:10px;">Revenue MTD</div>
+                    </div>
+                    <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px; text-align:center;">
+                        <div style="font-size:24px; color:var(--accent); margin-bottom:8px;">$18,750</div>
+                        <div class="kpi-label uppercase-micro" style="color:var(--ink-2); font-size:10px;">RevPAR MTD</div>
+                    </div>
+                    <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px; text-align:center;">
+                        <div style="font-size:24px; color:var(--accent); margin-bottom:8px;">94%</div>
+                        <div class="kpi-label uppercase-micro" style="color:var(--ink-2); font-size:10px;">Occupancy</div>
+                    </div>
+                    <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px; text-align:center;">
+                        <div style="font-size:24px; color:var(--accent); margin-bottom:8px;">$315</div>
+                        <div class="kpi-label uppercase-micro" style="color:var(--ink-2); font-size:10px;">ADR</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Export Options -->
+            <section style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; margin-top:32px;">
+                <h2 class="display" style="font-size:20px; margin:0 0 16px 0;">Export Options</h2>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px;">
+                    <button class="btn btn-primary" style="width:100%; padding:12px;">Export as CSV</button>
+                    <button class="btn btn-primary" style="width:100%; padding:12px;">Export as PDF</button>
+                    <button class="btn btn-primary" style="width:100%; padding:12px;">Export as Excel</button>
+                    <button class="btn btn-outline" style="width:100%; padding:12px;">Schedule Recurring Export</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar toggle
+        const sidebar = document.getElementById('sidebar');
+        const toggle = document.getElementById('sidebarToggle');
+
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
+
+        // Check for dark mode preference
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+
+        // Nav active link highlighting
+        const navItems = document.querySelectorAll('.nav-item');
+        const currentPath = window.location.pathname;
+        navItems.forEach(item => {
+            const link = item.getAttribute('href');
+            if (currentPath === link || (currentPath === '/' && link === 'index.html')) {
+                item.classList.add('active');
+            }
+        });
+
+        // Simple Chart.js comparison chart - occupancy
+        const occupancyComparisonData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Current Year',
+                data: [65, 68, 72, 69, 75, 80, 78, 74, 70, 68, 65, 62],
+                backgroundColor: 'rgba(63,74,60,.15)',
+                borderColor: 'var(--accent)',
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true
+            },
+            {
+                label: 'Previous Year',
+                data: [58, 62, 65, 60, 68, 72, 70, 66, 62, 58, 55, 52],
+                backgroundColor: 'rgba(184,155,94,.15)',
+                borderColor: 'var(--accent-2)',
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true
+            }]
+        };
+
+        const occupancyComparisonCtx = document.getElementById('occupancyComparisonChart').getContext('2d');
+        new Chart(occupancyComparisonCtx, {
+            type: 'line',
+            data: occupancyComparisonData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: { enabled: false }
+                },
+                scales: {
+                    y: { display: false, beginAtZero: true, max: 100 },
+                    x: { display: false }
+                }
+            }
+        });
+
+        // Simple Chart.js comparison chart - RevPAR
+        const revparComparisonData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Current Year',
+                data: [138, 142, 150, 145, 158, 165, 162, 155, 148, 142, 135, 130],
+                backgroundColor: 'rgba(63,74,60,.15)',
+                borderColor: 'var(--accent)',
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true
+            },
+            {
+                label: 'Previous Year',
+                data: [125, 130, 135, 132, 142, 148, 145, 138, 132, 128, 122, 118],
+                backgroundColor: 'rgba(184,155,94,.15)',
+                borderColor: 'var(--accent-2)',
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true
+            }]
+        };
+
+        const revparComparisonCtx = document.getElementById('revparComparisonChart').getContext('2d');
+        new Chart(revparComparisonCtx, {
+            type: 'line',
+            data: revparComparisonData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: { enabled: false }
+                },
+                scales: {
+                    y: { display: false, beginAtZero: true },
+                    x: { display: false }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

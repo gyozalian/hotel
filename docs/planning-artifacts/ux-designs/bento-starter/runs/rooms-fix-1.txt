@@ -1,0 +1,29 @@
+I opened rooms.html in a browser at 1440px. Structure is good. Fix these by editing rooms.html only:
+
+1. SPACING: the banner, chip row and grid touch each other. Wrap everything after .page-head
+   in <div class="stack"> and add `.stack { display: grid; gap: var(--layout-gutter); }`
+   (same as dashboard.html).
+2. BANNER: move <div class="banner__actions"> INSIDE <div class="banner__body">, after the <p>.
+3. CARD LAYOUT: inside each card the items run together. Add to the <style>:
+   .grid-room .card { display: flex; flex-direction: column; gap: var(--sp-3); }
+   .grid-room .card .btn { margin-top: auto; align-self: flex-start; }
+   .room-status { display: flex; align-items: center; gap: var(--sp-2); }
+   .room-next { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); }
+   And remove margin-bottom from .card__header inside room cards: .grid-room .card__header { margin-bottom: 0; }
+4. EACH CARD, in this order:
+   - .card__header (keep as is)
+   - <div class="room-status"> status tag + <span class="t-body-small muted">note</span></div>
+   - <p class="t-body-medium">Tonight: guest name</p>  or  <p class="t-body-medium muted">Vacant tonight</p>
+   - <div class="room-next"><span class="t-label-medium muted">Next arrival</span> <span>Name · date</span> <span class="tag tag--booking">Booking.com</span></div>
+     (tag class by channel: tag--booking, tag--airbnb, tag--expedia, tag--direct)
+   - the "Change status" button
+5. DATA FIX: Rooms 1 and 4 are NOT vacant tonight. Use exactly:
+   1 Ready, note "Ana · 10:42". Tonight: Anna Petrosyan (arrives 14:00). Next arrival: L. Moreau · Wed 11 Nov · Direct.
+   2 Dirty, note "Check-out 11:00". Vacant tonight. Next arrival: M. Rossi · Fri 13 Nov · Expedia.
+   3 Clean, note "Ana · 09:15". Vacant tonight. Next arrival: Weber family · Mon 9 Nov · Booking.com.
+   4 Inspect, note "Waiting for Maria". Tonight: Novak family (arrives 16:30). Next arrival: W. Chen · Sun 15 Nov · Booking.com.
+   5 Out of order, note "Boiler repair until Mon 9 Nov". Vacant tonight. Next arrival: García family · Fri 13 Nov · Expedia.
+   6 Ready, note "Luis · 08:50". Vacant tonight. Next arrival: Hyun Kim · Sun 8 Nov · Booking.com.
+6. The tonal button label is "Housekeeping view" with <span class="icon">cleaning_services</span> before the text.
+
+Change nothing else. When done, list what you changed in one short list.

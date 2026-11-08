@@ -1,0 +1,333 @@
+﻿opencode.exe : [0m
+At C:\Users\Sargis\AppData\Roaming\npm\opencode.ps1:14 char:3
++   & "$basedir/node_modules/@opencode/cli/bin/opencode.exe"   $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([0m:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+> build · nemotron
+I'll now make all 5 fixes to the automation.html file. Let me start with the edits.
+
+**Fix 1: WHEN IT SENDS lines** - Replace literal text with real text and add flex layout:
+[0m← [0mEdit docs/planning-artifacts/ux-designs/bento-starter/automation.html
+Index: docs/planning-artifacts/ux-designs/bento-starter/automation.html
+===================================================================
+--- docs/planning-artifacts/ux-designs/bento-starter/automation.html
++++ docs/planning-artifacts/ux-designs/bento-starter/automation.html
+@@ -89,19 +89,20 @@
+                   <button aria-pressed="true">On</button>
+                   <button aria-pressed="false">Off</button>
+                 </div>
+               </div>
+-              <div class="muted"><span class="icon">schedule</span> when it sends</div>
+-              <div class="channel-tags">
+-                <span class="tag tag--booking"><span class="icon">chat</span> WhatsApp</span>
+-                <span class="tag"><span class="icon">arrow_forward</span></span>
+-                <span class="tag tag--expedia"><span class="icon">mail</span> Email</span>
++              <div class="muted" style="display: flex; align-items: center; gap: var(--sp-2);"><span 
+class="icon">schedule</span> Right after a booking is made</div>
++              <div style="display:flex; align-items:center; gap: var(--sp-2);">
++                <span class="tag"><span class="icon">chat</span> WhatsApp</span>
++                <span class="icon">arrow_forward</span>
++                <span class="tag"><span class="icon">mail</span> Email</span>
+               </div>
+               <div class="preview">
+-                <p class="t-title-small">Thank you, {first name}! / Your stay at Casa Verde is confirmed: {dates}, 
+{room}. We'll send check-in details 3 days before you arrive.</p>
+-                <p class="t-body-medium muted">Sent 18 · Read 16</p>
++                <p class="t-title-small">Thank you, {first name}!</p>
++                <p class="t-body-medium">Your stay at Casa Verde is confirmed: {dates}, {room}. We'll send check-in 
+details 3 days before you arrive.</p>
+               </div>
+-              <button class="btn btn--text icon edit Edit template"><span class="icon">edit</span></button>
++              <p class="t-body-small muted">Sent 18 · Read 16</p>
++              <button class="btn btn--text"><span class="icon">edit</span>Edit template</button>
+             </article>
+ 
+             <!-- Card b: Pre-arrival instructions -->
+             <article class="card card--outlined flow">
+
+> build · nemotron
+[0m← [0mEdit docs/planning-artifacts/ux-designs/bento-starter/automation.html
+Index: docs/planning-artifacts/ux-designs/bento-starter/automation.html
+===================================================================
+--- docs/planning-artifacts/ux-designs/bento-starter/automation.html
++++ docs/planning-artifacts/ux-designs/bento-starter/automation.html
+@@ -112,19 +112,20 @@
+                   <button aria-pressed="true">On</button>
+                   <button aria-pressed="false">Off</button>
+                 </div>
+               </div>
+-              <div class="muted"><span class="icon">schedule</span> when it sends</div>
+-              <div class="channel-tags">
+-                <span class="tag tag--airbnb"><span class="icon">chat</span> WhatsApp</span>
+-                <span class="tag"><span class="icon">arrow_forward</span></span>
+-                <span class="tag tag--direct"><span class="icon">mail</span> Email</span>
++              <div class="muted" style="display: flex; align-items: center; gap: var(--sp-2);"><span 
+class="icon">schedule</span> 3 days before check-in, 10:00</div>
++              <div style="display:flex; align-items:center; gap: var(--sp-2);">
++                <span class="tag"><span class="icon">chat</span> WhatsApp</span>
++                <span class="icon">arrow_forward</span>
++                <span class="tag"><span class="icon">mail</span> Email</span>
+               </div>
+               <div class="preview">
+-                <p class="t-title-small">See you on {weekday}, {first name}! / Check-in from 14:00. Please upload 
+your ID here: {link}. Parking is free in the courtyard. Arriving late? The key box code will follow.</p>
+-                <p class="t-body-medium muted">Sent 15 · ID received 12</p>
++                <p class="t-title-small">See you on {weekday}, {first name}!</p>
++                <p class="t-body-medium">Check-in from 14:00. Please upload your ID here: {link}. Parking is free in 
+the courtyard. Arriving late? The key box code will follow.</p>
+               </div>
+-              <button class="btn btn--text icon edit Edit template"><span class="icon">edit</span></button>
++              <p class="t-body-small muted">Sent 15 · ID received 12</p>
++              <button class="btn btn--text"><span class="icon">edit</span>Edit template</button>
+             </article>
+ 
+             <!-- Card c: Upsell offer -->
+             <article class="card card--outlined flow">
+
+> build · nemotron
+[0m← [0mEdit docs/planning-artifacts/ux-designs/bento-starter/automation.html
+Index: docs/planning-artifacts/ux-designs/bento-starter/automation.html
+===================================================================
+--- docs/planning-artifacts/ux-designs/bento-starter/automation.html
++++ docs/planning-artifacts/ux-designs/bento-starter/automation.html
+@@ -135,19 +135,20 @@
+                   <button aria-pressed="false">On</button>
+                   <button aria-pressed="true">Off</button>
+                 </div>
+               </div>
+-              <div class="muted"><span class="icon">schedule</span> when it sends</div>
+-              <div class="channel-tags">
+-                <span class="tag tag--direct"><span class="icon">chat</span> WhatsApp</span>
+-                <span class="tag"><span class="icon">arrow_forward</span></span>
+-                <span class="tag tag--booking"><span class="icon">mail</span> Email</span>
++              <div class="muted" style="display: flex; align-items: center; gap: var(--sp-2);"><span 
+class="icon">schedule</span> 2 days before check-in</div>
++              <div style="display:flex; align-items:center; gap: var(--sp-2);">
++                <span class="tag"><span class="icon">chat</span> WhatsApp</span>
++                <span class="icon">arrow_forward</span>
++                <span class="tag"><span class="icon">mail</span> Email</span>
+               </div>
+               <div class="preview">
+-                <p class="t-title-small">Make it special / Add breakfast (€12 per person) or late check-out until 
+14:00 (€20). Reply 1 or 2.</p>
+-                <p class="t-body-medium muted">Paused · last month 4 extras sold, €88</p>
++                <p class="t-title-small">Make it special</p>
++                <p class="t-body-medium">Add breakfast (€12 per person) or late check-out until 14:00 (€20). Reply 1 
+or 2.</p>
+               </div>
+-              <button class="btn btn--text icon edit Edit template"><span class="icon">edit</span></button>
++              <p class="t-body-small muted">Paused · last month 4 extras sold, €88</p>
++              <button class="btn btn--text"><span class="icon">edit</span>Edit template</button>
+             </article>
+           </section>
+ 
+           <!-- Section 3: Activity -->
+
+> build · nemotron
+Now **Fix 5: ACTIVITY inside a card** - wrap in article tag, change header format, and update supporting text with channels:
+[0m← [0mEdit docs/planning-artifacts/ux-designs/bento-starter/automation.html
+Index: docs/planning-artifacts/ux-designs/bento-starter/automation.html
+===================================================================
+--- docs/planning-artifacts/ux-designs/bento-starter/automation.html
++++ docs/planning-artifacts/ux-designs/bento-starter/automation.html
+@@ -151,19 +151,19 @@
+             </article>
+           </section>
+ 
+           <!-- Section 3: Activity -->
+-          <section>
++          <article class="card card--outlined">
+             <div class="card__header">
+-              <h2>Activity</h2>
+-              <span class="muted">Last 24 hours</span>
++              <h2 class="t-title-medium">Activity</h2>
++              <span class="t-body-small muted">Last 24 hours</span>
+             </div>
+             <ul class="activity-list">
+               <li class="activity-list__item">
+                 <span class="avatar">HK</span>
+                 <div class="list__text">
+                   <p class="list__headline">Hyun Kim</p>
+-                  <p class="list__supporting">Pre-arrival instructions</p>
++                  <p class="list__supporting">Pre-arrival instructions · WhatsApp</p>
+                 </div>
+                 <div class="list__trailing">
+                   <span class="t-label-medium">10:00</span>
+                   <span class="tag tag--ready"><span class="icon sm">task_alt</span>Read</span>
+@@ -172,9 +172,9 @@
+               <li class="activity-list__item">
+                 <span class="avatar">WF</span>
+                 <div class="list__text">
+                   <p class="list__headline">Weber family</p>
+-                  <p class="list__supporting">Pre-arrival instructions</p>
++                  <p class="list__supporting">Pre-arrival instructions · Email</p>
+                 </div>
+                 <div class="list__trailing">
+                   <span class="t-label-medium">10:00</span>
+                   <span class="tag">Delivered</span>
+@@ -183,9 +183,9 @@
+               <li class="activity-list__item">
+                 <span class="avatar">NF</span>
+                 <div class="list__text">
+                   <p class="list__headline">Novak family</p>
+-                  <p class="list__supporting">ID reminder</p>
++                  <p class="list__supporting">ID reminder · WhatsApp</p>
+                 </div>
+                 <div class="list__trailing">
+                   <span class="t-label-medium">09:30</span>
+                   <span class="tag tag--dirty"><span class="icon sm">schedule</span>No ID yet</span>
+@@ -194,9 +194,9 @@
+               <li class="activity-list__item">
+                 <span class="avatar">AP</span>
+                 <div class="list__text">
+                   <p class="list__headline">Anna Petrosyan</p>
+-                  <p class="list__supporting">Pre-arrival instructions</p>
++                  <p class="list__supporting">Pre-arrival instructions · WhatsApp</p>
+                 </div>
+                 <div class="list__trailing">
+                   <span class="t-label-medium">Wed 10:00</span>
+                   <span class="tag tag--ready"><span class="icon sm">task_alt</span>ID received</span>
+@@ -205,9 +205,9 @@
+               <li class="activity-list__item">
+                 <span class="avatar">RS</span>
+                 <div class="list__text">
+                   <p class="list__headline">Rita Silva</p>
+-                  <p class="list__supporting">Booking confirmation</p>
++                  <p class="list__supporting">Booking confirmation · held</p>
+                 </div>
+                 <div class="list__trailing">
+                   <span class="t-label-medium">08:12</span>
+                   <span class="tag tag--ooo"><span class="icon sm">error</span>Held: overlap</span>
+@@ -216,17 +216,17 @@
+               <li class="activity-list__item">
+                 <span class="avatar">MR</span>
+                 <div class="list__text">
+                   <p class="list__headline">Marco Rossi</p>
+-                  <p class="list__supporting">Booking confirmation</p>
++                  <p class="list__supporting">Booking confirmation · Email</p>
+                 </div>
+                 <div class="list__trailing">
+                   <span class="t-label-medium">Fri 18:40</span>
+                   <span class="tag tag--ready"><span class="icon sm">task_alt</span>Read</span>
+                 </div>
+               </li>
+             </ul>
+-          </section>
++          </article>
+         </div>
+       </main>
+     </div>
+   </div>
+
+> build · nemotron
+Now let me verify the complete file:
+[0m→ [0mRead docs/planning-artifacts/ux-designs/bento-starter/automation.html 
+> build · nemotron
+All 5 fixes are correctly applied. Let me verify the final state by checking the key sections once more, then summarize the changes.
+[0m$ [0mcd /cProjects/hotel && python3 -c "
+import re
+
+with open('docs/planning-artifacts/ux-designs/bento-starter/automation.html', 'r') as f:
+    content = f.read()
+
+# Check Fix 1: WHEN IT SENDS
+print('=== Fix 1: WHEN IT SENDS ===')
+print('Card a text:', re.search(r'Right after a booking is made', content) is not None)
+print('Card b text:', re.search(r'3 days before check-in, 10:00', content) is not None)
+print('Card c text:', re.search(r'2 days before check-in', content) is not None)
+print('Card a flex:', re.search(r'display: flex; align-items: center; gap: var\(--sp-2\)', content.split('Card 
+a')[1].split('Card b')[0] if 'Card b' in content else '') is not None)
+
+# Check Fix 2: CHANNEL TAGS (no tag-- classes, plain tags with arrow)
+print('\n=== Fix 2: CHANNEL TAGS ===')
+print('No tag--booking:', 'tag--booking' not in content)
+print('No tag--airbnb:', 'tag--airbnb' not in content)
+print('No tag--expedia:', 'tag--expedia' not in content)
+print('No tag--direct:', 'tag--direct' not in content)
+print('Has plain tags with chat:', '<span class=\"tag\"><span class=\"icon\">chat</span> WhatsApp</span>' in content)
+print('Has plain tags with mail:', '<span class=\"tag\"><span class=\"icon\">mail</span> Email</span>' in content)
+print('Has arrow_forward icon (no tag):', '<span class=\"icon\">arrow_forward</span>' in content)
+
+# Check Fix 3: EDIT BUTTON
+print('\n=== Fix 3: EDIT BUTTON ===')
+print('btn btn--text only:', content.count('class=\"btn btn--text\"') >= 3)
+
+# Check Fix 4: PREVIEW structure
+print('\n=== Fix 4: PREVIEW ===')
+print('t-title-small exists:', '<p class=\"t-title-small\">' in content)
+print('t-body-medium exists:', '<p class=\"t-body-medium\">' in content)
+print('t-body-small muted exists:', '<p class=\"t-body-small muted\">' in content)
+print('No / separator in title-small:', content.count('Thank you,') > 0 and 'Thank you, {first name}!' in content)
+
+# Check Fix 5: ACTIVITY inside card
+print('\n=== Fix 5: ACTIVITY ===')
+print('Wrapped in article card:', '<article class=\"card card--outlined\">' in content)
+print('Header format:', '<h2 class=\"t-title-medium\">Activity</h2>' in content and '<span class=\"t-body-small 
+muted\">Last 24 hours</span>' in content)
+print('Supporting text has channels:', 'Pre-arrival instructions · WhatsApp' in content and 'Booking confirmation · 
+held' in content and 'Booking confirmation · Email' in content and 'ID reminder · WhatsApp' in content)
+"
+At line:1 char:21
++ cd /cProjects/hotel && python3 -c "
++                     ~~
+The token '&&' is not a valid statement separator in this version.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvalidEndOfLine
+> build · nemotron
+[0m$ [0mpowershell -Command "cd C:\Projects\hotel; Get-Content 
+docs/planning-artifacts/ux-designs/bento-starter/automation.html | Select-String -Pattern 'Right after a booking is 
+made' | Measure-Object | Select-Object LineCount"
+LineCount
+---------
+> build · nemotron
+I've already verified the file by reading it completely. All 5 fixes are correctly applied. Let me provide a summary of the changes.
+[0m⚙ [0mexecute {"code":"import re\n\nwith 
+open('C:/Projects/hotel/docs/planning-artifacts/ux-designs/bento-starter/automation.html', 'r') as f:\n    content = 
+f.read()\n\nchanges = []\n\n# Fix 1\nif re.search(r'Right after a booking is made', content):\n    changes.append('Fix 
+1: WHEN IT SENDS - Replaced \"when it sends\" with correct texts: \"Right after a booking is made\", \"3 days before 
+check-in, 10:00\", \"2 days before check-in\"')\nif re.search(r'display: flex; align-items: center; gap: 
+var\\(--sp-2\\)', content):\n    changes.append('  Added flex layout to the \"when it sends\" lines so icon sits next 
+to text')\n\n# Fix 2\nif 'tag--booking' not in content and 'tag--airbnb' not in content and 'tag--expedia' not in 
+content and 'tag--direct' not in content:\n    changes.append('Fix 2: CHANNEL TAGS - Removed 
+tag--booking/--airbnb/--expedia/--direct classes, using plain <span class=tag> with WhatsApp/Email icons')\nif '<span 
+class=\"icon\">arrow_forward</span>' in content and content.count('<span class=\"tag\"><span 
+class=\"icon\">chat</span> WhatsApp</span>') >= 1:\n    changes.append('  Arrow is <span 
+class=icon>arrow_forward</span> with no tag wrapper, wrapped in flex div')\n\n# Fix 3\nbtn_count = 
+len(re.findall(r'class=\"btn btn--text\">', content))\nif btn_count >= 3:\n    changes.append(f'Fix 3: EDIT BUTTON - 
+Changed to class=\"btn btn--text\" with icon+text inside (found {btn_count} instances)')\n\n# Fix 4\nif '<p 
+class=\"t-title-small\">' in content and '<p class=\"t-body-medium\">' in content and '<p class=\"t-body-small 
+muted\">' in content:\n    changes.append('Fix 4: PREVIEW - First line in <p class=t-title-small>, rest in <p 
+class=t-body-medium>, stats line outside .preview as <p class=t-body-small muted>')\n\n# Fix 5\nif '<article 
+class=\"card card--outlined\">' in content:\n    changes.append('Fix 5: ACTIVITY wrapped in <article class=\"card 
+card--outlined\">')\nif '<h2 class=\"t-title-medium\">Activity</h2>' in content and '<span class=\"t-body-small 
+muted\">Last 24 hours</span>' in content:\n    changes.append('  Header uses t-title-medium and t-body-small 
+muted')\n\nprint('\\n'.join(changes))"} 
+> build · nemotron
+All 5 fixes are correctly applied. Here's a summary of the changes made to `automation.html`:
+
+**Fix 1: WHEN IT SENDS** - Replaced literal "when it sends" text with real text and added flex layout:
+- Card a: "Right after a booking is made" with `display: flex; align-items: center; gap: var(--sp-2);`
+- Card b: "3 days before check-in, 10:00" with same flex layout
+- Card c: "2 days before check-in" with same flex layout
+
+**Fix 2: CHANNEL TAGS** - Removed channel-specific tag classes, used plain `<span class=tag>`:
+- All 3 cards now have `<div style="display:flex; align-items:center; gap: var(--sp-2);">` wrapping:
+  - `<span class="tag"><span class="icon">chat</span> WhatsApp</span>`
+  - `<span class="icon">arrow_forward</span>` (no tag wrapper)
+  - `<span class="tag"><span class="icon">mail</span> Email</span>`
+
+**Fix 3: EDIT BUTTON** - Simplified to `class="btn btn--text"`:
+- Changed from `class="btn btn--text icon edit Edit template"` to `class="btn btn--text"`
+- Icon and text now inside: `<span class="icon">edit</span>Edit template`
+
+**Fix 4: PREVIEW** - Split first line, moved stats outside:
+- First line of each preview in `<p class="t-title-small">` only (removed " / " separator)
+- Rest of text in `<p class="t-body-medium">`
+- Stats line `<p class="t-body-small muted">` placed OUTSIDE the `.preview` box, under it
+
+**Fix 5: ACTIVITY inside a card** - Wrapped in article card element:
+- Activity section now enclosed in `<article class="card card--outlined">`
+- Header: `<div class="card__header"><h2 class="t-title-medium">Activity</h2><span class="t-body-small muted">Last 24 hours</span></div>`
+- Supporting text in each list item now includes channel: e.g., "Pre-arrival instructions · WhatsApp", "Booking confirmation · held", "Booking confirmation · Email", "ID reminder · WhatsApp"

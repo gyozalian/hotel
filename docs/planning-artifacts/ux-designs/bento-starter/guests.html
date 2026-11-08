@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Guests · Hotel CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="components.css">
+  <style>
+    .guests{display:grid;gap:var(--layout-gutter)}
+    @media(min-width:1200px){.guests{grid-template-columns:380px minmax(0,1fr);align-items:start}}
+    @media(max-width:1199px){.profile.stack{display:none}}
+    .stack{display:grid;gap:var(--layout-gutter)}
+    .page-head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--sp-4);margin:var(--sp-2)0var(--sp-6)}
+    .page-head__text{flex:1 1 260px;min-width:0}
+    .page-head__actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);align-items:center}
+    .guest-card{display:flex;flex-direction:column;gap:var(--sp-3)}
+    .profile-row{display:grid;gap:var(--layout-gutter);grid-template-columns:1fr 1fr}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <nav class="nav" aria-label="Main">
+      <div class="nav__brand"><span class="logo"><span class="icon filled">hotel</span></span>Casa Verde</div>
+      <button class="fab nav__fab" aria-label="New booking"><span class="icon">add</span></button>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">space_dashboard</span></span><span class="nav__label">Dashboard</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">calendar_month</span></span><span class="nav__label">Calendar</span><span class="nav__badge">1</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">bed</span></span><span class="nav__label">Rooms</span></a>
+      <a class="nav__item" href="#" aria-current="page"><span class="nav__indicator"><span class="icon">group</span></span><span class="nav__label">Guests</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">forward_to_inbox</span></span><span class="nav__label">Automation</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">monitoring</span></span><span class="nav__label">Reports</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">hub</span></span><span class="nav__label">Channels</span></a>
+      <div class="nav__section">Admin</div>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">manage_accounts</span></span><span class="nav__label">Users</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">settings</span></span><span class="nav__label">Settings</span></a>
+      <a class="nav__item nav__item--more" href="#"><span class="nav__indicator"><span class="icon">menu</span></span><span class="nav__label">More</span></a>
+    </nav>
+    <div class="main">
+      <header class="top-bar" id="topBar">
+        <h1 class="top-bar__title">Guests</h1>
+        <label class="search"><span class="icon">search</span><input type="search" placeholder="Search guests, bookings, rooms" aria-label="Search"></label>
+        <div class="top-bar__actions">
+          <button class="icon-btn search-toggle" aria-label="Search"><span class="icon">search</span></button>
+          <button class="icon-btn" aria-label="Notifications, 2 unread"><span class="icon">notifications</span><span class="dot"></span></button>
+          <button class="icon-btn" aria-label="Account: Maria"><span class="avatar avatar--sm">M</span></button>
+        </div>
+      </header>
+      <main class="content">
+    <div class="stack">
+      <section class="page-head">
+        <div class="page-head__text">
+          <h2 class="t-headline-small">142 guests</h2>
+          <p class="t-body-medium muted">8 staying or arriving this month</p>
+        </div>
+        <div class="page-head__actions">
+          <button class="btn btn--outlined"><span class="icon">download</span>Export</button>
+          <button class="btn btn--filled"><span class="icon">person_add</span>Add guest</button>
+        </div>
+      </section>
+      <div class="guests">
+        <article class="card card--outlined guest-card">
+          <div class="field"><label>Search guests</label><input type="search" placeholder="Name, email or phone"></div>
+          <div class="chip-row"><button class="chip is-selected" aria-pressed="true"><span class="icon">check</span>All</button><button class="chip" aria-pressed="false">Staying now</button><button class="chip" aria-pressed="false">Arriving</button><button class="chip" aria-pressed="false">Returning</button></div>
+          <ul class="list">
+            <li class="list__item"><span class="avatar">AP</span><div class="list__text"><p class="list__headline">Anna Petrosyan</p><p>Staying now · Room 1</p></div><div class="list__trailing"><span class="tag tag--booking"><span class="swatch" style="color:var(--ch-booking)"></span>Booking.com</span></div></li>
+            <li class="list__item"><span class="avatar">NF</span><div class="list__text"><p class="list__headline">Novak family</p><p>Staying now · Room 4</p></div><div class="list__trailing"><span class="tag tag--direct"><span class="swatch" style="color:var(--ch-direct)"></span>Direct</span></div></li>
+            <li class="list__item"><span class="avatar">HK</span><div class="list__text"><p class="list__headline">Hyun Kim</p><p>Arrives Sun 8 Nov</p></div><div class="list__trailing"><span class="tag tag--booking"><span class="swatch" style="color:var(--ch-booking)"></span>Booking.com</span></div></li>
+            <li class="list__item"><span class="avatar">WF</span><div class="list__text"><p class="list__headline">Weber family</p><p>Arrives Mon 9 Nov</p></div><div class="list__trailing"><span class="tag tag--booking"><span class="swatch" style="color:var(--ch-booking)"></span>Booking.com</span></div></li>
+            <li class="list__item"><span class="avatar">LM</span><div class="list__text"><p class="list__headline">Léa Moreau</p><p>Arrives Wed 11 · 3rd stay</p></div><div class="list__trailing"><span class="tag tag--direct"><span class="swatch" style="color:var(--ch-direct)"></span>Direct</span></div></li>
+            <li class="list__item"><span class="avatar">RS</span><div class="list__text"><p class="list__headline">Rita Silva</p><p>Request 11 · overlap</p></div><div class="list__trailing"><span class="tag tag--airbnb"><span class="swatch" style="color:var(--ch-airbnb)"></span>Airbnb</span></div></li>
+            <li class="list__item"><span class="avatar">JS</span><div class="list__text"><p class="list__headline">James Smith</p><p>Left today</p></div><div class="list__trailing"><span class="tag tag--airbnb"><span class="swatch" style="color:var(--ch-airbnb)"></span>Airbnb</span></div></li>
+            <li class="list__item"><span class="avatar">MR</span><div class="list__text"><p class="list__headline">Marco Rossi</p><p>Arrives Fri 13 Nov</p></div><div class="list__trailing"><span class="tag tag--expedia"><span class="swatch" style="color:var(--ch-expedia)"></span>Expedia</span></div></li>
+          </ul>
+        </article>
+        <div class="profile stack">
+          <article class="card card--outlined guest-card">
+            <div class="card__header" style="display:flex;align-items:center;gap:var(--sp-2);min-height:40px"><span class="avatar" style="width:64px;height:64px">AP</span><h2 class="t-headline-small">Anna Petrosyan</h2></div>
+            <p class="muted">Yerevan, Armenia · Guest since June 2025 · 2 stays</p>
+            <div style="display:flex; gap: var(--sp-2); flex-wrap: wrap;">
+              <button class="chip"><span class="icon">chat</span>WhatsApp +374 91 234 567</button>
+              <button class="chip"><span class="icon">mail</span>anna.petrosyan@example.com</button>
+            </div>
+            <div style="display:flex; gap: var(--sp-2); flex-wrap: wrap;"><button class="btn btn--filled">Message</button><button class="btn btn--outlined">New booking</button></div>
+          </article>
+          <div class="profile-row">
+            <article class="card card--outlined guest-card">
+              <div class="card__header"><h2 class="t-title-medium">Preferences</h2></div>
+              <div style="display:flex; flex-wrap:wrap; gap:var(--sp-2);">
+                <span class="tag">Late check-in</span><span class="tag">Vegetarian breakfast</span><span class="tag">Quiet room</span><span class="tag">Speaks Russian</span>
+              </div>
+            </article>
+            <article class="card card--outlined guest-card">
+              <div class="card__header"><h2 class="t-title-medium">Current stay</h2></div>
+              <p>Room 1 · Garden double<br><span class="muted">Sat 7 → Tue 10 Nov · 3 nights</span></p><p>Net €240 <span class="muted">(gross €282, commission €42)</span></p><div style="display:flex; gap: var(--sp-2); flex-wrap: wrap;"><span class="tag tag--booking">Booking.com</span><span class="tag tag--ready">ID received</span></div>
+            </article>
+          </div>
+          <article class="card card--outlined guest-card">
+            <div class="card__header"><h2 class="t-title-medium">Stay history</h2></div>
+            <div class="table-wrap"><table class="table">
+              <thead>
+                <tr>
+                  <th>Dates</th>
+                  <th>Room</th>
+                  <th>Channel</th>
+                  <th>Nights</th>
+                  <th class="num">Net</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>7–10 Nov 2026</td>
+                  <td>Room 1</td>
+                  <td><span class="tag tag--booking"><span class="swatch" style="color:var(--ch-booking)"></span>Booking.com</span></td>
+                  <td>3</td>
+                  <td class="num">€240</td>
+                </tr>
+                <tr>
+                  <td>14–17 Jun 2025</td>
+                  <td>Room 3</td>
+                  <td><span class="tag tag--direct"><span class="swatch" style="color:var(--ch-direct)"></span>Direct</span></td>
+                  <td>3</td>
+                  <td class="num">€315</td>
+                </tr>
+              </tbody>
+            </table></div>
+          </article>
+          <article class="card card--outlined guest-card">
+            <div class="card__header"><h2 class="t-title-medium">Notes</h2></div>
+            <ul class="list"><li class="list__item"><span class="avatar">M</span><div class="list__text"><p class="list__headline">Maria</p><p>Prefers the quiet side, Room 1 or 3.</p></div><span class="t-label-medium">15 Jun 2025</span></li><li class="list__item"><span class="avatar">S</span><div class="list__text"><p class="list__headline">Sofia</p><p>Arriving late on 7 Nov, key box code sent.</p></div><span class="t-label-medium">6 Nov 2026</span></li></ul><button class="btn btn--text" style="align-self: flex-start;"><span class="icon">add</span>Add note</button>
+          </article>
+        </div>
+      </div>
+    </div>
+  </main>
+    </div>
+  </div>
+  <script>
+    // Top app bar gets a tinted surface once content scrolls under it (M3 behaviour)
+    const bar = document.getElementById('topBar');
+    addEventListener('scroll', () => bar.classList.toggle('is-scrolled', scrollY > 4), { passive: true });
+    // Toggle groups
+    document.querySelectorAll('.segmented, .chip-row').forEach(group => {
+      group.addEventListener('click', e => {
+        const btn = e.target.closest('button'); if (!btn) return;
+        group.querySelectorAll('button').forEach(b => {
+          b.setAttribute('aria-pressed', 'false');
+          b.classList.remove('is-selected');
+          b.querySelector('.icon')?.remove();
+        });
+        btn.setAttribute('aria-pressed', 'true');
+        btn.classList.add('is-selected');
+        btn.insertAdjacentHTML('afterbegin', '<span class="icon' + (group.classList.contains('segmented') ? ' sm' : '') + '">check</span>');
+      });
+    });
+  </script>
+</body>
+</html>

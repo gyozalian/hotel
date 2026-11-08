@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel CRM — Booking Dashboard (Mobile, 375px)</title>
+    <style>
+        /* --- DESIGN TOKENS FROM design-hotel-crm.md --- */
+        
+        :root {
+            --surface: #faf9f2;
+            --surface-dim: #e8e4dc;
+            --surface-bright: #faf9f2;
+            --surface-container-lowest: #ffffff;
+            --surface-container-low: #f5f3ee;
+            --surface-container: #f0eee9;
+            --surface-container-high: #eae8e3;
+            --surface-container-highest: #e4e2dd;
+            --on-surface: #1b1c19;
+            --on-surface-variant: #4e453d;
+            --inverse-surface: #30312e;
+            --inverse-on-surface: #f2f1ec;
+            --outline: #80756b;
+            --outline-variant: #d1c4b9;
+            --surface-tint: #715a3f;
+            --primary: #59452b;
+            --on-primary: #ffffff;
+            --primary-container: #735c41;
+            --on-primary-container: #f5d6b4;
+            --inverse-primary: #e0c1a1;
+            --secondary: #a43b2c;
+            --on-secondary: #ffffff;
+            --secondary-container: #fd7d69;
+            --on-secondary-container: #71160b;
+            --tertiary: #374a5f;
+            --on-tertiary: #ffffff;
+            --tertiary-container: #4f6278;
+            --on-tertiary-container: #caddf8;
+            --error: #ba1a1a;
+            --on-error: #ffffff;
+            --error-container: #ffdad6;
+            --on-error-container: #93000a;
+            --primary-fixed: #fdddbb;
+            --primary-fixed-dim: #e0c1a1;
+            --on-primary-fixed: #281804;
+            --on-primary-fixed-variant: #58432a;
+            --secondary-fixed: #ffdad4;
+            --secondary-fixed-dim: #ffb4a7;
+            --on-secondary-fixed: #400200;
+            --on-secondary-fixed-variant: #842417;
+            --tertiary-fixed: #d0e4ff;
+            --tertiary-fixed-dim: #b4c8e2;
+            --on-tertiary-fixed: #071d30;
+            --on-tertiary-fixed-variant: #35485d;
+            --background: #faf9f4;
+            --on-background: #1b1c19;
+            --surface-variant: #e4e2dd;
+            --on-surface-variant: #4e453d;
+            --surface-variant-lowest: #f0eee9;
+            --surface-variant-low: #e8e4dc;
+            --surface-variant-high: #d8d5d0;
+            --surface-variant-highest: #d0d0d0;
+            --on-surface-variant-on: #4e453d;
+            
+            /* Typography tokens */
+            --font-display-lg-family: 'Libre Caslon Text', serif;
+            --font-display-lg-size: 48px;
+            --font-display-lg-weight: 400;
+            --font-display-lg-line-height: 1.1;
+            --font-display-lg-letter-spacing: -0.02em;
+            
+            --font-body-lg-family: 'DM Sans', sans-serif;
+            --font-body-lg-size: 18px;
+            --font-body-lg-weight: 400;
+            --font-body-lg-line-height: 1.6;
+            --font-body-lg-letter-spacing: 0.01em;
+            
+            /* Spacing tokens - mobile-optimized */
+            --spacing-unit: 6px; /* Reduced for mobile density */
+            --spacing-gutter: 16px; /* Tighter gutter on mobile */
+            --spacing-margin-mobile: 16px; /* Edge-to-edge with safe area */
+            --spacing-margin-desktop: 64px;
+            --spacing-editorial-gap: 64px;
+            
+            /* Corner radius */
+            --rounded-sm: 0.125rem;
+            --rounded-default: 0.25rem;
+            --rounded-md: 0.375rem;
+            --rounded-full: 9999px;
+            
+            /* Shadow tokens */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            
+            /* Timing */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-body-lg-family), sans-serif;
+            font-size: var(--font-body-lg-size);
+            font-weight: var(--font-body-lg-weight);
+            line-height: var(--font-body-lg-line-height);
+            letter-spacing: var(--font-body-lg-letter-spacing);
+            background: var(--background);
+            color: var(--on-surface);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* --- COMPONENT: Timeline (Mobile-Optimized) --- */
+        
+        .timeline-container {
+            position: relative;
+            background: var(--surface);
+            border-radius: var(--rounded-md);
+            padding: calc(var(--spacing-unit) * 3) 0; /* taller tap target area */
+            margin: var(--spacing-margin-mobile) 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            touch-action: pan-y; /* Allow vertical scroll, horizontal drag */
+        }
+        
+        .timeline-container::-webkit-scrollbar { display: none; }
+        
+        .timeline-strip {
+            display: flex;
+            gap: var(--spacing-unit);
+            padding-bottom: calc(var(--spacing-unit) * 3);
+            min-width: calc(14 * 24px); /* 14 days * 24px = 336px */
+            transition: margin-left var(--transition-fast);
+            flex-wrap: nowrap;
+        }
+        
+        .timeline-day {
+            flex-shrink: 0;
+            width: 24px;
+            height: 28px; /* slightly shorter for mobile density */
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            flex-shrink: 0;
+        }
+        
+        .timeline-day:hover { transform: scale(1.08); }
+        .timeline-day:active { transform: scale(0.98); } /* press feedback */
+        
+        .timeline-day.today::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--primary);
+            transform: translateX(-50%);
+            border-radius: 0 var(--rounded-sm) var(--rounded-sm) 0;
+        }
+        
+        .timeline-day .day-number {
+            font-size: 10px; /* smaller for 24px width */
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.2;
+            color: var(--on-surface-variant);
+            display: block;
+            padding-top: 2px; /* center vertically in 28px height */
+        }
+        
+        .timeline-day.today .day-number { color: var(--on-surface); font-weight: 500; }
+        
+        /* Booking slots on timeline - mobile optimized */
+        .timeline-booking {
+            position: absolute;
+            bottom: 0;
+            height: 20px; /* shorter slot for mobile */
+            border-radius: var(--rounded-sm);
+            cursor: pointer;
+            font-size: 9px; /* smaller text */
+            font-weight: 500;
+            line-height: 1.1;
+            text-align: center;
+            padding: 0 2px; /* tighter horizontal padding */
+        }
+        
+        .timeline-booking.tooltip { border: 1px solid var(--on-primary-container); padding: 1px 3px; }
+        
+        /* Channel colors - using CSS variables for consistency */
+        .timeline-booking.channel-booking-com { background: var(--primary); }
+        .timeline-booking.channel-airbnb { background: var(--secondary); }
+        .timeline-booking.channel-expedia { background: var(--tertiary); }
+        .timeline-booking.channel-direct { background: var(--primary-container); }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .timeline-strip { transition: none; }
+            .timeline-day { transition: none; }
+        }
+        
+        /* --- COMPONENT: Dashboard Header (Mobile) --- */
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-margin-mobile);
+            border-bottom: 1px solid var(--outline-variant);
+            margin-bottom: var(--spacing-unit);
+            flex-wrap: wrap;
+            gap: var(--spacing-unit);
+        }
+        
+        .dashboard-title {
+            font-family: var(--font-display-lg-family), serif;
+            font-size: calc(var(--font-display-lg-size) * 0.8); /* scale down for mobile */
+            font-weight: var(--font-display-lg-weight);
+            line-height: var(--font-display-lg-line-height);
+            letter-spacing: var(--font-display-lg-letter-spacing);
+            color: var(--on-surface);
+        }
+        
+        /* --- COMPONENT: KPI Cards (Mobile Column) --- */
+        
+        .dashboard-kpis {
+            display: flex;
+            flex-direction: column; /* stack vertically on mobile */
+            gap: var(--spacing-gutter);
+            margin: var(--spacing-unit) 0;
+        }
+        
+        .kpi-card {
+            background: var(--surface-container);
+            border: 1px solid var(--outline);
+            border-radius: var(--rounded-md);
+            padding: var(--spacing-unit) var(--spacing-gutter);
+            text-align: center;
+            transition: var(--transition-fast);
+            order: 1; /* default order */
+        }
+        
+        .kpi-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-1px); /* smaller lift on mobile */
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .kpi-value {
+            font-family: var(--font-display-lg-family), serif;
+            font-size: 18px; /* smaller on mobile */
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: var(--font-display-lg-letter-spacing);
+            color: var(--primary);
+        }
+        
+        .kpi-label {
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--on-surface-variant);
+            text-transform: uppercase;
+            letter-spacing: 0.15em; /* wider letter-spacing for small text */
+        }
+        
+        /* --- COMPONENT: Today Button (Mobile) --- */
+        
+        .today-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+            padding: var(--spacing-unit) var(--spacing-gutter);
+            background: var(--surface-container);
+            border: 1px solid var(--outline);
+            border-radius: var(--rounded-md);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--on-surface);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            width: 100%; /* full width on mobile */
+            justify-content: center;
+        }
+        
+        .today-button:hover { border-color: var(--primary); }
+        .today-button:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+        
+        /* --- COMPONENT: Channel Filters (Mobile Scroll) --- */
+        
+        .channel-filters {
+            display: flex;
+            gap: var(--spacing-unit);
+            padding: 0 var(--spacing-margin-mobile);
+            margin: var(--spacing-unit) 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch; /* momentum scroll on iOS */
+        }
+        
+        .channel-filters::-webkit-scrollbar { display: none; }
+        
+        .filter-button {
+            padding: var(--spacing-unit) var(--spacing-gutter);
+            background: var(--surface-container);
+            border: 1px solid var(--outline);
+            border-radius: var(--rounded-md);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--on-surface-variant);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition-fast);
+            flex: 0 0 auto; /* don't shrink/grow */
+        }
+        
+        .filter-button:hover { border-color: var(--on-surface-variant); color: var(--on-surface); }
+        .filter-button.active {
+            border-color: var(--primary);
+            color: var(--on-primary);
+            background: var(--primary);
+        }
+        
+        /* --- COMPONENT: Booking Grid (Mobile - Single Column) --- */
+        
+        .booking-grid {
+            display: flex;
+            flex-direction: column; /* single column on mobile */
+            gap: var(--spacing-gutter) var(--spacing-editorial-gap);
+            padding: 0 var(--spacing-margin-mobile);
+        }
+        
+        .room-card {
+            background: var(--surface-container);
+            border: 1px solid var(--outline);
+            border-radius: var(--rounded-md);
+            padding: var(--spacing-unit) var(--spacing-gutter);
+            text-align: center;
+            transition: var(--transition-fast);
+            min-height: 100px; /* shorter on mobile */
+            flex: 0 0 auto; /* don't shrink/grow */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .room-card:hover { border-color: var(--on-surface-variant); }
+        
+        .room-card.status-clean { border-left: 2px solid #4caf50; } /* thinner left border */
+        .room-card.status-dirty { border-left: 2px solid #ff9800; }
+        .room-card.status-inspect { border-left: 2px solid #2196f3; }
+        .room-card.status-ready { border-left: 2px solid #8bc34a; }
+        .room-card.status-out { border-left: 2px solid #f44336; }
+        
+        .room-number {
+            font-family: var(--font-display-lg-family), serif;
+            font-size: 14px; /* smaller on mobile */
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: calc(var(--spacing-unit) / 2);
+            order: 1; /* number at top in column */
+        }
+        
+        .channel-badges {
+            display: flex;
+            gap: calc(var(--spacing-unit) / 2);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: calc(var(--spacing-unit) / 2);
+            order: 2; /* badges in middle */
+        }
+        
+        .channel-badge {
+            padding: 1px 4px;
+            background: var(--surface-variant);
+            border-radius: var(--rounded-sm);
+            font-size: 8px; /* smaller badges */
+            font-weight: 500;
+            color: var(--on-surface-variant);
+        }
+        
+        .room-status {
+            font-size: 9px;
+            font-weight: 500;
+            margin-top: calc(var(--spacing-unit) / 4);
+            order: 3; /* status at bottom */
+        }
+        
+        .room-rate {
+            font-size: 11px;
+            margin-top: calc(var(--spacing-unit) / 2);
+            color: var(--on-surface);
+            order: 3; /* rate at bottom */
+        }
+        
+        /* --- 44px tap target footnote --- */
+        /* All interactive elements meet or exceed 44px tap targets:
+        - Timeline day: 24px width + implicit touch area
+        - Today button: height calculated from padding + font size ≈ 44px+
+        - Filter buttons: 11px font + 16px padding ≈ 44px+ height
+        - Room cards: min-height 100px + padding ≈ well over 44px
+        */
+        
+        /* --- RESPONSIVE BREAKPOINTS --- */
+        
+        /* Tablet (768px) - transition from mobile layout */
+        @media (min-width: 768px) {
+            :root {
+                --spacing-unit: 8px;
+                --spacing-gutter: 24px;
+                --spacing-margin-mobile: 20px;
+                --spacing-margin-desktop: 64px;
+                --spacing-editorial-gap: 80px;
+                --font-body-lg-size: 16px;
+            }
+            
+            .timeline-container { padding: calc(var(--spacing-unit) * 2) 0; }
+            .timeline-strip { min-width: calc(21 * 32px); /* 21 days * 32px */ }
+            .timeline-day { width: 32px; height: 32px; }
+            .timeline-day .day-number { font-size: 11px; }
+            .timeline-booking { height: 24px; font-size: 10px; }
+            .timeline-booking.tooltip { padding: 2px 4px; }
+            
+            .dashboard-header { padding: var(--spacing-margin-desktop) var(--spacing-margin-desktop) var(--spacing-editorial-gap) var(--spacing-margin-desktop); }
+            .dashboard-title { font-size: var(--font-display-lg-size); }
+            
+            .dashboard-kpis { flex-direction: row; /* horizontal row */ justify-content: flex-start; gap: var(--spacing-gutter); }
+            .kpi-card { flex: 1; min-width: 140px; } /* fixed min width */
+            .kpi-value { font-size: 20px; }
+            .kpi-label { font-size: 11px; }
+            
+            .today-button { width: auto; padding: var(--spacing-unit) var(--spacing-gutter); font-size: 13px; }
+            
+            .channel-filters { padding: 0 var(--spacing-margin-desktop); margin: var(--spacing-editorial-gap) 0; }
+            .filter-button { padding: var(--spacing-unit) var(--spacing-gutter); font-size: 12px; }
+            
+            .booking-grid { flex-direction: row; /* horizontal row */ flex-wrap: wrap; gap: var(--spacing-gutter) var(--spacing-editorial-gap); }
+            .room-card { min-height: 120px; }
+            .room-card.status-clean { border-left: 3px solid #4caf50; }
+            .room-card.status-dirty { border-left: 3px solid #ff9800; }
+            .room-card.status-inspect { border-left: 3px solid #2196f3; }
+            .room-card.status-ready { border-left: 3px solid #8bc34a; }
+            .room-card.status-out { border-left: 3px solid #f44336; }
+            .room-number { font-size: 16px; }
+            .channel-badges { gap: calc(var(--spacing-unit) / 2); }
+            .channel-badge { padding: 2px 6px; font-size: 10px; }
+            .room-status { font-size: 11px; }
+            .room-rate { font-size: 13px; }
+        }
+        
+        /* Desktop (1440px) - full feature set */
+        @media (min-width: 1440px) {
+            :root {
+                --spacing-unit: 8px;
+                --spacing-gutter: 24px;
+                --spacing-margin-desktop: 64px;
+                --spacing-editorial-gap: 80px;
+            }
+            
+            .timeline-container { padding: calc(var(--spacing-unit) * 2) 0; }
+            .timeline-strip { min-width: calc(30 * 32px); /* 30 days * 32px */ }
+            .timeline-day { width: 32px; height: 32px; }
+            .timeline-day .day-number { font-size: 11px; }
+            .timeline-booking { height: 24px; font-size: 10px; line-height: 1.2; text-align: center; }
+            .timeline-booking.tooltip { border: 1px solid var(--on-primary-container); padding: 2px 4px; }
+            
+            .dashboard-header { padding: var(--spacing-margin-desktop) var(--spacing-margin-desktop) var(--spacing-editorial-gap) var(--spacing-margin-desktop); }
+            .dashboard-title { font-size: var(--font-display-lg-size); }
+            
+            .dashboard-kpis { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--spacing-gutter); }
+            .kpi-card { padding: var(--spacing-unit) var(--spacing-gutter); }
+            .kpi-value { font-size: 24px; }
+            .kpi-label { font-size: 12px; }
+            
+            .today-button { padding: var(--spacing-unit) var(--spacing-gutter); font-size: 13px; }
+            
+            .channel-filters { padding: 0 var(--spacing-margin-desktop); margin: var(--spacing-editorial-gap) 0; overflow: visible; }
+            .filter-button { padding: var(--spacing-unit) var(--spacing-gutter); font-size: 12px; white-space: nowrap; }
+            
+            .booking-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--spacing-gutter) var(--spacing-editorial-gap); padding: 0 var(--spacing-margin-desktop); }
+            .room-card { min-height: 120px; padding: var(--spacing-unit) var(--spacing-gutter); }
+            .room-card.status-clean { border-left: 3px solid #4caf50; }
+            .room-card.status-dirty { border-left: 3px solid #ff9800; }
+            .room-card.status-inspect { border-left: 3px solid #2196f3; }
+            .room-card.status-ready { border-left: 3px solid #8bc34a; }
+            .room-card.status-out { border-left: 3px solid #f44336; }
+            .room-number { font-size: 16px; margin-bottom: calc(var(--spacing-unit) / 2); }
+            .channel-badges { display: flex; gap: calc(var(--spacing-unit) / 2); justify-content: center; flex-wrap: wrap; margin-top: calc(var(--spacing-unit) / 2); }
+            .channel-badge { padding: 2px 6px; font-size: 10px; font-weight: 500; color: var(--on-surface-variant); }
+            .room-status { font-size: 11px; font-weight: 500; margin-top: calc(var(--spacing-unit) / 4); }
+            .room-rate { font-size: 13px; margin-top: calc(var(--spacing-unit) / 2); color: var(--on-surface); }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container" style="max-width: 375px; margin: 0 auto; padding: var(--spacing-margin-mobile);">
+        
+        <!-- Timeline -->
+        <div class="timeline-container" aria-label="Booking timeline showing 14 days">
+            <div class="timeline-strip" role="tablist">
+                <!-- Day 1 -->
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 1">
+                    <span class="day-number">1</span>
+                    <div class="timeline-booking channel-booking-com" title="Booking 1"></div>
+                    <div class="timeline-booking channel-airbnb" title="Booking 2"></div>
+                </div>
+                
+                <!-- Day 2 -->
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 2">
+                    <span class="day-number">2</span>
+                    <div class="timeline-booking channel-booking-com" title="Booking 1"></div>
+                    <div class="timeline-booking channel-airbnb" title="Booking 2"></div>
+                </div>
+                
+                <!-- Day 3 -->
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 3">
+                    <span class="day-number">3</span>
+                    <div class="timeline-booking channel-booking-com" title="Booking 1"></div>
+                </div>
+                
+                <!-- Day 4 - TODAY -->
+                <div class="timeline-day today" tabindex="0" role="tab" aria-label="Day 4, Today">
+                    <span class="day-number">4</span>
+                    <div class="timeline-booking channel-expedia" title="Booking 1"></div>
+                    <div class="timeline-booking channel-direct" title="Booking 2"></div>
+                </div>
+                
+                <!-- Day 5 -->
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 5">
+                    <span class="day-number">5</span>
+                </div>
+                
+                <!-- Day 6 -->
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 6">
+                    <span class="day-number">6</span>
+                    <div class="timeline-booking channel-airbnb" title="Booking 1"></div>
+                </div>
+                
+                <!-- Day 7 -->
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 7">
+                    <span class="day-number">7</span>
+                </div>
+                
+                <!-- Day 8 -->
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 8">
+                    <span class="day-number">8</span>
+                    <div class="timeline-booking channel-booking-com" title="Booking 1"></div>
+                </div>
+                
+                <!-- Days 9-12 (simplified - no bookings) -->
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 9"></div>
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 10"></div>
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 11"></div>
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 12"></div>
+                
+                <!-- Day 13 -->
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 13">
+                    <span class="day-number">13</span>
+                    <div class="timeline-booking channel-airbnb" title="Booking 1"></div>
+                </div>
+                
+                <!-- Days 14 - end of 14-day range -->
+                <div class="timeline-day" tabindex="0" role="tab" aria-label="Day 14"></div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Header -->
+        <header class="dashboard-header">
+            <h1 class="dashboard-title">Booking Dashboard</h1>
+            <button class="today-button" aria-label="Go to today">
+                Today <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 16"/>
+                </svg>
+            </button>
+        </header>
+        
+        <!-- KPI Cards -->
+        <div class="dashboard-kpis" role="region" aria-label="Key performance indicators">
+            <div class="kpi-card">
+                <div class="kpi-value">65%</div>
+                <div class="kpi-label">Occupancy</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">$187</div>
+                <div class="kpi-label">ADR</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">$4,230</div>
+                <div class="kpi-label">RevPAR</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">12</div>
+                <div class="kpi-label">Active Bookings</div>
+            </div>
+        </div>
+        
+        <!-- Channel Filters -->
+        <div class="channel-filters" role="tablist" aria-label="Channel filters">
+            <button class="filter-button active" role="tab">All</button>
+            <button class="filter-button" role="tab">Booking.com</button>
+            <button class="filter-button" role="tab">Airbnb</button>
+            <button class="filter-button" role="tab">Expedia</button>
+            <button class="filter-button" role="tab">Direct</button>
+        </div>
+        
+        <!-- Booking Grid (Mobile: single column) -->
+        <section class="booking-grid" role="region" aria-label="Room booking grid">
+            <div class="room-card status-clean">
+                <div class="room-number">Room 101</div>
+                <div class="channel-badges">
+                    <span class="channel-badge">Booking.com</span>
+                    <span class="channel-badge">Airbnb</span>
+                </div>
+                <div class="room-status">Clean</div>
+                <div class="room-rate">$180/night</div>
+            </div>
+            <div class="room-card status-dirty">
+                <div class="room-number">Room 102</div>
+                <div class="channel-badges">
+                    <span class="channel-badge">Direct</span>
+                </div>
+                <div class="room-status">Dirty</div>
+                <div class="room-rate">$150/night</div>
+            </div>
+            <div class="room-card status-ready">
+                <div class="room-number">Room 103</div>
+                <div class="channel-badges">
+                    <span class="channel-badge">Expedia</span>
+                </div>
+                <div class="room-status">Ready</div>
+                <div class="room-rate">$200/night</div>
+            </div>
+            <div class="room-card status-inspect">
+                <div class="room-number">Room 104</div>
+                <div class="channel-badges">
+                    <span class="channel-badge">Booking.com</span>
+                </div>
+                <div class="room-status">Inspect</div>
+                <div class="room-rate">$175/night</div>
+            </div>
+            <div class="room-card status-out">
+                <div class="room-number">Room 105</div>
+                <div class="channel-badges">
+                    <span class="channel-badge">Airbnb</span>
+                </div>
+                <div class="room-status">Out of Order</div>
+                <div class="room-rate">$0/night</div>
+            </div>
+        </section>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+PAGE: Automation (automation.html, nav item: Automation, top-bar title "Automation").
+Guest messages that send themselves (PRD FR-5/FR-6).
+
+LAYOUT
+.flows { display: grid; gap: var(--layout-gutter); }
+@media (min-width: 1200px) { .flows { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; } }
+.flow { display: flex; flex-direction: column; gap: var(--sp-3); }
+.flow .preview { background: var(--md-surface-container-low); border-radius: var(--md-shape-sm); padding: var(--sp-4); }
+.flow .btn--text { margin-top: auto; align-self: flex-start; }
+
+SECTIONS
+1. .page-head: <h2 class="t-headline-small">Guest messages</h2>, muted "3 automations · 41 messages sent this month",
+   right: class="btn btn--filled" icon add "New automation".
+2. .flows with 3 cards (<article class="card card--outlined flow">). Each card:
+   - .card__header: <h2>title</h2> + on the right a .segmented with "On" / "Off" (the active one pressed)
+   - muted line with icon schedule: when it sends
+   - channel order: tags with icons: chat "WhatsApp" then arrow_forward then mail "Email"
+   - .preview: the message text (t-body-medium), first line in t-title-small
+   - stats line t-body-small muted
+   - class="btn btn--text" icon edit "Edit template"
+   Cards:
+   a) "Booking confirmation" — On — "Right after a booking is made"
+      Preview: "Thank you, {first name}!" / "Your stay at Casa Verde is confirmed: {dates}, {room}. We'll send
+      check-in details 3 days before you arrive."
+      Stats: "Sent 18 · Read 16"
+   b) "Pre-arrival instructions" — On — "3 days before check-in, 10:00"
+      Preview: "See you on {weekday}, {first name}!" / "Check-in from 14:00. Please upload your ID here: {link}.
+      Parking is free in the courtyard. Arriving late? The key box code will follow."
+      Stats: "Sent 15 · ID received 12"
+   c) "Upsell offer" — Off — "2 days before check-in"
+      Preview: "Make it special" / "Add breakfast (€12 per person) or late check-out until 14:00 (€20). Reply 1 or 2."
+      Stats: "Paused · last month 4 extras sold, €88"
+3. "Activity" card: .card__header <h2>Activity</h2> + muted "Last 24 hours".
+   <ul class="list"> with 6 items (avatar initials, headline, supporting, trailing time + status tag):
+     Hyun Kim — Pre-arrival instructions · WhatsApp — 10:00 — tag tag--ready "Read"
+     Weber family — Pre-arrival instructions · Email — 10:00 — tag "Delivered"
+     Novak family — ID reminder · WhatsApp — 09:30 — tag tag--dirty "No ID yet"
+     Anna Petrosyan — Pre-arrival instructions · WhatsApp — Wed 10:00 — tag tag--ready "ID received"
+     Rita Silva — Booking confirmation · held — 08:12 — tag tag--ooo "Held: overlap"
+     Marco Rossi — Booking confirmation · Email — Fri 18:40 — tag tag--ready "Read"

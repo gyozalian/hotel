@@ -1,0 +1,20 @@
+I opened channels.html in a browser at 1440px. Cards and table look good. Fix these by editing channels.html only:
+
+1. NAV IS WRONG: the "Channels" nav item is missing, so nothing is highlighted. Copy the whole
+   <nav class="nav"> block from dashboard.html again and move aria-current="page" from Dashboard to Channels.
+2. PAGE-HEAD BUTTONS: add class="btn btn--outlined" with <span class="icon">sync</span> "Sync now" before
+   "Connect channel", and give "Connect channel" <span class="icon">add</span> before the text.
+3. STATUS TAGS: "Connected" on Booking.com and Expedia must be class="tag tag--ready" (green), not blue.
+   Direct "Live" is tag--ready too. Airbnb "Paused: Room 3" stays tag--dirty.
+4. SETTINGS BUTTONS are centered. Add to the <style>:
+   `.ch-card .btn--text { align-self: flex-start; margin-top: auto; margin-left: calc(var(--sp-3) * -1); }`
+5. DIRECT CARD: title just "Direct" and the muted line "Your website · casaverde.am". Replace "Last sync —"
+   with "Last booking today 09:40".
+6. TABLE HEADERS: numeric column headers must be right-aligned like their values: add class="num" to the
+   <th> of Bookings, Gross, Commission and Net.
+7. TOTALS ROW is broken (the numbers run together under the table). It must be a real row inside <tbody>:
+   <tr class="total"><td>Total</td><td class="num">40</td><td class="num">€13,580</td><td class="num">€1,371</td>
+   <td class="num">€12,209</td><td></td></tr>
+   with `.table .total td { font: var(--md-title-small); border-bottom: 0; }`.
+
+Change nothing else. When done, list what you changed in one short list.

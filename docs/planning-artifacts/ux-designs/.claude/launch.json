@@ -1,0 +1,25 @@
+﻿{
+    "version":  "0.0.1",
+    "configurations":  [
+                           {
+                               "name":  "material-starter",
+                               "runtimeExecutable":  "node",
+                               "runtimeArgs":  [
+                                                   "C:\\Users\\Sargis\\AppData\\Local\\Temp\\claude\\767abf94af7f6756\\7f4fa39f-254d-460a-a8a0-63f54bb3b0f0\\scratchpad\\serve.mjs",
+                                                   "C:\\Projects\\hotel\\docs\\planning-artifacts\\ux-designs\\material-starter",
+                                                   "5178"
+                                               ],
+                               "port":  5178
+                           },
+                           {
+                               "name":  "bento-starter",
+                               "runtimeExecutable":  "node",
+                               "runtimeArgs":  [
+                                                   "C:\\Users\\Sargis\\AppData\\Local\\Temp\\claude\\767abf94af7f6756\\7f4fa39f-254d-460a-a8a0-63f54bb3b0f0\\scratchpad\\serve.mjs",
+                                                   "C:\\Projects\\hotel\\docs\\planning-artifacts\\ux-designs\\bento-starter",
+                                                   "5179"
+                                               ],
+                               "port":  5179
+                           }
+                       ]
+}

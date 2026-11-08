@@ -1,0 +1,35 @@
+PAGE: Calendar (calendar.html, nav item: Calendar, top-bar title "Calendar").
+Reuse the .tl timeline CSS from dashboard.html (copy those rules into your <style>; they count
+as layout). Show 14 days, Sat 7 Nov → Fri 20 Nov, all 6 rooms.
+
+SECTIONS (in this order)
+1. .page-head (copy the CSS from dashboard.html):
+   left: icon buttons chevron_left / chevron_right around <h2 class="t-headline-small">November 2026</h2>,
+   a text button "Today";
+   right: .segmented "2 weeks" (pressed) / "Month", and class="btn btn--filled" with icon add "New booking".
+2. .banner.banner--error: title "Overlap on Room 3 · 11–13 Nov", text "Rita Silva (Airbnb) overlaps
+   the Weber family (Booking.com). Room 3 is closed on all channels until you decide.",
+   buttons class="btn btn--error" "Resolve overlap" and class="btn btn--text" "Keep both, move Silva".
+3. Layout row .cal-grid:
+   .cal-grid { display: grid; gap: var(--layout-gutter); }
+   @media (min-width: 1200px) { .cal-grid { grid-template-columns: minmax(0, 1fr) 340px; align-items: start; } }
+   a) Timeline card (<article class="card card--outlined tl-card">):
+      .card__header: <h2>Bookings</h2> + .chip-row: All channels (pressed, with check icon),
+      Booking.com, Airbnb, Expedia, Direct.
+      Then .tl-scroll > .tl with 14 day columns (Sat 7 is .is-today, Sat/Sun are .is-weekend)
+      and one .tl-row per room with bars from SHARED FACTS. Bar grid-column = day column:
+      column 2 = 7 Nov, column 3 = 8 Nov ... column 15 = 20 Nov; span = number of nights.
+      James Smith is not shown (left before 7 Nov). Room 5 out of order: .tl-bar.tag--ooo.
+      Rita Silva bar: class "tl-bar tag--airbnb is-conflict" on grid-row 2 of Room 3.
+      Weber family bar has an extra class "is-selected" and style outline: 2px solid var(--md-on-surface).
+      Below the grid: the channel legend from dashboard.html.
+   b) Details card (<article class="card card--outlined">) "Booking details" for the Weber family:
+      - header: avatar "WF", name "Weber family", tag tag--booking "Booking.com"
+      - rows (label muted left, value right, use a 2-column grid):
+        Room: 3 · Terrace suite / Dates: Mon 9 → Fri 13 Nov · 4 nights / Guests: 2 adults, 1 child
+        Rate: €110 / night
+      - .divider
+      - money rows: Gross €440 / Commission (15%) −€66 / Net to you €374 (net in t-title-medium)
+      - pre-arrival: tag tag--ready with icon task_alt "ID received" and tag with icon mail "Instructions sent 6 Nov"
+      - buttons: class="btn btn--tonal" "Open guest", class="btn btn--outlined" "Move booking"
+      On screens below 1200px this card simply goes under the timeline.

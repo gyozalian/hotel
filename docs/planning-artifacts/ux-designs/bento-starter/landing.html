@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Casa Verde CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    /* ----- Layout helpers ----- */
+    body { background: var(--md-surface); }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 var(--layout-margin); }
+    section { padding: var(--sp-12) 0; }
+    .grid3 { display: grid; gap: var(--layout-gutter); grid-template-columns: minmax(0, 1fr); }
+    @media (min-width: 840px) { .grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    .section-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-4); margin-bottom: var(--sp-6); }
+    .section-head h2 { flex: 1 1 auto; }
+
+    /* ----- Header ----- */
+    .landing-header { position: sticky; top: 0; z-index: 10; background: var(--md-surface); padding: var(--sp-3) 0; }
+    .landing-header .wrap { display: flex; align-items: center; gap: var(--sp-3); }
+    .logo { width: 40px; height: 40px; border-radius: var(--md-shape-sm); display: grid; place-items: center;
+      background: var(--md-primary); color: var(--md-on-primary); flex-shrink: 0; }
+    .nav-links { display: flex; gap: var(--sp-1); }
+    @media (max-width: 839px) { .nav-links { display: none; } }
+    @media (max-width: 479px) { .landing-header .btn--text { display: none; } }
+
+    /* ----- Hero ----- */
+    .hero { text-align: center; padding-top: var(--sp-8); }
+    .hero__text { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: var(--sp-4); }
+    @media (min-width: 840px) { .hero h1 { font: var(--md-display-medium); } }
+    .hero__actions { display: flex; gap: var(--sp-2); justify-content: center; flex-wrap: wrap; }
+    .hero__actions .btn--filled { height: 48px; }
+    .screenshot { margin-top: var(--sp-10); background: var(--md-surface-container-lowest); border-radius: var(--md-shape-xl);
+      box-shadow: var(--md-elev-4); padding: var(--sp-2); overflow: hidden; }
+    .screenshot iframe { display: block; width: 100%; height: 640px; border: 0; border-radius: var(--md-shape-md); pointer-events: none; }
+    @media (max-width: 599px) { .screenshot iframe { height: 480px; } }
+
+    /* ----- Proof strip ----- */
+    .proof { padding: var(--sp-4) 0 var(--sp-8); text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--sp-3); }
+    .proof__row { display: flex; gap: var(--sp-2); justify-content: center; align-items: center; flex-wrap: wrap; }
+
+    /* ----- Feature + plan cards ----- */
+    .feature, .plan { display: flex; flex-direction: column; gap: var(--sp-3); }
+    .icon-square { width: 48px; height: 48px; border-radius: var(--md-shape-sm); display: grid; place-items: center;
+      background: var(--md-primary-container); color: var(--md-on-primary-container); }
+    .plan.popular { background: var(--md-primary-container); color: var(--md-on-primary-container); }
+    .plan.popular .muted { color: var(--md-on-primary-container); }
+    .plan__name { display: flex; align-items: center; gap: var(--sp-2); }
+    .plan ul { list-style: none; padding: 0; margin: var(--sp-2) 0; display: flex; flex-direction: column; gap: var(--sp-2); }
+    .plan li { display: flex; align-items: center; gap: var(--sp-2); }
+    .plan .btn { margin-top: auto; width: 100%; }
+
+    /* ----- FAQ ----- */
+    .faq summary { cursor: pointer; padding: var(--sp-2) 0; }
+    .faq details p { padding: 0 0 var(--sp-2); }
+
+    /* ----- Final CTA + footer ----- */
+    .cta { background: var(--md-inverse-surface); color: var(--md-inverse-on-surface); border-radius: var(--md-shape-xl);
+      padding: var(--sp-12) var(--sp-6); text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--sp-5); }
+    .footer { padding: var(--sp-8) 0 var(--sp-12); }
+    .footer .row { display: flex; flex-wrap: wrap; gap: var(--sp-6); justify-content: center; color: var(--md-on-surface-variant); }
+  </style>
+</head>
+<body>
+
+  <!-- ----- Header ----- -->
+  <header class="landing-header">
+    <div class="wrap">
+      <span class="logo"><span class="icon filled">hotel</span></span>
+      <span class="t-title-medium">Casa Verde CRM</span>
+      <span style="flex: 1;"></span>
+      <nav class="nav-links" aria-label="Page sections">
+        <a class="btn btn--text" href="#features">Features</a>
+        <a class="btn btn--text" href="#pricing">Pricing</a>
+        <a class="btn btn--text" href="#faq">FAQ</a>
+      </nav>
+      <a class="btn btn--text" href="login.html">Sign in</a>
+      <button class="btn btn--filled">Start free trial</button>
+    </div>
+  </header>
+
+  <!-- ----- Hero ----- -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero__text">
+        <span class="tag tag--direct">New: automatic overlap protection</span>
+        <h1 class="t-display-small">All your bookings in one calm place</h1>
+        <p class="t-body-large muted">No more double bookings across Booking.com, Airbnb and Expedia. Casa Verde CRM keeps your calendar in sync, messages guests for you and shows what you really earn after commission.</p>
+        <div class="hero__actions">
+          <button class="btn btn--filled">Start free trial</button>
+          <button class="btn btn--outlined"><span class="icon">play_circle</span>Watch 2-min demo</button>
+        </div>
+        <p class="t-body-small muted">14 days free · no card needed · cancel anytime</p>
+      </div>
+      <div class="screenshot">
+        <iframe src="dashboard.html" title="Dashboard preview" loading="lazy" tabindex="-1"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----- Proof strip ----- -->
+  <div class="wrap proof">
+    <p class="t-title-small">Trusted by 1,200+ small hotels</p>
+    <div class="proof__row">
+      <span class="t-body-medium muted">Works with</span>
+      <span class="tag tag--booking">Booking.com</span>
+      <span class="tag tag--airbnb">Airbnb</span>
+      <span class="tag tag--expedia">Expedia</span>
+      <span class="tag tag--direct">Direct</span>
+    </div>
+  </div>
+
+  <!-- ----- Features ----- -->
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head"><h2 class="t-headline-medium">Built for owners who also make breakfast</h2></div>
+      <div class="grid3">
+        <article class="card card--outlined feature">
+          <div class="icon-square"><span class="icon">sync_problem</span></div>
+          <h3 class="t-title-medium">No more overlaps</h3>
+          <p class="t-body-medium muted">Every booking closes the room on all channels within 2 minutes. If two land at once, you decide, not the robot.</p>
+        </article>
+        <article class="card card--outlined feature">
+          <div class="icon-square"><span class="icon">forward_to_inbox</span></div>
+          <h3 class="t-title-medium">Guests get what they need</h3>
+          <p class="t-body-medium muted">Confirmation, check-in instructions and ID upload go out by WhatsApp or email, on time.</p>
+        </article>
+        <article class="card card--outlined feature">
+          <div class="icon-square"><span class="icon">account_balance_wallet</span></div>
+          <h3 class="t-title-medium">See real earnings</h3>
+          <p class="t-body-medium muted">Gross, commission and net per channel, so you know which one actually pays.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----- Pricing ----- -->
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="t-headline-medium">Simple pricing</h2>
+        <div class="segmented" role="group" aria-label="Billing period">
+          <button aria-pressed="true"><span class="icon sm">check</span>Monthly</button>
+          <button aria-pressed="false">Yearly −20%</button>
+        </div>
+      </div>
+      <div class="grid3">
+        <article class="card card--outlined plan">
+          <h3 class="t-title-large">Starter</h3>
+          <p><span class="t-display-small">€19</span> <span class="muted">/ month</span></p>
+          <p class="t-body-medium muted">Up to 5 rooms</p>
+          <ul class="t-body-medium">
+            <li><span class="icon">check</span>2 channels</li>
+            <li><span class="icon">check</span>Calendar &amp; room status</li>
+            <li><span class="icon">check</span>Guest list</li>
+            <li><span class="icon">check</span>Email support</li>
+          </ul>
+          <button class="btn btn--outlined">Start free trial</button>
+        </article>
+        <article class="card card--outlined plan popular">
+          <div class="plan__name"><h3 class="t-title-large">Pro</h3><span class="tag tag--direct">Most popular</span></div>
+          <p><span class="t-display-small">€39</span> <span class="muted">/ month</span></p>
+          <p class="t-body-medium muted">Up to 15 rooms</p>
+          <ul class="t-body-medium">
+            <li><span class="icon">check</span>All channels</li>
+            <li><span class="icon">check</span>Automations (WhatsApp + email)</li>
+            <li><span class="icon">check</span>Pricing rules</li>
+            <li><span class="icon">check</span>Reports &amp; CSV</li>
+          </ul>
+          <button class="btn btn--filled">Start free trial</button>
+        </article>
+        <article class="card card--outlined plan">
+          <h3 class="t-title-large">Multi-property</h3>
+          <p><span class="t-display-small">€79</span> <span class="muted">/ month</span></p>
+          <p class="t-body-medium muted">Up to 30 rooms, many properties</p>
+          <ul class="t-body-medium">
+            <li><span class="icon">check</span>Everything in Pro</li>
+            <li><span class="icon">check</span>Staff roles</li>
+            <li><span class="icon">check</span>Multiple properties</li>
+            <li><span class="icon">check</span>Priority support</li>
+          </ul>
+          <button class="btn btn--outlined">Talk to us</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----- FAQ ----- -->
+  <section id="faq" class="faq">
+    <div class="wrap">
+      <div class="section-head"><h2 class="t-headline-medium">Questions</h2></div>
+      <article class="card card--outlined">
+        <details>
+          <summary class="t-title-small">Do I need a channel manager too?</summary>
+          <p class="t-body-medium muted">No. Casa Verde CRM connects to Booking.com, Airbnb and Expedia directly.</p>
+        </details>
+        <hr class="divider">
+        <details>
+          <summary class="t-title-small">What happens when two bookings overlap?</summary>
+          <p class="t-body-medium muted">The room closes on all channels immediately and you choose which booking to keep.</p>
+        </details>
+        <hr class="divider">
+        <details>
+          <summary class="t-title-small">Can my housekeeper use it on her phone?</summary>
+          <p class="t-body-medium muted">Yes. Staff get their own login and only see what their role allows.</p>
+        </details>
+        <hr class="divider">
+        <details>
+          <summary class="t-title-small">Is guest ID data safe?</summary>
+          <p class="t-body-medium muted">Documents are stored encrypted in the EU and deleted automatically after the legal period.</p>
+        </details>
+        <hr class="divider">
+        <details>
+          <summary class="t-title-small">Can I cancel anytime?</summary>
+          <p class="t-body-medium muted">Yes, from Settings → Billing. You keep your data export.</p>
+        </details>
+      </article>
+    </div>
+  </section>
+
+  <!-- ----- Final CTA ----- -->
+  <section>
+    <div class="wrap">
+      <div class="cta">
+        <h2 class="t-headline-medium">Try it with your own rooms</h2>
+        <button class="btn btn--filled">Start free trial</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----- Footer ----- -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="row t-body-small">
+        <span>© 2026 Casa Verde CRM</span>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Segmented button toggle (from dashboard.html)
+    document.querySelectorAll('.segmented').forEach(group => {
+      group.addEventListener('click', e => {
+        const btn = e.target.closest('button'); if (!btn) return;
+        group.querySelectorAll('button').forEach(b => { b.setAttribute('aria-pressed', 'false'); b.classList.remove('is-selected'); b.querySelector('.icon')?.remove(); });
+        btn.setAttribute('aria-pressed', 'true'); btn.classList.add('is-selected');
+        btn.insertAdjacentHTML('afterbegin', '<span class="icon sm">check</span>');
+      });
+    });
+  </script>
+
+</body>
+</html>

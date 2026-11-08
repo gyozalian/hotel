@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style options · Casa Verde CRM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 Inter, system-ui, sans-serif; color: #1a1a1a; background: #f4f4f2; }
+  h1, h2, h3, p { margin: 0; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+  .intro { max-width: 760px; margin-bottom: 32px; }
+  .intro h1 { font-size: 28px; font-weight: 600; letter-spacing: -.02em; margin-bottom: 8px; }
+  .intro p { color: #555; }
+  .option { margin-top: 48px; }
+  .option__head { display: grid; gap: 8px 32px; margin-bottom: 16px; }
+  @media (min-width: 900px) { .option__head { grid-template-columns: 1fr 1fr; } }
+  .option__head h2 { font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
+  .option__head h2 span { display: inline-block; font-size: 12px; font-weight: 600; background: #1a1a1a; color: #fff; border-radius: 4px; padding: 1px 6px; margin-right: 8px; vertical-align: 3px; }
+  .option__head .refs { color: #666; font-size: 13px; }
+  .option__head ul { margin: 0; padding-left: 18px; color: #333; font-size: 14px; }
+  .option__head li b { font-weight: 600; }
+
+  /* ===================== The mini app (themed by variables) ===================== */
+  .app {
+    --booking: #2f5fa7; --airbnb: #d1475e; --expedia: #b98a00; --direct: var(--accent);
+    font-family: var(--font); font-size: var(--fs); color: var(--text); background: var(--bg);
+    border-radius: 14px; overflow: hidden; border: 1px solid var(--frame);
+    display: grid; grid-template-columns: 1fr; min-height: 560px;
+    box-shadow: 0 20px 50px -30px rgba(0,0,0,.35);
+  }
+  @media (min-width: 820px) { .app { grid-template-columns: 208px 1fr; } }
+  .side { display: none; background: var(--side-bg); border-right: 1px solid var(--side-border); padding: 16px 12px; color: var(--side-text); }
+  @media (min-width: 820px) { .side { display: flex; flex-direction: column; gap: 2px; } }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 4px 8px 18px; font-family: var(--font-head); font-weight: var(--head-w); font-size: 16px; color: var(--side-strong); }
+  .brand i { width: 26px; height: 26px; border-radius: var(--r-sm); background: var(--accent); display: grid; place-items: center; color: var(--accent-ink); font-style: normal; font-size: 13px; font-weight: 700; font-family: var(--font); }
+  .side a { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: var(--r-sm); color: inherit; text-decoration: none; font-weight: 500; }
+  .side a svg { width: 16px; height: 16px; opacity: .8; }
+  .side a.on { background: var(--side-on); color: var(--side-strong); }
+  .side small { padding: 16px 10px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; opacity: .6; }
+
+  .mainp { padding: 20px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  @media (min-width: 820px) { .mainp { padding: 24px 28px; } }
+  .top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .top h3 { font-family: var(--font-head); font-weight: var(--head-w); font-size: var(--h-size); letter-spacing: var(--h-track); flex: 1; min-width: 200px; }
+  .top p { color: var(--muted); font-size: .92em; width: 100%; order: 3; margin-top: -8px; }
+  .btn { font: inherit; font-weight: 600; border: 0; cursor: pointer; border-radius: var(--r-btn); padding: 8px 14px; background: var(--accent); color: var(--accent-ink); }
+  .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); font-weight: 500; }
+
+  .alert { display: flex; gap: 12px; align-items: center; padding: 10px 14px; border-radius: var(--r); background: var(--warn-bg); color: var(--warn-text); border: 1px solid var(--warn-border); font-size: .95em; flex-wrap: wrap; }
+  .alert b { font-weight: 600; }
+  .alert .btn { margin-left: auto; padding: 5px 12px; background: var(--warn-text); color: var(--warn-bg); }
+
+  .kpis { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--gap); }
+  @media (min-width: 820px) { .kpis { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow); padding: var(--pad); min-width: 0; }
+  .kpi span { color: var(--muted); font-size: .88em; }
+  .kpi b { display: block; font-family: var(--font-num); font-weight: var(--num-w); font-size: var(--num-size); letter-spacing: -.02em; margin: 2px 0; font-variant-numeric: tabular-nums; }
+  .kpi em { font-style: normal; font-size: .85em; color: var(--good); }
+
+  .grid { display: grid; gap: var(--gap); }
+  @media (min-width: 1000px) { .grid { grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr); } }
+  .panel h4 { margin: 0 0 12px; font-family: var(--font-head); font-weight: var(--head-w); font-size: 1.05em; display: flex; justify-content: space-between; align-items: baseline; }
+  .panel h4 small { font-family: var(--font); font-weight: 400; color: var(--muted); font-size: .85em; }
+
+  .tl-scroll { overflow-x: auto; }
+  .tl { min-width: 520px; display: grid; grid-template-columns: 92px repeat(7, 1fr); row-gap: 6px; }
+  .tl .d { text-align: center; font-size: .8em; color: var(--muted); padding-bottom: 4px; }
+  .tl .d b { display: block; color: var(--text); font-size: 1.15em; font-weight: 600; }
+  .tl .d.today b { color: var(--accent-strong); }
+  .tl .rm { font-weight: 600; font-size: .92em; align-self: center; }
+  .tl .rm span { display: block; font-weight: 400; color: var(--muted); font-size: .85em; }
+  .tl .row { display: contents; }
+  .bar { height: 30px; margin: 0 2px; border-radius: var(--r-bar); display: flex; align-items: center; padding: 0 8px; font-size: .82em; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; align-self: center;
+         background: color-mix(in srgb, var(--c) var(--bar-mix), var(--surface)); color: var(--bar-text, color-mix(in srgb, var(--c) 70%, var(--text))); border-left: var(--bar-edge) solid var(--c); }
+  .bar.conflict { outline: 2px dashed var(--danger); outline-offset: -2px; }
+  .b-booking { --c: var(--booking); } .b-airbnb { --c: var(--airbnb); } .b-expedia { --c: var(--expedia); } .b-direct { --c: var(--direct); }
+
+  .list { display: flex; flex-direction: column; }
+  .li { display: flex; align-items: center; gap: 12px; padding: 10px 0; }
+  .li + .li { border-top: 1px solid var(--border); }
+  .av { width: 34px; height: 34px; border-radius: var(--r-av); background: var(--accent-soft); color: var(--accent-strong); display: grid; place-items: center; font-weight: 600; font-size: .82em; flex-shrink: 0; }
+  .li div { flex: 1; min-width: 0; }
+  .li p { font-weight: 500; }
+  .li small { color: var(--muted); font-size: .85em; }
+  .pill { font-size: .75em; font-weight: 600; padding: 2px 8px; border-radius: var(--r-pill); white-space: nowrap; }
+  .pill.ok { background: var(--good-bg); color: var(--good); }
+  .pill.wait { background: var(--warn-bg); color: var(--warn-text); }
+
+  /* ===================== A · Calm neutral (Linear / Stripe / Attio) ===================== */
+  .t-a {
+    --font: Inter, system-ui, sans-serif; --font-head: Inter, sans-serif; --font-num: Inter, sans-serif;
+    --fs: 13.5px; --head-w: 600; --h-size: 20px; --h-track: -.015em; --num-w: 600; --num-size: 24px;
+    --bg: #fbfbfa; --surface: #ffffff; --border: #e8e8e5; --frame: #e2e2df; --text: #1c1c1a; --muted: #73736e;
+    --side-bg: #f6f6f4; --side-border: #ebebe8; --side-text: #55554f; --side-strong: #1c1c1a; --side-on: #ebebe7;
+    --accent: #2f6b4f; --accent-ink: #fff; --accent-soft: #e6efe9; --accent-strong: #2f6b4f;
+    --good: #2f6b4f; --good-bg: #e6efe9; --warn-bg: #fdf3e7; --warn-text: #8a4b0f; --warn-border: #f2dcc0; --danger: #c2410c;
+    --r: 8px; --r-sm: 6px; --r-btn: 6px; --r-bar: 4px; --r-av: 50%; --r-pill: 4px;
+    --shadow: none; --pad: 16px; --gap: 12px; --bar-mix: 12%; --bar-edge: 2px;
+  }
+  /* ===================== B · Warm boutique (hospitality) ===================== */
+  .t-b {
+    --font: "Plus Jakarta Sans", system-ui, sans-serif; --font-head: Fraunces, Georgia, serif; --font-num: Fraunces, Georgia, serif;
+    --fs: 14px; --head-w: 600; --h-size: 26px; --h-track: -.01em; --num-w: 600; --num-size: 30px;
+    --bg: #f7f1e8; --surface: #fffcf7; --border: #eadfce; --frame: #e5d8c4; --text: #2b241c; --muted: #8a7b68;
+    --side-bg: #2f3a2c; --side-border: #2f3a2c; --side-text: #c9cdbb; --side-strong: #fffcf7; --side-on: #46543f;
+    --accent: #b5562f; --accent-ink: #fffcf7; --accent-soft: #f6e2d6; --accent-strong: #9a4321;
+    --booking: #34588c; --airbnb: #c24a5c; --expedia: #a77c12; --direct: #5c7a3f;
+    --good: #4f6b34; --good-bg: #e8eedb; --warn-bg: #fbe9d9; --warn-text: #8f3b17; --warn-border: #f0cfb3; --danger: #b5562f;
+    --r: 18px; --r-sm: 10px; --r-btn: 999px; --r-bar: 999px; --r-av: 50%; --r-pill: 999px;
+    --shadow: 0 1px 2px rgba(80,50,20,.06), 0 6px 18px -10px rgba(80,50,20,.18); --pad: 20px; --gap: 16px; --bar-mix: 22%; --bar-edge: 0px;
+  }
+  /* ===================== C · Dark ops (Vercel / Linear dark) ===================== */
+  .t-c {
+    --font: Geist, Inter, system-ui, sans-serif; --font-head: Geist, sans-serif; --font-num: "Geist Mono", ui-monospace, monospace;
+    --fs: 13.5px; --head-w: 600; --h-size: 20px; --h-track: -.02em; --num-w: 500; --num-size: 24px;
+    --bg: #0b0c0e; --surface: #131418; --border: #23252b; --frame: #23252b; --text: #ececee; --muted: #8b8d96;
+    --side-bg: #0b0c0e; --side-border: #1c1e23; --side-text: #9a9ca5; --side-strong: #fff; --side-on: #1d1f25;
+    --accent: #4ade80; --accent-ink: #052e16; --accent-soft: #14301f; --accent-strong: #4ade80;
+    --booking: #60a5fa; --airbnb: #fb7185; --expedia: #facc15; --direct: #4ade80; --bar-text: #ececee;
+    --good: #4ade80; --good-bg: #14301f; --warn-bg: #2a1d0b; --warn-text: #fbbf24; --warn-border: #4a3410; --danger: #f87171;
+    --r: 10px; --r-sm: 6px; --r-btn: 6px; --r-bar: 5px; --r-av: 8px; --r-pill: 4px;
+    --shadow: none; --pad: 16px; --gap: 12px; --bar-mix: 22%; --bar-edge: 2px;
+  }
+  /* ===================== D · Friendly bento (Airbnb host / Notion-ish) ===================== */
+  .t-d {
+    --font: "Plus Jakarta Sans", system-ui, sans-serif; --font-head: "Plus Jakarta Sans", sans-serif; --font-num: "Plus Jakarta Sans", sans-serif;
+    --fs: 14px; --head-w: 700; --h-size: 24px; --h-track: -.02em; --num-w: 700; --num-size: 28px;
+    --bg: #f3f5f2; --surface: #ffffff; --border: transparent; --frame: #e3e7e1; --text: #17201a; --muted: #6b766d;
+    --side-bg: #ffffff; --side-border: #e9ece7; --side-text: #4d5a50; --side-strong: #17201a; --side-on: #dff3e4;
+    --accent: #1f9d55; --accent-ink: #fff; --accent-soft: #dff3e4; --accent-strong: #157a41;
+    --booking: #3b82f6; --airbnb: #f43f5e; --expedia: #f59e0b; --direct: #1f9d55;
+    --good: #157a41; --good-bg: #dff3e4; --warn-bg: #fff1e6; --warn-text: #b4480b; --warn-border: #ffd9bd; --danger: #e11d48;
+    --r: 20px; --r-sm: 12px; --r-btn: 12px; --r-bar: 10px; --r-av: 12px; --r-pill: 999px;
+    --shadow: 0 1px 2px rgba(20,40,25,.05); --pad: 20px; --gap: 14px; --bar-mix: 16%; --bar-edge: 0px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="intro">
+    <h1>Four directions for the Casa Verde CRM</h1>
+    <p>The same dashboard slice (alert, KPIs, 7-day calendar, today's arrivals) in four styles. Pick one, or mix: for example B's colors and fonts with A's density. Each is just a set of tokens, so the chosen one replaces <code>tokens.css</code> and the pages keep their structure.</p>
+  </div>
+
+  <section class="option">
+    <div class="option__head">
+      <div>
+        <h2><span>A</span>Calm neutral</h2>
+        <p class="refs">Like Linear, Stripe Dashboard, Attio. The current default look of serious SaaS.</p>
+      </div>
+      <ul>
+        <li><b>Feel:</b> quiet, precise, fast. Off-white, hairline borders, no shadows, one green accent.</li>
+        <li><b>Good for:</b> owners who live in the tool all day; dense calendars and tables.</li>
+        <li><b>Risk:</b> can feel generic and a bit cold for a guest house.</li>
+      </ul>
+    </div>
+    <div class="app t-a"></div>
+  </section>
+
+  <section class="option">
+    <div class="option__head">
+      <div>
+        <h2><span>B</span>Warm boutique</h2>
+        <p class="refs">Hospitality brand feel: serif headings (Fraunces), cream paper, olive sidebar, terracotta accent.</p>
+      </div>
+      <ul>
+        <li><b>Feel:</b> personal, like the guest house itself. Stands out from Booking.com-blue tools.</li>
+        <li><b>Good for:</b> small independent owners; also carries over well to the landing page.</li>
+        <li><b>Risk:</b> serif numbers and soft pills take more space; needs care in dense tables.</li>
+      </ul>
+    </div>
+    <div class="app t-b"></div>
+  </section>
+
+  <section class="option">
+    <div class="option__head">
+      <div>
+        <h2><span>C</span>Dark ops</h2>
+        <p class="refs">Like Vercel and Linear in dark mode. Dark-first is a 2026 dashboard trend; channel colors pop.</p>
+      </div>
+      <ul>
+        <li><b>Feel:</b> technical, "control room". Mono numbers, bright data on black.</li>
+        <li><b>Good for:</b> night reception, data-heavy reports.</li>
+        <li><b>Risk:</b> wrong mood for most small hotel owners; best offered as a dark mode of A, not the main style.</li>
+      </ul>
+    </div>
+    <div class="app t-c"></div>
+  </section>
+
+  <section class="option">
+    <div class="option__head">
+      <div>
+        <h2><span>D</span>Friendly bento</h2>
+        <p class="refs">Like the Airbnb host app and Notion: borderless white tiles on a tinted background, big rounded corners.</p>
+      </div>
+      <ul>
+        <li><b>Feel:</b> approachable, consumer-app, mobile-first.</li>
+        <li><b>Good for:</b> non-technical owners and staff on phones (housekeeping).</li>
+        <li><b>Risk:</b> closest to what you already disliked in Material; less "pro".</li>
+      </ul>
+    </div>
+    <div class="app t-d"></div>
+  </section>
+</div>
+
+<template id="tpl">
+  <aside class="side">
+    <div class="brand"><i>CV</i>Casa Verde</div>
+    <a class="on" href="#"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>Dashboard</a>
+    <a href="#"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="2.5" width="13" height="12" rx="2"/><path d="M1.5 6.5h13M5 1v3M11 1v3"/></svg>Calendar</a>
+    <a href="#"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 13V4M1.5 9h13v4M4 9V6.5h4V9"/></svg>Rooms</a>
+    <a href="#"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2.5"/><path d="M1.5 14c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4M11 3a2.5 2.5 0 010 5M12.5 10c1.2.5 2 1.8 2 4"/></svg>Guests</a>
+    <a href="#"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3.5h12v9H2zM2 4l6 5 6-5"/></svg>Automation</a>
+    <a href="#"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 14V8M6 14V4M10 14V9M14 14V2"/></svg>Reports</a>
+    <small>Admin</small>
+    <a href="#"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.5 1.5M11.5 11.5L13 13M3 13l1.5-1.5M11.5 4.5L13 3"/></svg>Settings</a>
+  </aside>
+  <div class="mainp">
+    <div class="top">
+      <h3>Good evening, Maria</h3>
+      <button class="btn ghost">7 days</button>
+      <button class="btn">+ New booking</button>
+      <p>Saturday, 7 November · 5 of 6 rooms occupied tonight</p>
+    </div>
+    <div class="alert"><b>Overlap on Room 3, 11–12 Nov.</b> Airbnb request overlaps a Booking.com stay. Room 3 is closed on all channels. <button class="btn">Resolve</button></div>
+    <div class="kpis">
+      <div class="panel kpi"><span>Occupancy</span><b>65%</b><em>↑ 8 pts vs last week</em></div>
+      <div class="panel kpi"><span>Avg. rate</span><b>€94</b><em>↑ €6</em></div>
+      <div class="panel kpi"><span>RevPAR</span><b>€61</b><em>↑ €9</em></div>
+      <div class="panel kpi"><span>Net revenue, Nov</span><b>€12,209</b><em style="color:var(--muted)">after €1,371 commission</em></div>
+    </div>
+    <div class="grid">
+      <div class="panel">
+        <h4>Next 7 days <small>by channel</small></h4>
+        <div class="tl-scroll"><div class="tl">
+          <span></span><span class="d today">Sat<b>7</b></span><span class="d">Sun<b>8</b></span><span class="d">Mon<b>9</b></span><span class="d">Tue<b>10</b></span><span class="d">Wed<b>11</b></span><span class="d">Thu<b>12</b></span><span class="d">Fri<b>13</b></span>
+          <span class="rm">Room 1<span>Garden double</span></span><span class="bar b-booking" style="grid-column:2/span 3">A. Petrosyan</span><span></span><span class="bar b-direct" style="grid-column:6/span 3">L. Moreau</span>
+          <span class="rm">Room 2<span>Garden twin</span></span><span class="bar b-airbnb" style="grid-column:2/span 2">J. Smith</span><span style="grid-column:4/span 4"></span><span class="bar b-expedia" style="grid-column:8/span 1">M. Rossi</span>
+          <span class="rm">Room 3<span>Terrace suite</span></span><span style="grid-column:2/span 2"></span><span class="bar b-booking" style="grid-column:4/span 4">Weber family</span><span class="bar b-airbnb conflict" style="grid-column:8/span 1">R. Silva</span>
+          <span class="rm">Room 4<span>Courtyard double</span></span><span class="bar b-direct" style="grid-column:2/span 4">Novak family</span><span style="grid-column:6/span 3"></span>
+        </div></div>
+      </div>
+      <div class="panel">
+        <h4>Today <small>3 arrivals</small></h4>
+        <div class="list">
+          <div class="li"><span class="av">AP</span><div><p>Anna Petrosyan</p><small>Room 1 · 14:00 · Booking.com</small></div><span class="pill ok">Docs in</span></div>
+          <div class="li"><span class="av">NF</span><div><p>Novak family</p><small>Room 4 · 16:30 · Direct</small></div><span class="pill wait">Awaiting ID</span></div>
+          <div class="li"><span class="av">HK</span><div><p>Hyun Kim</p><small>Room 6 · tomorrow · Booking.com</small></div><span class="pill ok">Upsell sent</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  const tpl = document.getElementById('tpl');
+  document.querySelectorAll('.app').forEach(a => a.appendChild(tpl.content.cloneNode(true)));
+</script>
+</body>
+</html>

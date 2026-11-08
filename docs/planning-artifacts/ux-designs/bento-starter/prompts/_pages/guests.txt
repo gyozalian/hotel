@@ -1,0 +1,40 @@
+PAGE: Guests (guests.html, nav item: Guests, top-bar title "Guests").
+
+LAYOUT
+.guests { display: grid; gap: var(--layout-gutter); }
+@media (min-width: 1200px) { .guests { grid-template-columns: 380px minmax(0, 1fr); align-items: start; } }
+@media (max-width: 1199px) { .profile { display: none; } }   (phone/tablet show the list only)
+
+SECTIONS
+1. .page-head: <h2 class="t-headline-small">142 guests</h2>, muted text "8 staying or arriving this month",
+   right: class="btn btn--outlined" icon download "Export", class="btn btn--filled" icon person_add "Add guest".
+2. LEFT: list card (<article class="card card--outlined">):
+   - .field with label "Search guests" and placeholder "Name, email or phone"
+   - .chip-row: All (pressed, check icon), Staying now, Arriving, Returning
+   - <ul class="list"> with these 8 guests (avatar initials, headline name, supporting "last stay",
+     trailing channel tag). The first item is selected: give it
+     style background: var(--md-secondary-container).
+       Anna Petrosyan — Staying now · Room 1 — Booking.com
+       Novak family — Staying now · Room 4 — Direct
+       Hyun Kim — Arrives Sun 8 Nov — Booking.com
+       Weber family — Arrives Mon 9 Nov — Booking.com
+       Léa Moreau — Arrives Wed 11 Nov · 3rd stay — Direct
+       Rita Silva — Request 11 Nov · overlap — Airbnb
+       James Smith — Left today — Airbnb
+       Marco Rossi — Arrives Fri 13 Nov — Expedia
+3. RIGHT: <div class="profile stack"> with these cards:
+   a) Header card: avatar "AP" (use class avatar, size it 64px with width/height in the page style),
+      <h2 class="t-headline-small">Anna Petrosyan</h2>, muted "Yerevan, Armenia · Guest since June 2025 · 2 stays",
+      chips (not pressed) with icons: chat "WhatsApp +374 91 234 567", mail "anna.petrosyan@example.com",
+      and buttons class="btn btn--filled" "Message", class="btn btn--outlined" "New booking".
+   b) Two cards side by side at ≥1200px (.profile-row { display: grid; gap: var(--layout-gutter); grid-template-columns: 1fr 1fr; }):
+      "Preferences": tags: Late check-in, Vegetarian breakfast, Quiet room, Speaks Russian.
+      "Current stay": Room 1 · Garden double, Sat 7 → Tue 10 Nov · 3 nights, tag tag--booking,
+      Net €240 (gross €282, commission €42), tag tag--ready "ID received".
+   c) "Stay history" card with .table-wrap > .table, columns Dates / Room / Channel / Nights / Net (Net is .num):
+        7–10 Nov 2026 · Room 1 · Booking.com tag · 3 · €240
+        14–17 Jun 2025 · Room 3 · Direct tag · 3 · €315
+   d) "Notes" card: <ul class="list"> with 2 notes (avatar of author, text, date):
+        Maria — "Prefers the quiet side, Room 1 or 3." — 15 Jun 2025
+        Sofia — "Arriving late on 7 Nov, key box code sent." — 6 Nov 2026
+      and class="btn btn--text" icon add "Add note".

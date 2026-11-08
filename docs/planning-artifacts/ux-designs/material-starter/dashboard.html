@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · Hotel CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    /* ---- Page-specific layout only. Colors come from tokens. ---- */
+    .page-head { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--sp-4); margin: var(--sp-2) 0 var(--sp-6); }
+    .page-head__text { flex: 1 1 260px; min-width: 0; }
+    .page-head__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+    @media (max-width: 599px) { .page-head .segmented { display: none; } }
+
+    .stack { display: grid; gap: var(--layout-gutter); }
+
+    .alerts { display: grid; gap: var(--sp-3); }
+    @media (min-width: 840px) { .alerts { grid-template-columns: 1fr 1fr; } }
+
+    .kpis { display: grid; gap: var(--sp-3); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (min-width: 840px) { .kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--layout-gutter); } }
+    .kpi { display: flex; flex-direction: column; gap: var(--sp-1); }
+    .kpi__label { font: var(--md-label-large); color: var(--md-on-surface-variant); display: flex; align-items: center; gap: var(--sp-2); }
+    .kpi__value { font: var(--md-headline-medium); font-variant-numeric: tabular-nums; }
+    @media (min-width: 840px) { .kpi__value { font: var(--md-display-small); } }
+    .kpi__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); margin-top: var(--sp-2); }
+    .delta { font: var(--md-label-medium); color: var(--md-primary); display: inline-flex; align-items: center; gap: 2px; }
+    .spark { width: 72px; height: 28px; color: var(--md-primary); flex-shrink: 0; }
+
+    .grid-main { display: grid; gap: var(--layout-gutter); }
+    @media (min-width: 1200px) {
+      .grid-main { grid-template-columns: minmax(0, 3fr) minmax(340px, 2fr); align-items: start; }
+      .span-2 { grid-column: 1 / -1; }
+      .tall { grid-row: span 2; }
+    }
+    @media (min-width: 840px) and (max-width: 1199px) {
+      .grid-main { grid-template-columns: 1fr 1fr; align-items: start; }
+      .span-2, .wide-md { grid-column: 1 / -1; }
+    }
+
+    /* Booking timeline (FR-2) */
+    .tl-scroll { overflow-x: auto; }
+    @media (max-width: 599px) {
+      .tl-card .card__header { flex-wrap: wrap; }
+      .tl-card .chip-row { order: 3; flex-basis: 100%; }
+    }
+    .tl { min-width: 720px; --tl-label: 112px; }
+    .tl-row { display: grid; grid-template-columns: var(--tl-label) repeat(14, minmax(0, 1fr)); grid-auto-rows: 32px; row-gap: 4px; padding: 6px 0; position: relative; }
+    .tl-row + .tl-row { border-top: 1px solid var(--md-outline-variant); }
+    .tl-room { grid-column: 1; grid-row: 1 / -1; align-self: stretch; display: flex; flex-direction: column; justify-content: center; padding-right: var(--sp-2); position: sticky; left: 0; z-index: 1; background: var(--md-surface); }
+    .tl-room b { display: block; font: var(--md-title-small); }
+    .tl-room span { font: var(--md-body-small); color: var(--md-on-surface-variant); }
+    .tl-head { grid-auto-rows: auto; padding: 0 0 var(--sp-2); }
+    .tl-day { text-align: center; font: var(--md-label-medium); color: var(--md-on-surface-variant); padding: 4px 0; border-radius: var(--md-shape-sm); }
+    .tl-day b { display: block; font: var(--md-title-small); color: var(--md-on-surface); }
+    .tl-day.is-weekend { background: var(--md-surface-container); }
+    .tl-day.is-today { background: var(--md-primary); color: var(--md-on-primary); }
+    .tl-day.is-today b { color: var(--md-on-primary); }
+    .tl-bar {
+      align-self: stretch; margin: 0 2px;
+      display: flex; align-items: center; gap: 4px;
+      padding: 0 var(--sp-2);
+      border-radius: var(--md-shape-sm);
+      font: var(--md-label-medium); letter-spacing: var(--md-tracking-label);
+      overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+      border-left: 3px solid currentColor;
+      cursor: pointer;
+    }
+    .tl-bar:hover { box-shadow: var(--md-elev-1); }
+    .tl-bar.tag--booking { border-left-color: var(--ch-booking); }
+    .tl-bar.tag--airbnb  { border-left-color: var(--ch-airbnb); }
+    .tl-bar.tag--expedia { border-left-color: var(--ch-expedia); }
+    .tl-bar.tag--direct  { border-left-color: var(--ch-direct); }
+    .tl-bar.is-conflict { outline: 2px solid var(--md-error); outline-offset: -2px; border-left-color: var(--md-error); }
+    .tl-bar.tag--ooo { border-left-color: var(--md-error); background: repeating-linear-gradient(135deg, var(--st-ooo-container) 0 6px, var(--md-surface-container-high) 6px 12px); }
+    .tl-today-col { grid-row: 1 / -1; background: color-mix(in srgb, var(--md-primary) 6%, transparent); margin: -6px 0; pointer-events: none; }
+    .legend { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+
+    /* Room status (FR-12) */
+    .rooms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-2); }
+    .room {
+      border-radius: var(--md-shape-sm); padding: var(--sp-3);
+      background: var(--md-surface-container-low);
+      display: flex; flex-direction: column; gap: var(--sp-2); min-width: 0;
+    }
+    .room__top { display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-2); }
+    .room__no { font: var(--md-title-medium); }
+    .room__meta { font: var(--md-body-small); color: var(--md-on-surface-variant); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* Revenue by channel (FR-8) */
+    .ch-rows { display: grid; gap: var(--sp-4); }
+    .ch-row__top { display: flex; justify-content: space-between; gap: var(--sp-2); margin-bottom: 6px; }
+    .ch-row__name { font: var(--md-title-small); display: flex; align-items: center; gap: var(--sp-2); }
+    .ch-row__name i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .ch-row__net { font: var(--md-title-small); font-variant-numeric: tabular-nums; }
+    .ch-bar { display: flex; height: 8px; border-radius: var(--md-shape-full); background: var(--md-surface-container-high); overflow: hidden; }
+    .ch-bar__net { height: 100%; }
+    .ch-bar__fee { height: 100%; opacity: .35; }
+    .ch-row__sub { font: var(--md-body-small); color: var(--md-on-surface-variant); margin-top: 4px; font-variant-numeric: tabular-nums; }
+    .totals { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-2); text-align: center; }
+    .totals div { padding: var(--sp-3) var(--sp-1); border-radius: var(--md-shape-sm); background: var(--md-surface-container-low); }
+    .totals b { display: block; font: var(--md-title-medium); font-variant-numeric: tabular-nums; }
+    .totals span { font: var(--md-label-medium); color: var(--md-on-surface-variant); }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ================= Navigation (drawer ≥1200 · rail 600–1199 · bottom bar <600) ================= -->
+  <nav class="nav" aria-label="Main">
+    <div class="nav__brand"><span class="logo"><span class="icon filled">hotel</span></span>Casa Verde</div>
+    <button class="fab nav__fab" aria-label="New booking"><span class="icon">add</span></button>
+
+    <a class="nav__item" href="#" aria-current="page"><span class="nav__indicator"><span class="icon">space_dashboard</span></span><span class="nav__label">Dashboard</span></a>
+    <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">calendar_month</span></span><span class="nav__label">Calendar</span><span class="nav__badge">1</span></a>
+    <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">bed</span></span><span class="nav__label">Rooms</span></a>
+    <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">group</span></span><span class="nav__label">Guests</span></a>
+    <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">forward_to_inbox</span></span><span class="nav__label">Automation</span></a>
+    <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">monitoring</span></span><span class="nav__label">Reports</span></a>
+    <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">hub</span></span><span class="nav__label">Channels</span></a>
+
+    <div class="nav__section">Admin</div>
+    <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">manage_accounts</span></span><span class="nav__label">Users</span></a>
+    <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">settings</span></span><span class="nav__label">Settings</span></a>
+    <a class="nav__item nav__item--more" href="#"><span class="nav__indicator"><span class="icon">menu</span></span><span class="nav__label">More</span></a>
+  </nav>
+
+  <div class="main">
+    <!-- ================= Top app bar ================= -->
+    <header class="top-bar" id="topBar">
+      <h1 class="top-bar__title">Dashboard</h1>
+      <label class="search"><span class="icon">search</span><input type="search" placeholder="Search guests, bookings, rooms" aria-label="Search"></label>
+      <div class="top-bar__actions">
+        <button class="icon-btn search-toggle" aria-label="Search"><span class="icon">search</span></button>
+        <button class="icon-btn" aria-label="Notifications, 2 unread"><span class="icon">notifications</span><span class="dot"></span></button>
+        <button class="icon-btn" aria-label="Account: Maria"><span class="avatar avatar--sm">M</span></button>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- Page header -->
+      <section class="page-head">
+        <div class="page-head__text">
+          <h2 class="t-headline-small">Good evening, Maria</h2>
+          <p class="t-body-medium muted">Saturday, 7 November · 6 rooms · 5 occupied tonight</p>
+        </div>
+        <div class="page-head__actions">
+          <div class="segmented" role="group" aria-label="Period">
+            <button aria-pressed="false">Today</button>
+            <button aria-pressed="true"><span class="icon sm">check</span>7 days</button>
+            <button aria-pressed="false">30 days</button>
+          </div>
+          <button class="btn btn--filled"><span class="icon">add</span>New booking</button>
+        </div>
+      </section>
+
+      <div class="stack">
+        <!-- Alerts: sync conflict (FR-1) + pricing rule (FR-3) -->
+        <section class="alerts" aria-label="Needs attention">
+          <div class="banner banner--error" role="alert">
+            <span class="banner__icon"><span class="icon">sync_problem</span></span>
+            <div class="banner__body">
+              <p class="t-title-small">Overlap on Room 3 · 11–12 Nov</p>
+              <p class="t-body-medium">An Airbnb request (R. Silva) overlaps the Booking.com stay of the Weber family. Room 3 is now closed on all channels until you decide.</p>
+              <div class="banner__actions">
+                <button class="btn btn--error">Resolve overlap</button>
+                <button class="btn btn--text">View in calendar</button>
+              </div>
+            </div>
+          </div>
+          <div class="banner banner--tip">
+            <span class="banner__icon"><span class="icon">trending_up</span></span>
+            <div class="banner__body">
+              <p class="t-title-small">Weekend 14–15 Nov is 83% booked</p>
+              <p class="t-body-medium">Your rule “+10% above 70% occupancy” suggests €104 instead of €94 for the 1 room still free.</p>
+              <div class="banner__actions">
+                <button class="btn btn--filled">Apply +10%</button>
+                <button class="btn btn--text">Edit rule</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- KPIs (FR-10) -->
+        <section class="kpis" aria-label="Key metrics, next 7 days">
+          <article class="card card--outlined kpi">
+            <span class="kpi__label"><span class="icon sm">hotel</span>Occupancy</span>
+            <span class="kpi__value">65%</span>
+            <div class="kpi__foot">
+              <span class="delta"><span class="icon sm">arrow_upward</span>8 pts vs last week</span>
+              <svg class="spark" viewBox="0 0 72 28" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="2,22 12,20 22,21 32,15 42,16 52,10 62,8 70,6"/></svg>
+            </div>
+          </article>
+          <article class="card card--outlined kpi">
+            <span class="kpi__label"><span class="icon sm">sell</span>ADR</span>
+            <span class="kpi__value">€94</span>
+            <div class="kpi__foot">
+              <span class="delta"><span class="icon sm">arrow_upward</span>€6</span>
+              <svg class="spark" viewBox="0 0 72 28" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="2,18 12,19 22,16 32,17 42,13 52,14 62,11 70,10"/></svg>
+            </div>
+          </article>
+          <article class="card card--outlined kpi">
+            <span class="kpi__label"><span class="icon sm">payments</span>RevPAR</span>
+            <span class="kpi__value">€61</span>
+            <div class="kpi__foot">
+              <span class="delta"><span class="icon sm">arrow_upward</span>€9</span>
+              <svg class="spark" viewBox="0 0 72 28" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="2,24 12,21 22,22 32,17 42,15 52,12 62,10 70,7"/></svg>
+            </div>
+          </article>
+          <article class="card card--outlined kpi">
+            <span class="kpi__label"><span class="icon sm">account_balance_wallet</span>Net revenue, Nov</span>
+            <span class="kpi__value">€12,209</span>
+            <div class="kpi__foot">
+              <span class="t-label-medium muted">after €1,371 commission</span>
+            </div>
+          </article>
+        </section>
+
+        <div class="grid-main">
+          <!-- Timeline (FR-2) -->
+          <section class="card card--outlined span-2 tl-card" aria-labelledby="tlTitle">
+            <div class="card__header">
+              <h2 id="tlTitle">Next 14 days</h2>
+              <div class="chip-row" role="group" aria-label="Filter by channel">
+                <button class="chip is-selected" aria-pressed="true"><span class="icon">check</span>All channels</button>
+                <button class="chip" aria-pressed="false">Booking.com</button>
+                <button class="chip" aria-pressed="false">Airbnb</button>
+              </div>
+              <button class="icon-btn" aria-label="Open full calendar"><span class="icon">open_in_full</span></button>
+            </div>
+
+            <div class="tl-scroll">
+              <div class="tl" role="grid" aria-label="Bookings per room, 7–20 November">
+                <div class="tl-row tl-head" role="row">
+                  <span></span>
+                  <span class="tl-day is-today">Sat<b>7</b></span>
+                  <span class="tl-day is-weekend">Sun<b>8</b></span>
+                  <span class="tl-day">Mon<b>9</b></span>
+                  <span class="tl-day">Tue<b>10</b></span>
+                  <span class="tl-day">Wed<b>11</b></span>
+                  <span class="tl-day">Thu<b>12</b></span>
+                  <span class="tl-day">Fri<b>13</b></span>
+                  <span class="tl-day is-weekend">Sat<b>14</b></span>
+                  <span class="tl-day is-weekend">Sun<b>15</b></span>
+                  <span class="tl-day">Mon<b>16</b></span>
+                  <span class="tl-day">Tue<b>17</b></span>
+                  <span class="tl-day">Wed<b>18</b></span>
+                  <span class="tl-day">Thu<b>19</b></span>
+                  <span class="tl-day">Fri<b>20</b></span>
+                </div>
+
+                <div class="tl-row" role="row">
+                  <span class="tl-room"><b>Room 1</b><span>Garden double</span></span>
+                  <span class="tl-today-col" style="grid-column:2"></span>
+                  <span class="tl-bar tag--booking" style="grid-column:2 / span 3;grid-row:1">A. Petrosyan</span>
+                  <span class="tl-bar tag--direct"  style="grid-column:6 / span 4;grid-row:1">L. Moreau</span>
+                  <span class="tl-bar tag--airbnb"  style="grid-column:12 / span 3;grid-row:1">K. Tanaka</span>
+                </div>
+                <div class="tl-row" role="row">
+                  <span class="tl-room"><b>Room 2</b><span>Garden twin</span></span>
+                  <span class="tl-today-col" style="grid-column:2"></span>
+                  <span class="tl-bar tag--airbnb"  style="grid-column:2 / span 2;grid-row:1">J. Smith</span>
+                  <span class="tl-bar tag--expedia" style="grid-column:8 / span 4;grid-row:1">M. Rossi</span>
+                </div>
+                <div class="tl-row" role="row">
+                  <span class="tl-room"><b>Room 3</b><span>Terrace suite</span></span>
+                  <span class="tl-today-col" style="grid-column:2"></span>
+                  <span class="tl-bar tag--booking" style="grid-column:4 / span 4;grid-row:1">Weber family</span>
+                  <span class="tl-bar tag--airbnb is-conflict" style="grid-column:6 / span 2;grid-row:2"><span class="icon sm">warning</span>R. Silva</span>
+                </div>
+                <div class="tl-row" role="row">
+                  <span class="tl-room"><b>Room 4</b><span>Courtyard double</span></span>
+                  <span class="tl-today-col" style="grid-column:2"></span>
+                  <span class="tl-bar tag--direct"  style="grid-column:2 / span 4;grid-row:1">Novak family</span>
+                  <span class="tl-bar tag--booking" style="grid-column:9 / span 5;grid-row:1">W. Chen</span>
+                </div>
+                <div class="tl-row" role="row">
+                  <span class="tl-room"><b>Room 5</b><span>Family room</span></span>
+                  <span class="tl-today-col" style="grid-column:2"></span>
+                  <span class="tl-bar tag--ooo" style="grid-column:2 / span 2;grid-row:1"><span class="icon sm">build</span>Out of order</span>
+                  <span class="tl-bar tag--expedia" style="grid-column:7 / span 4;grid-row:1">García family</span>
+                </div>
+                <div class="tl-row" role="row">
+                  <span class="tl-room"><b>Room 6</b><span>Attic single</span></span>
+                  <span class="tl-today-col" style="grid-column:2"></span>
+                  <span class="tl-bar tag--booking" style="grid-column:3 / span 2;grid-row:1">H. Kim</span>
+                  <span class="tl-bar tag--direct"  style="grid-column:9 / span 3;grid-row:1">S. Ivanova</span>
+                  <span class="tl-bar tag--airbnb"  style="grid-column:13 / span 2;grid-row:1">T. Müller</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="legend" aria-label="Channel legend">
+              <span class="tag tag--booking"><span class="swatch" style="color:var(--ch-booking)"></span>Booking.com</span>
+              <span class="tag tag--airbnb"><span class="swatch" style="color:var(--ch-airbnb)"></span>Airbnb</span>
+              <span class="tag tag--expedia"><span class="swatch" style="color:var(--ch-expedia)"></span>Expedia</span>
+              <span class="tag tag--direct"><span class="swatch" style="color:var(--ch-direct)"></span>Direct</span>
+            </div>
+          </section>
+
+          <!-- Arrivals & departures + pre-arrival status (FR-5/6) -->
+          <section class="card card--outlined tall" aria-labelledby="arrTitle">
+            <div class="card__header">
+              <h2 id="arrTitle">Today</h2>
+              <span class="muted">3 arrivals · 1 departure</span>
+            </div>
+            <ul class="list">
+              <li class="list__item">
+                <span class="avatar">AP</span>
+                <div class="list__text">
+                  <p class="list__headline">Anna Petrosyan</p>
+                  <p class="list__supporting">Room 1 · 3 nights · Booking.com</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="t-label-large">14:00</span>
+                  <span class="tag tag--ready"><span class="icon sm">task_alt</span>Docs received</span>
+                </div>
+              </li>
+              <li class="list__item">
+                <span class="avatar avatar--secondary">NF</span>
+                <div class="list__text">
+                  <p class="list__headline">Novak family</p>
+                  <p class="list__supporting">Room 4 · 4 nights · Direct</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="t-label-large">16:30</span>
+                  <span class="tag tag--dirty"><span class="icon sm">schedule</span>Awaiting ID</span>
+                </div>
+              </li>
+              <li class="list__item">
+                <span class="avatar avatar--tertiary">HK</span>
+                <div class="list__text">
+                  <p class="list__headline">Hyun Kim</p>
+                  <p class="list__supporting">Room 6 · arrives tomorrow · Booking.com</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="t-label-large">Sun</span>
+                  <span class="tag"><span class="icon sm">mail</span>Upsell sent</span>
+                </div>
+              </li>
+              <li class="list__item">
+                <span class="avatar avatar--secondary">JS</span>
+                <div class="list__text">
+                  <p class="list__headline">James Smith</p>
+                  <p class="list__supporting">Room 2 · departs · Airbnb</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="t-label-large">11:00</span>
+                  <span class="tag"><span class="icon sm">logout</span>Check-out</span>
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Room status (FR-12) -->
+          <section class="card card--outlined" aria-labelledby="roomsTitle">
+            <div class="card__header">
+              <h2 id="roomsTitle">Room status</h2>
+              <button class="btn btn--text">Housekeeping</button>
+            </div>
+            <div class="rooms">
+              <div class="room"><div class="room__top"><span class="room__no">1</span><span class="tag tag--ready">Ready</span></div><span class="room__meta">Ana · 10:42</span></div>
+              <div class="room"><div class="room__top"><span class="room__no">2</span><span class="tag tag--dirty">Dirty</span></div><span class="room__meta">Check-out 11:00</span></div>
+              <div class="room"><div class="room__top"><span class="room__no">3</span><span class="tag tag--clean">Clean</span></div><span class="room__meta">Ana · 09:15</span></div>
+              <div class="room"><div class="room__top"><span class="room__no">4</span><span class="tag tag--inspect">Inspect</span></div><span class="room__meta">Waiting for Maria</span></div>
+              <div class="room"><div class="room__top"><span class="room__no">5</span><span class="tag tag--ooo">Out of order</span></div><span class="room__meta">Boiler repair</span></div>
+              <div class="room"><div class="room__top"><span class="room__no">6</span><span class="tag tag--ready">Ready</span></div><span class="room__meta">Luis · 08:50</span></div>
+            </div>
+          </section>
+
+          <!-- Revenue by channel, net after commission (FR-8) -->
+          <section class="card card--outlined wide-md" aria-labelledby="chTitle">
+            <div class="card__header">
+              <h2 id="chTitle">Revenue by channel</h2>
+              <span class="muted">November, net</span>
+            </div>
+            <div class="ch-rows">
+              <div>
+                <div class="ch-row__top"><span class="ch-row__name"><i style="background:var(--ch-booking)"></i>Booking.com</span><span class="ch-row__net">€4,097</span></div>
+                <div class="ch-bar" aria-hidden="true"><span class="ch-bar__net" style="width:85%;background:var(--ch-booking)"></span><span class="ch-bar__fee" style="width:15%;background:var(--ch-booking)"></span></div>
+                <p class="ch-row__sub">€4,820 gross · €723 commission (15%)</p>
+              </div>
+              <div>
+                <div class="ch-row__top"><span class="ch-row__name"><i style="background:var(--ch-direct)"></i>Direct</span><span class="ch-row__net">€3,630</span></div>
+                <div class="ch-bar" aria-hidden="true"><span class="ch-bar__net" style="width:75.3%;background:var(--ch-direct)"></span></div>
+                <p class="ch-row__sub">€3,630 gross · no commission</p>
+              </div>
+              <div>
+                <div class="ch-row__top"><span class="ch-row__name"><i style="background:var(--ch-airbnb)"></i>Airbnb</span><span class="ch-row__net">€2,740</span></div>
+                <div class="ch-bar" aria-hidden="true"><span class="ch-bar__net" style="width:56.8%;background:var(--ch-airbnb)"></span><span class="ch-bar__fee" style="width:8.5%;background:var(--ch-airbnb)"></span></div>
+                <p class="ch-row__sub">€3,150 gross · €410 commission (13%)</p>
+              </div>
+              <div>
+                <div class="ch-row__top"><span class="ch-row__name"><i style="background:var(--ch-expedia)"></i>Expedia</span><span class="ch-row__net">€1,742</span></div>
+                <div class="ch-bar" aria-hidden="true"><span class="ch-bar__net" style="width:36.1%;background:var(--ch-expedia)"></span><span class="ch-bar__fee" style="width:4.9%;background:var(--ch-expedia)"></span></div>
+                <p class="ch-row__sub">€1,980 gross · €238 commission (12%)</p>
+              </div>
+            </div>
+            <hr class="divider">
+            <div class="totals">
+              <div><b>€13,580</b><span>Gross</span></div>
+              <div><b>€1,371</b><span>Commission</span></div>
+              <div><b>€12,209</b><span>Net</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+  // Top app bar gets a tinted surface once content scrolls under it (M3 behaviour)
+  const bar = document.getElementById('topBar');
+  addEventListener('scroll', () => bar.classList.toggle('is-scrolled', scrollY > 4), { passive: true });
+  // Toggle groups
+  document.querySelectorAll('.segmented, .chip-row').forEach(group => {
+    group.addEventListener('click', e => {
+      const btn = e.target.closest('button'); if (!btn) return;
+      group.querySelectorAll('button').forEach(b => { b.setAttribute('aria-pressed', 'false'); b.classList.remove('is-selected'); b.querySelector('.icon')?.remove(); });
+      btn.setAttribute('aria-pressed', 'true'); btn.classList.add('is-selected');
+      btn.insertAdjacentHTML('afterbegin', '<span class="icon' + (group.classList.contains('segmented') ? ' sm' : '') + '">check</span>');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings · Hotel CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    /* ---- Page-specific layout only. Colors come from tokens. ---- */
+    .settings { display: grid; gap: var(--layout-gutter); grid-template-columns: minmax(0, 1fr); }
+    @media (min-width: 840px) { .settings { grid-template-columns: 240px minmax(0, 1fr); align-items: start; } }
+
+    .sections { position: sticky; top: calc(var(--app-bar-height) + var(--sp-2)); }
+    @media (max-width: 839px) { .sections .list { display: flex; overflow-x: auto; } }
+
+    .rule { display: grid; gap: var(--sp-3); align-items: center; }
+    @media (min-width: 1000px) { .rule { grid-template-columns: auto minmax(0,1.4fr) minmax(0,1fr) 96px auto minmax(0,1.4fr) 96px; } }
+    .field { position: relative; }
+    .field .suffix { position: absolute; right: var(--sp-4); top: 50%; transform: translateY(-50%); color: var(--md-on-surface-variant); }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- ================= Navigation (drawer ≥1200 · rail 600–1199 · bottom bar <600) ================= -->
+    <nav class="nav" aria-label="Main">
+      <div class="nav__brand"><span class="logo"><span class="icon filled">hotel</span></span>Casa Verde</div>
+      <button class="fab nav__fab" aria-label="New booking"><span class="icon">add</span></button>
+
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">space_dashboard</span></span><span class="nav__label">Dashboard</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">calendar_month</span></span><span class="nav__label">Calendar</span><span class="nav__badge">1</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">bed</span></span><span class="nav__label">Rooms</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">group</span></span><span class="nav__label">Guests</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">forward_to_inbox</span></span><span class="nav__label">Automation</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">monitoring</span></span><span class="nav__label">Reports</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">hub</span></span><span class="nav__label">Channels</span></a>
+
+      <div class="nav__section">Admin</div>
+      <a class="nav__item nav__item--extra" href="#" aria-current="page"><span class="nav__indicator"><span class="icon">settings</span></span><span class="nav__label">Settings</span></a>
+      <a class="nav__item nav__item--more" href="#"><span class="nav__indicator"><span class="icon">menu</span></span><span class="nav__label">More</span></a>
+    </nav>
+
+    <div class="main">
+      <!-- ================= Top app bar ================= -->
+      <header class="top-bar" id="topBar">
+        <h1 class="top-bar__title">Settings</h1>
+        <label class="search"><span class="icon">search</span><input type="search" placeholder="Search guests, bookings, rooms" aria-label="Search"></label>
+        <div class="top-bar__actions">
+          <button class="icon-btn search-toggle" aria-label="Search"><span class="icon">search</span></button>
+          <button class="icon-btn" aria-label="Notifications, 2 unread"><span class="icon">notifications</span><span class="dot"></span></button>
+          <button class="icon-btn" aria-label="Account: Maria"><span class="avatar avatar--sm">M</span></button>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="stack">
+          <div class="settings">
+            <!-- LEFT: .sections card with list -->
+            <div class="sections">
+              <article class="card card--outlined">
+                <ul class="list">
+                  <li class="list__item">
+                    <span class="icon">home_work</span>
+                    <span class="list__text">Property</span>
+                  </li>
+                  <li class="list__item">
+                    <span class="icon">bed</span>
+                    <span class="list__text">Rooms & rates</span>
+                  </li>
+                  <li class="list__item" style="background:var(--md-secondary-container);border-radius:var(--md-shape-sm);">
+                    <span class="icon">trending_up</span>
+                    <span class="list__text">Pricing rules</span>
+                  </li>
+                  <li class="list__item">
+                    <span class="icon">notifications</span>
+                    <span class="list__text">Notifications</span>
+                  </li>
+                  <li class="list__item">
+                    <span class="icon">credit_card</span>
+                    <span class="list__text">Billing</span>
+                  </li>
+                </ul>
+              </article>
+            </div>
+
+            <!-- RIGHT: settings sections -->
+            <div class="stack">
+            <!-- a) Intro card -->
+            <article class="card card--outlined" style="display:flex;flex-direction:column;gap:var(--sp-3);">
+              <h2 class="t-title-large">Pricing rules</h2>
+              <p class="muted">Rules adjust your base rate automatically on all channels. They run every night at 02:00 and before each sync.</p>
+              <div class="banner banner--tip">
+                <span class="banner__icon"><span class="icon">trending_up</span></span>
+                <div class="banner__body">
+                  <p class="t-title-small">Last week rules added €186</p>
+                  <p class="t-body-medium">Weekend +10% applied 4 times · last-minute −15% filled Room 6 on 3 Nov.</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- b) Three rule cards -->
+            <article class="card card--outlined" style="display:flex;flex-direction:column;gap:var(--sp-4);">
+              <div class="card__header">
+                <h3 class="t-title-medium">Busy weekend</h3>
+                <span class="tag tag--ready">Active</span>
+                <div class="segmented">
+                  <button aria-pressed="true">On</button>
+                  <button aria-pressed="false">Off</button>
+                </div>
+              </div>
+              <div class="rule">
+                <span class=t-title-small>If</span>
+                <div class="field"><select><option>Occupancy</option></select></div>
+                <div class="field"><select><option>is above</option></select></div>
+                <div class="field"><input type="number" value="70"><span class=suffix>%</span></div>
+                <span class=t-title-small>then</span>
+                <div class="field"><select><option>raise price by</option></select></div>
+                <div class="field"><input type="number" value="10"><span class=suffix>%</span></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--sp-2);flex-wrap:wrap;">
+                <span class=t-body-medium muted style=flex:1>Applies to: all rooms · Fri–Sat nights</span>
+                <button class=btn btn--text>Edit</button>
+                <button class=btn btn--text><span class=icon>delete</span>Delete</button>
+              </div>
+            </article>
+
+            <!-- Rule 2: Last-minute -->
+            <article class="card card--outlined" style="display:flex;flex-direction:column;gap:var(--sp-4);">
+              <div class="card__header">
+                <h3 class="t-title-medium">Last-minute</h3>
+                <span class="tag tag--ready">Active</span>
+                <div class="segmented">
+                  <button aria-pressed="true">On</button>
+                  <button aria-pressed="false">Off</button>
+                </div>
+              </div>
+              <div class="rule">
+                <span class=t-title-small>If</span>
+                <div class="field"><select><option>days before arrival</option></select></div>
+                <div class="field"><select><option>is below</option></select></div>
+                <div class="field"><input type="number" value="3"><span class=suffix>days</span></div>
+                <span class=t-title-small>then</span>
+                <div class="field"><select><option>lower price by</option></select></div>
+                <div class="field"><input type="number" value="15"><span class=suffix>%</span></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--sp-2);flex-wrap:wrap;">
+                <span class=t-body-medium muted style=flex:1>Applies to: rooms 2 and 6 · any night</span>
+                <button class=btn btn--text>Edit</button>
+                <button class=btn btn--text><span class=icon>delete</span>Delete</button>
+              </div>
+            </article>
+
+            <!-- Rule 3: Long stay -->
+            <article class="card card--outlined" style="display:flex;flex-direction:column;gap:var(--sp-4);">
+              <div class="card__header">
+                <h3 class="t-title-medium">Long stay</h3>
+                <span class="tag">Off</span>
+                <div class="segmented">
+                  <button aria-pressed="false">On</button>
+                  <button aria-pressed="false">Off</button>
+                </div>
+              </div>
+              <div class="rule">
+                <span class=t-title-small>If</span>
+                <div class="field"><select><option>nights</option></select></div>
+                <div class="field"><select><option>is at least</option></select></div>
+                <div class="field"><input type="number" value="7"><span class=suffix>nights</span></div>
+                <span class=t-title-small>then</span>
+                <div class="field"><select><option>lower price by</option></select></div>
+                <div class="field"><input type="number" value="8"><span class=suffix>%</span></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--sp-2);flex-wrap:wrap;">
+                <span class=t-body-medium muted style=flex:1>Applies to: all rooms · any night</span>
+                <button class=btn btn--text>Edit</button>
+                <button class=btn btn--text><span class=icon>delete</span>Delete</button>
+              </div>
+            </article>
+
+            <!-- c) Floor/ceiling card -->
+            <article class="card card--outlined" style="display:flex;flex-direction:column;gap:var(--sp-4);">
+              <h3 class="t-title-medium">Price limits</h3>
+              <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-3);">
+                <div class="field"><label>Never below</label><input value="€65"></div>
+                <div class="field"><label>Never above</label><input value="€180"></div>
+              </div>
+              <p class="t-body-small muted">Rules never move the price outside this range.</p>
+            </article>
+
+            <!-- d) Button row -->
+            <div style="display:flex;align-items:center;gap:var(--sp-2);">
+              <button class="btn btn--tonal"><span class="icon">add</span>Add rule</button>
+              <span style=flex:1></span>
+              <button class="btn btn--text">Discard</button>
+              <button class="btn btn--filled">Save rules</button>
+            </div>
+          </div>
+        </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Top app bar gets a tinted surface once content scrolls under it (M3 behaviour)
+    const bar = document.getElementById('topBar');
+    addEventListener('scroll', () => bar.classList.toggle('is-scrolled', scrollY > 4), { passive: true });
+    // Toggle groups
+    document.querySelectorAll('.segmented, .chip-row').forEach(group => {
+      group.addEventListener('click', e => {
+        const btn = e.target.closest('button'); if (!btn) return;
+        group.querySelectorAll('button').forEach(b => { b.setAttribute('aria-pressed', 'false'); b.classList.remove('is-selected'); b.querySelector('.icon')?.remove(); });
+        btn.setAttribute('aria-pressed', 'true'); btn.classList.add('is-selected');
+        btn.insertAdjacentHTML('afterbegin', '<span class="icon' + (group.classList.contains('segmented') ? ' sm' : '') + '">check</span>');
+      });
+    });
+  </script>
+</body>
+</html>

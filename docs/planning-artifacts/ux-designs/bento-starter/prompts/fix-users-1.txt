@@ -1,0 +1,20 @@
+I opened users.html in a browser at 1440px. The dialog and page-head are good. Fix these by editing users.html only:
+
+1. STAFF TABLE is not in a card and has no table styling. It must be:
+   <article class="card card--outlined">
+     <div class="table-wrap staff-table"><table class="table"> ... </table></div>
+     <ul class="list staff-list"> ... </ul>
+     (pending invite row, see 3)
+   </article>
+   The class "staff-table" goes on the .table-wrap div, NOT on the <table>. The <table> gets class="table".
+2. NAME CELL: the avatar sits above the name. Make the cell
+   <td><div style="display:flex; align-items:center; gap: var(--sp-3);"><span class="avatar">MA</span>Maria Avetisyan</div></td>
+   Avatars use two initials: MA, SH, AG, LO.
+   The last cell is an icon button: <td class="num"><button class="icon-btn" aria-label="More"><span class="icon">more_vert</span></button></td>
+3. PENDING INVITE: inside the card, under the table:
+   <div style="display:flex; align-items:center; gap: var(--sp-3); flex-wrap: wrap;"><span class="t-body-medium muted" style="flex:1">Invite sent to nina@casaverde.am (Reception) · 2 days ago</span><button class="btn btn--text">Resend</button></div>
+4. DIALOG ICON shows a letter "p". Replace it with
+   <div style="width:40px; height:40px; display:grid; place-items:center; background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: var(--md-shape-sm);"><span class="icon">person_add</span></div>
+5. DIALOG ACTIONS (Cancel / Send invite) are at the top. Move <div class="dialog__actions"> to be the LAST thing inside .dialog.
+
+Change nothing else. When done, list what you changed in one short list.

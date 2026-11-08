@@ -1,0 +1,39 @@
+PAGE: Access levels (access.html, nav item: Users, top-bar title "Access levels").
+Which role can do what. Rows are permissions, columns are roles.
+
+SECTIONS
+1. .page-head: icon button arrow_back + <h2 class="t-headline-small">Access levels</h2>,
+   muted "4 roles · changes apply the next time someone signs in".
+2. Matrix card (<article class="card card--outlined">) with .table-wrap > .table.
+   - Header row: Permission / Owner / Manager / Reception / Housekeeping. Make the header sticky:
+     .table thead th { position: sticky; top: var(--app-bar-height); background: var(--md-surface-container-lowest); z-index: 1; }
+   - Role columns centered. Each cell holds a native checkbox inside a 48px tap target:
+     <label class="cb"><input type="checkbox" checked aria-label="Manager: View bookings"></label>
+     .cb { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: var(--md-shape-sm); cursor: pointer; }
+     .cb:hover { background: var(--md-surface-container-low); }
+     .cb input { width: 20px; height: 20px; accent-color: var(--md-primary); }
+     Owner checkboxes are all checked AND disabled (the owner always has everything).
+   - Group rows: a <tr class="group"><th colspan="5">Area</th></tr> styled with
+     background: var(--md-surface-container-low) and t-title-small.
+   Rows (✓ = checked) — Manager / Reception / Housekeeping:
+     Bookings
+       View bookings ✓ ✓ –      Create and edit bookings ✓ ✓ –      Cancel bookings ✓ – –
+     Rooms
+       See room status ✓ ✓ ✓    Change room status ✓ ✓ ✓              Edit rooms and rates ✓ – –
+     Guests
+       View guest profiles ✓ ✓ –   See ID documents ✓ ✓ –   Message guests ✓ ✓ –
+     Pricing
+       Change prices ✓ – –      Edit pricing rules – – –
+     Reports
+       View revenue reports ✓ – –   Export CSV ✓ – –
+     Users
+       Invite and remove users – – –
+     Settings
+       Property settings ✓ – –      Billing and plan – – –
+     (one cell is just changed by the user: Reception / "Cancel bookings" is checked, and its <tr> has
+      style background: var(--md-secondary-container) to show an unsaved change)
+3. Sticky save bar at the bottom of .main:
+   .savebar { position: sticky; bottom: 0; display: flex; justify-content: flex-end; align-items: center; gap: var(--sp-2);
+     padding: var(--sp-3) var(--layout-margin); background: var(--md-surface-container-lowest); box-shadow: var(--md-elev-2); }
+   @media (max-width: 599px) { .savebar { bottom: var(--nav-bar-height); } }
+   Content: muted "1 unsaved change" (flex: 1), class="btn btn--text" "Discard", class="btn btn--filled" "Save changes".

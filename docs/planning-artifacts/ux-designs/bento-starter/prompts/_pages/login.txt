@@ -1,0 +1,30 @@
+PAGE: Login (login.html). THIS PAGE HAS NO APP SHELL.
+Override of the hard rules for this page only: do NOT copy the <nav> or the top bar, and do not use
+<div class="app"> / <div class="main">. Still copy the <head> links and link tokens.css + components.css.
+No script needed.
+
+LAYOUT
+body { min-height: 100vh; display: grid; place-items: center; padding: var(--sp-4); background: var(--md-surface); }
+.login { width: min(400px, 100%); display: flex; flex-direction: column; gap: var(--sp-4); }
+.login .card { display: flex; flex-direction: column; gap: var(--sp-4); padding: var(--sp-8) var(--sp-6); }
+.brand { display: flex; align-items: center; gap: var(--sp-3); justify-content: center; }
+.brand .logo { width: 40px; height: 40px; border-radius: var(--md-shape-sm); display: grid; place-items: center;
+  background: var(--md-primary); color: var(--md-on-primary); }
+
+CONTENT (.login)
+1. .brand: .logo with <span class="icon filled">hotel</span> + "Casa Verde" in t-title-large.
+2. <article class="card card--outlined">:
+   - <h1 class="t-headline-small">Sign in</h1> and muted "to Casa Verde CRM"
+   - .field label "Email", input type email, value "maria@casaverde.am"
+   - .field label "Password", input type password with a value, in the ERROR state:
+     give the field class "field is-error" and add in the page style:
+       .field.is-error input { border: 2px solid var(--md-error); }
+       .field.is-error label, .field.is-error .supporting { color: var(--md-error); }
+     supporting text with icon error: "Wrong password. 2 tries left before a 5-minute lock."
+     Put an icon button visibility (aria-label "Show password") inside the field on the right
+     (position absolute, right 4px, top 4px).
+   - row: checkbox "Keep me signed in" (native checkbox, accent-color: var(--md-primary)) and on the right
+     class="btn btn--text" "Forgot password?"
+   - class="btn btn--filled" "Sign in", full width (style width: 100%; height: 48px)
+3. Under the card, centered muted t-body-small: "New to Casa Verde CRM? " + a text link "Start a free trial"
+   (a <a> with color var(--md-primary), font-weight 600).

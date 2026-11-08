@@ -1,0 +1,53 @@
+PAGE: Landing (landing.html). Marketing page for the product. THIS PAGE HAS NO APP SHELL.
+Override of the hard rules for this page only: do NOT copy the <nav> or the app top bar, and do not use
+<div class="app"> / <div class="main">. Still copy the <head> links and link tokens.css + components.css.
+The page <style> may be up to about 110 lines (it is a bigger layout). Still no hex, rgb or font sizes.
+Product name: "Casa Verde CRM" — a booking and guest manager for small hotels and guest houses (3–30 rooms).
+
+LAYOUT HELPERS
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 var(--layout-margin); }
+section { padding: var(--sp-12) 0; }
+.grid3 { display: grid; gap: var(--layout-gutter); }
+@media (min-width: 840px) { .grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+SECTIONS
+1. Header (sticky, background var(--md-surface)): .wrap with flex row: logo square (like the nav brand
+   in dashboard.html) + "Casa Verde CRM" in t-title-medium; links Features, Pricing, FAQ (hidden below 840px);
+   class="btn btn--text" "Sign in"; class="btn btn--filled" "Start free trial".
+2. Hero (centered text, max-width 760px):
+   - tag tag--direct "New: automatic overlap protection"
+   - <h1 class="t-display-small"> "All your bookings in one calm place" (at ≥840px also font: var(--md-display-medium))
+   - t-body-large muted: "No more double bookings across Booking.com, Airbnb and Expedia. Casa Verde CRM keeps your
+     calendar in sync, messages guests for you and shows what you really earn after commission."
+   - buttons: class="btn btn--filled" "Start free trial" (height 48px), class="btn btn--outlined" icon play_circle "Watch 2-min demo"
+   - muted t-body-small "14 days free · no card needed · cancel anytime"
+   - Screenshot: a white rounded frame (background var(--md-surface-container-lowest), radius var(--md-shape-xl),
+     box-shadow var(--md-elev-4), padding var(--sp-2), overflow hidden) containing
+     <iframe src="dashboard.html" title="Dashboard preview" loading="lazy"> with width 100%, height 640px,
+     border 0, border-radius var(--md-shape-md), pointer-events none. At <600px height 480px.
+3. Logos/proof strip: muted "Trusted by 1,200+ small hotels" and 4 channel tags (Booking.com, Airbnb, Expedia, Direct)
+   with the text "Works with".
+4. Features (id="features"): <h2 class="t-headline-medium"> "Built for owners who also make breakfast" + .grid3 of
+   3 cards (<article class="card card--outlined">), each with a 48px tinted icon square, title t-title-medium, text:
+   - icon sync_problem — "No more overlaps" — "Every booking closes the room on all channels within 2 minutes. If two land at once, you decide, not the robot."
+   - icon forward_to_inbox — "Guests get what they need" — "Confirmation, check-in instructions and ID upload go out by WhatsApp or email, on time."
+   - icon account_balance_wallet — "See real earnings" — "Gross, commission and net per channel, so you know which one actually pays."
+5. Pricing (id="pricing"): <h2 class="t-headline-medium"> "Simple pricing" + .segmented "Monthly" (pressed) / "Yearly −20%".
+   .grid3 with 3 plan cards, each: name t-title-large, price t-display-small + muted "/ month", short line,
+   list of 4 features with icon check, button.
+   - Starter €19 — "Up to 5 rooms" — 2 channels · Calendar & room status · Guest list · Email support — class="btn btn--outlined" "Start free trial"
+   - Pro €39 — "Up to 15 rooms" — all channels · Automations (WhatsApp + email) · Pricing rules · Reports & CSV — class="btn btn--filled" "Start free trial".
+     This card is highlighted: background var(--md-primary-container), color var(--md-on-primary-container),
+     plus tag "Most popular".
+   - Multi-property €79 — "Up to 30 rooms, many properties" — everything in Pro · Staff roles · Multiple properties · Priority support — class="btn btn--outlined" "Talk to us"
+6. FAQ (id="faq"): <h2 class="t-headline-medium"> "Questions" + 5 <details> elements inside one card
+   (summary in t-title-small, answer in t-body-medium muted, .divider between them):
+   - "Do I need a channel manager too?" — "No. Casa Verde CRM connects to Booking.com, Airbnb and Expedia directly."
+   - "What happens when two bookings overlap?" — "The room closes on all channels immediately and you choose which booking to keep."
+   - "Can my housekeeper use it on her phone?" — "Yes. Staff get their own login and only see what their role allows."
+   - "Is guest ID data safe?" — "Documents are stored encrypted in the EU and deleted automatically after the legal period."
+   - "Can I cancel anytime?" — "Yes, from Settings → Billing. You keep your data export."
+7. Final CTA card (background var(--md-inverse-surface), color var(--md-inverse-on-surface), radius var(--md-shape-xl),
+   centered): "Try it with your own rooms" + class="btn btn--filled" "Start free trial".
+8. Footer: muted t-body-small row: "© 2026 Casa Verde CRM" · Privacy · Terms · Contact.
+No <script> needed except the segmented toggle from dashboard.html.

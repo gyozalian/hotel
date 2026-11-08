@@ -1,0 +1,38 @@
+I opened landing.html in a browser at 1440px. The hero is good. Fix these by editing landing.html only:
+
+1. CONTENT WIDTH: Features, Pricing, FAQ, the final CTA and the footer run to the left edge of the window.
+   Inside EVERY <section> and the <footer>, wrap the content in <div class="wrap"> ... </div> (like the header does).
+2. HEADER: too tall and the links sit next to the logo. Change padding to `padding: var(--sp-3) 0;`.
+   Order inside .wrap: logo + "Casa Verde CRM", then <span style="flex:1"></span>, then the links (Features, Pricing, FAQ
+   with color: var(--md-on-surface-variant) and font: var(--md-label-large)), then "Sign in" (btn btn--text), then
+   "Start free trial" (btn btn--filled). The button text must be "Start free trial", not "Start trial".
+3. HERO: the proof strip text order must be "Trusted by 1,200+ small hotels", then a row: muted "Works with" followed by the 4 tags
+   in one line (<div style="display:flex; gap: var(--sp-2); justify-content:center; align-items:center; flex-wrap:wrap;">).
+   Hero primary button text "Start free trial".
+4. FEATURE ICONS are emoji. Use Material Symbols: <span class="icon">sync_problem</span>, <span class="icon">forward_to_inbox</span>,
+   <span class="icon">account_balance_wallet</span>. The icon square uses background: var(--md-primary-container);
+   color: var(--md-on-primary-container); and margin: 0 (left-aligned, not centred). Card text is left-aligned.
+5. PRICING CARDS: use <article class="card card--outlined plan"> instead of .plan-card and delete the .plan-card rules.
+   `.plan { display:flex; flex-direction:column; gap: var(--sp-3); }`, `.plan .btn { margin-top: auto; }`,
+   `.plan.popular { background: var(--md-primary-container); color: var(--md-on-primary-container); }`.
+   Each card: name (t-title-large), price line <p><span class="t-display-small">€19</span> <span class="muted">/ month</span></p>,
+   short line ("Up to 5 rooms" / "Up to 15 rooms" / "Up to 30 rooms, many properties"), then the list.
+   Lists: <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap: var(--sp-2);"> with 4 items each, exactly:
+   Starter: 2 channels · Calendar & room status · Guest list · Email support
+   Pro: All channels · Automations (WhatsApp + email) · Pricing rules · Reports & CSV
+   Multi-property: Everything in Pro · Staff roles · Multiple properties · Priority support
+   Each <li style="display:flex; gap: var(--sp-2); align-items:center;"><span class="icon">check</span>text</li>.
+   Pro has <span class="tag tag--direct">Most popular</span> next to its name. Multi-property button is
+   class="btn btn--outlined" "Talk to us" (not a tag). Delete your .pricing .segmented rules (components.css has them).
+6. FAQ: put all 5 <details> inside ONE <article class="card card--outlined">, with <hr class="divider"> between them.
+   Each <details> has its answer in <p class="t-body-medium muted">. Answers (exact):
+   "No. Casa Verde CRM connects to Booking.com, Airbnb and Expedia directly." /
+   "The room closes on all channels immediately and you choose which booking to keep." /
+   "Yes. Staff get their own login and only see what their role allows." /
+   "Documents are stored encrypted in the EU and deleted automatically after the legal period." /
+   "Yes, from Settings → Billing. You keep your data export."
+7. FINAL CTA: make it a <section><div class="wrap"><div class="cta"> … </div></div></section> with
+   `.cta { background: var(--md-inverse-surface); color: var(--md-inverse-on-surface); border-radius: var(--md-shape-xl); padding: var(--sp-12) var(--sp-6); text-align: center; display:flex; flex-direction:column; align-items:center; gap: var(--sp-4); }`
+   (full .wrap width, not 760px).
+
+Change nothing else. When done, list what you changed in one short list.

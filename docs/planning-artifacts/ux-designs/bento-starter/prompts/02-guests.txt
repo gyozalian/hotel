@@ -1,0 +1,98 @@
+You are building one HTML mockup page for a hotel CRM, using an existing
+design system ("friendly bento": borderless white tiles on a soft grey-green
+background, big rounded corners, Plus Jakarta Sans). You are composing pages,
+not designing a new style.
+
+READ FIRST, in this order:
+1. docs/planning-artifacts/ux-designs/bento-starter/tokens.css
+2. docs/planning-artifacts/ux-designs/bento-starter/components.css
+3. docs/planning-artifacts/ux-designs/bento-starter/dashboard.html  (the reference page)
+4. docs/planning-artifacts/ux-designs/bento-starter/rooms.html      (a second finished page)
+
+HARD RULES
+- Create exactly ONE file: docs/planning-artifacts/ux-designs/bento-starter/<name>.html
+- It must be responsive (one file for all widths). Never create -mobile/-tablet/-desktop copies.
+- Copy the <head> links and the whole <nav class="nav"> block from dashboard.html.
+  Change only which nav item has aria-current="page".
+- Copy <header class="top-bar" id="topBar"> from dashboard.html; change only the <h1> title.
+  It goes directly inside <div class="main">, ABOVE <main class="content">.
+- Link tokens.css and components.css. Do NOT copy their contents into the page.
+- Do NOT define new CSS variables. Do NOT write hex colors, rgb() or font sizes in the page.
+  Use only var(--md-*), var(--ch-*), var(--st-*), var(--warn*), var(--sp-*), the .t-* type classes,
+  and the components in components.css (.card, .btn--filled/.btn--tonal/.btn--outlined/.btn--text,
+  .chip, .tag, .list, .table, .field, .banner, .segmented, .avatar, .icon, .progress, .divider).
+- Icons: <span class="icon">icon_name</span> using Material Symbols Rounded names.
+- Every card is <article class="card card--outlined"> (a white tile). Never put a card inside a card.
+  For a tinted box inside a card use a <div> with background: var(--md-surface-container-low)
+  and border-radius: var(--md-shape-sm).
+- Buttons always need two classes: class="btn btn--filled" (or --tonal/--outlined/--text).
+- Put the page sections inside <div class="stack"> with
+  `.stack { display: grid; gap: var(--layout-gutter); }` so they never touch.
+- Every page grid you define needs `grid-template-columns: minmax(0, 1fr)` for the one-column (phone)
+  case, and minmax(0, …) for its columns, otherwise a table or timeline stretches the page on phones.
+- Elements inside a card need a layout class (flex column + gap var(--sp-3)), otherwise
+  they run together on one line.
+- A page-specific <style> block is allowed ONLY for layout (grid, flex, gap, widths, position)
+  and must stay under about 70 lines.
+- Use EXACTLY the data given in the page brief. Do not invent other guests, prices or dates.
+- Copy the <script> from the end of dashboard.html (chips, segmented buttons, scrolled top bar).
+- Before writing, list the sections of the page and which component each one uses.
+  Then write the file in one go.
+- When done, say which parts you are unsure about. Do not write a validation report and do
+  not claim everything is correct: a person will check it in a browser.
+
+SHARED FACTS (Casa Verde, a 6-room guest house; today is Saturday 7 November 2026)
+Rooms: 1 Garden double, 2 Garden twin, 3 Terrace suite, 4 Courtyard double, 5 Family room, 6 Attic single.
+Staff: Maria Avetisyan (owner), Sofia Hakobyan (reception), Ana Grigoryan and Luis Ortega (housekeeping).
+Channels and commission: Booking.com 15%, Airbnb 13%, Expedia 12%, Direct 0%.
+Channel tag classes: tag--booking, tag--airbnb, tag--expedia, tag--direct.
+Room status tag classes: tag--ready, tag--clean, tag--dirty, tag--inspect, tag--ooo.
+Bookings, 7–20 Nov (check-in → check-out date):
+  Room 1: Anna Petrosyan, Booking.com, 7→10 · Léa Moreau, Direct, 11→15 · Kenji Tanaka, Airbnb, 17→20
+  Room 2: James Smith, Airbnb, 5→7 (departed today) · Marco Rossi, Expedia, 13→17
+  Room 3: Weber family, Booking.com, 9→13 · Rita Silva, Airbnb, 11→13 (OVERLAP with Weber, unresolved)
+  Room 4: Novak family, Direct, 7→11 · Wei Chen, Booking.com, 15→20
+  Room 5: out of order 7→9 (boiler repair) · García family, Expedia, 12→16
+  Room 6: Hyun Kim, Booking.com, 8→10 · Sofia Ivanova, Direct, 14→17 · Thomas Müller, Airbnb, 18→20
+November so far: gross €13,580, commission €1,371, net €12,209. Occupancy next 7 days 65%, ADR €94, RevPAR €61.
+
+PAGE: Guests (guests.html, nav item: Guests, top-bar title "Guests").
+
+LAYOUT
+.guests { display: grid; gap: var(--layout-gutter); }
+@media (min-width: 1200px) { .guests { grid-template-columns: 380px minmax(0, 1fr); align-items: start; } }
+@media (max-width: 1199px) { .profile { display: none; } }   (phone/tablet show the list only)
+
+SECTIONS
+1. .page-head: <h2 class="t-headline-small">142 guests</h2>, muted text "8 staying or arriving this month",
+   right: class="btn btn--outlined" icon download "Export", class="btn btn--filled" icon person_add "Add guest".
+2. LEFT: list card (<article class="card card--outlined">):
+   - .field with label "Search guests" and placeholder "Name, email or phone"
+   - .chip-row: All (pressed, check icon), Staying now, Arriving, Returning
+   - <ul class="list"> with these 8 guests (avatar initials, headline name, supporting "last stay",
+     trailing channel tag). The first item is selected: give it
+     style background: var(--md-secondary-container).
+       Anna Petrosyan — Staying now · Room 1 — Booking.com
+       Novak family — Staying now · Room 4 — Direct
+       Hyun Kim — Arrives Sun 8 Nov — Booking.com
+       Weber family — Arrives Mon 9 Nov — Booking.com
+       Léa Moreau — Arrives Wed 11 Nov · 3rd stay — Direct
+       Rita Silva — Request 11 Nov · overlap — Airbnb
+       James Smith — Left today — Airbnb
+       Marco Rossi — Arrives Fri 13 Nov — Expedia
+3. RIGHT: <div class="profile stack"> with these cards:
+   a) Header card: avatar "AP" (use class avatar, size it 64px with width/height in the page style),
+      <h2 class="t-headline-small">Anna Petrosyan</h2>, muted "Yerevan, Armenia · Guest since June 2025 · 2 stays",
+      chips (not pressed) with icons: chat "WhatsApp +374 91 234 567", mail "anna.petrosyan@example.com",
+      and buttons class="btn btn--filled" "Message", class="btn btn--outlined" "New booking".
+   b) Two cards side by side at ≥1200px (.profile-row { display: grid; gap: var(--layout-gutter); grid-template-columns: 1fr 1fr; }):
+      "Preferences": tags: Late check-in, Vegetarian breakfast, Quiet room, Speaks Russian.
+      "Current stay": Room 1 · Garden double, Sat 7 → Tue 10 Nov · 3 nights, tag tag--booking,
+      Net €240 (gross €282, commission €42), tag tag--ready "ID received".
+   c) "Stay history" card with .table-wrap > .table, columns Dates / Room / Channel / Nights / Net (Net is .num):
+        7–10 Nov 2026 · Room 1 · Booking.com tag · 3 · €240
+        14–17 Jun 2025 · Room 3 · Direct tag · 3 · €315
+   d) "Notes" card: <ul class="list"> with 2 notes (avatar of author, text, date):
+        Maria — "Prefers the quiet side, Room 1 or 3." — 15 Jun 2025
+        Sofia — "Arriving late on 7 Nov, key box code sent." — 6 Nov 2026
+      and class="btn btn--text" icon add "Add note".

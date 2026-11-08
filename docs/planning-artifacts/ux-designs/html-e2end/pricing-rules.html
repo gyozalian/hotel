@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel CRM — Pricing Rules</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@8..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <!-- Shared App Shell -->
+    <div class="drawer" id="sidebar" aria-label="Main navigation">
+        <div class="drawer-header">
+            <h1 class="drawer-title display">Hotel CRM</h1>
+            <p style="font-size:11px; color:var(--ink-2); text-transform:uppercase; letter-spacing:0.1em;">Hotelsky</p>
+        </div>
+        <nav class="drawer-nav">
+            <a href="index.html" class="nav-item ${location.pathname === '/' || location.pathname === '' || location.pathname === 'index.html' ? 'active' : ''}" aria-current="page">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11h3a5 5 0 0 1 5 5v2a5 5 0 0 1-5 5h-3"></path></svg></span>
+                Dashboard
+            </a>
+            <a href="dashboard.html" class="nav-item ${location.pathname === 'dashboard.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+                Dashboard
+            </a>
+            <a href="bookings.html" class="nav-item ${location.pathname === 'bookings.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="9" x2="12" y2="13"></line></svg></span>
+                Bookings
+            </a>
+            <a href="guests.html" class="nav-item ${location.pathname === 'guests.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg></span>
+                Guests
+            </a>
+            <a href="room-status.html" class="nav-item ${location.pathname === 'room-status.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><circle cx="8.5" cy="4.5" r="1.5"></circle><circle cx="15.5" cy="4.5" r="1.5"></circle></svg></span>
+                Room Status
+            </a>
+            <a href="pricing-rules.html" class="nav-item ${location.pathname === 'pricing-rules.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></span>
+                Pricing Rules
+            </a>
+            <a href="reports.html" class="nav-item ${location.pathname === 'reports.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="20" height="20" rx="2" ry="2"></rect><path d="M3 9l9 -7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span>
+                Reports
+            </a>
+            <a href="settings.html" class="nav-item ${location.pathname === 'settings.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"></circle><path d="M2 12l10-7 10 7 10 7H2a2 2 0 0 1-2-2z"></path></svg></span>
+                Settings
+            </a>
+        </nav>
+        <div style="padding: 24px; border-top: 1px solid var(--line); text-align: center;">
+            <div class="avatar">SK</div>
+        </div>
+    </div>
+
+    <div class="page">
+        <!-- Top bar -->
+        <header class="top-bar">
+            <button class="btn btn-icon btn-ghost" id="sidebarToggle" aria-label="Toggle sidebar">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></span>
+            </button>
+            <h1 class="display" style="font-size:32px; margin:0 24px 0 0;">Pricing Rules</h1>
+            <div class="top-bar-right">
+                <div class="input-search" placeholder="⌘K Search rules...">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                <select class="select">
+                    <option>All Rate Plans</option>
+                    <option>Standard</option>
+                    <option>Premium</option>
+                    <option>Weekend</option>
+                </select>
+                <button class="btn btn-primary">Add Rule</button>
+                <button class="btn btn-icon btn-ghost" aria-label="Notifications">
+                    <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="16"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>
+                    <span class="indicator" style="position:absolute; top:2px; right:2px; width:8px; height:8px; border-radius:50%; background:#Cf7"></span>
+                </button>
+            </div>
+        </header>
+
+        <main style="margin-top: 48px;">
+            <!-- KPI Strip -->
+            <section class="kpi-strip" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-bottom:32px;">
+                <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:20px; text-align:center;">
+                    <div class="kpi-value display" style="font-size:28px;">128</div>
+                    <div class="kpi-label uppercase-micro" style="color:var(--ink-2); font-size:10px;">Active Rate Rules</div>
+                </div>
+                <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:20px; text-align:center;">
+                    <div class="kpi-value display" style="font-size:28px;">5</div>
+                    <div class="kpi-label uppercase-micro" style="color:var(--ink-2); font-size:10px;">Rule Types</div>
+                </div>
+                <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:20px; text-align:center;">
+                    <div class="kpi-value display" style="font-size:28px;">$89</div>
+                    <div class="kpi-label uppercase-micro" style="color:var(--ink-2); font-size:10px;">Avg RevPAR Lift</div>
+                </div>
+                <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:20px; text-align:center;">
+                    <div class="kpi-value display" style="font-size:28px;">24h</div>
+                    <div class="kpi-label uppercase-micro" style="color:var(--ink-2); font-size:10px;">Rule Cooldown</div>
+                </div>
+            </section>
+
+            <!-- Rate Card Table -->
+            <section style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px;">
+                <h2 class="display" style="font-size:20px; margin:0 0 16px 0;">Rate Plans</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Plan Name</th>
+                            <th>Code</th>
+                            <th>Base Rate</th>
+                            <th>Min Stay</th>
+                            <th>Valid From</th>
+                            <th class="number">Valid To</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid var(--line);">
+                            <td style="font-size:13px;">Standard Rate</td>
+                            <td style="font-size:11px; tabular-nums;">STD</td>
+                            <td class="number" style="font-size:14px;">$210</td>
+                            <td style="font-size:11px;">1 night</td>
+                            <td style="font-size:11px; color:var(--ink-2);">2024-01-01</td>
+                            <td class="number" style="font-size:14px;">Ongoing</td>
+                            <td>
+                                <button class="btn-icon btn-ghost" style="padding:4px;">⋯</button>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--line);">
+                            <td style="font-size:13px;">Weekend Rate</td>
+                            <td style="font-size:11px; tabular-nums;">WKE</td>
+                            <td class="number" style="font-size:14px;">$265</td>
+                            <td style="font-size:11px;">2 nights</td>
+                            <td style="font-size:11px; color:var(--ink-2);">2024-01-05</td>
+                            <td class="number" style="font-size:14px;">2024-01-07</td>
+                            <td>
+                                <button class="btn-icon btn-ghost" style="padding:4px;">⋯</button>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--line);">
+                            <td style="font-size:13px;">Premium Rate</td>
+                            <td style="font-size:11px; tabular-nums;">PRM</td>
+                            <td class="number" style="font-size:14px;">$320</td>
+                            <td style="font-size:11px;">2 nights</td>
+                            <td style="font-size:11px; color:var(--ink-2);">2024-01-01</td>
+                            <td class="number" style="font-size:14px;">2024-12-31</td>
+                            <td>
+                                <button class="btn-icon btn-ghost" style="padding:4px;">⋯</button>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--line);">
+                            <td style="font-size:13px;">Friday Rate</td>
+                            <td style="font-size:11px; tabular-nums;">FRI</td>
+                            <td class="number" style="font-size:14px;">$275</td>
+                            <td style="font-size:11px;">1 night</td>
+                            <td style="font-size:11px; color:var(--ink-2);">2024-01-05</td>
+                            <td class="number" style="font-size:14px;">2024-01-07</td>
+                            <td>
+                                <button class="btn-icon btn-ghost" style="padding:4px;">⋯</button>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--line);">
+                            <td style="font-size:13px;">Saturday Rate</td>
+                            <td style="font-size:11px; tabular-nums;">SAT</td>
+                            <td class="number" style="font-size:14px;">$285</td>
+                            <td style="font-size:11px;">1 night</td>
+                            <td style="font-size:11px; color:var(--ink-2);">2024-01-05</td>
+                            <td class="number" style="font-size:14px;">2024-01-07</td>
+                            <td>
+                                <button class="btn-icon btn-ghost" style="padding:4px;">⋯</button>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--line);">
+                            <td style="font-size:13px;">Holiday Rate</td>
+                            <td style="font-size:11px; tabular-nums;">HOL</td>
+                            <td class="number" style="font-size:14px;">$380</td>
+                            <td style="font-size:11px;">3 nights</td>
+                            <td style="font-size:11px; color:var(--ink-2);">2024-02-14</td>
+                            <td class="number" style="font-size:14px;">2024-02-16</td>
+                            <td>
+                                <button class="btn-icon btn-ghost" style="padding:4px;">⋯</button>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--line);">
+                            <td style="font-size:13px;">Early Bird</td>
+                            <td style="font-size:11px; tabular-nums;">EBR</td>
+                            <td class="number" style="font-size:14px;">$190</td>
+                            <td style="font-size:11px;">1 night</td>
+                            <td style="font-size:11px; color:var(--ink-2);">2023-12-01</td>
+                            <td class="number" style="font-size:14px;">2024-03-31</td>
+                            <td>
+                                <button class="btn-icon btn-ghost" style="padding:4px;">⋯</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Rule Types / Rate Categories -->
+            <section style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; margin-top:32px;">
+                <h2 class="display" style="font-size:20px; margin:0 0 16px 0;">Rule Categories</h>
+                <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;">
+                    <span class="pill neutral" style="font-size:10px;">Dynamic Pricing</span>
+                    <span class="pill success" style="font-size:10px;">Seasonal Adjustments</span>
+                    <span class="pill warning" style="font-size:10px;">Length of Stay</span>
+                    <span class="pill info" style="font-size:10px;">Market Positioning</span>
+                    <span class="pill danger" style="font-size:10px;">Competitive Response</span>
+                    <span class="pill info" style="font-size:10px;">Advance Purchase</span>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar toggle
+        const sidebar = document.getElementById('sidebar');
+        const toggle = document.getElementById('sidebarToggle');
+
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
+
+        // Check for dark mode preference
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+
+        // Nav active link highlighting
+        const navItems = document.querySelectorAll('.nav-item');
+        const currentPath = window.location.pathname;
+        navItems.forEach(item => {
+            const link = item.getAttribute('href');
+            if (currentPath === link || (currentPath === '/' && link === 'index.html')) {
+                item.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

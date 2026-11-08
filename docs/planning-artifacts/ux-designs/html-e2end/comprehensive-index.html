@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel CRM — Design Package Comprehensive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@8..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <!-- Shared App Shell -->
+    <div class="drawer" id="sidebar" aria-label="Main navigation">
+        <div class="drawer-header">
+            <h1 class="drawer-title display">Hotel CRM</h1>
+            <p style="font-size:11px; color:var(--ink-2); text-transform:uppercase; letter-spacing:0.1em;">Hotelsky</p>
+        </div>
+        <nav class="drawer-nav">
+            <a href="index.html" class="nav-item ${location.pathname === '/' || location.pathname === '' || location.pathname === 'index.html' ? 'active' : ''}" aria-current="page">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11h3a5 5 0 0 1 5 5v2a5 5 0 0 1-5 5h-3"></path></svg></span>
+                Dashboard
+            </a>
+            <a href="dashboard.html" class="nav-item ${location.pathname === 'dashboard.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+                Dashboard
+            </a>
+            <a href="bookings.html" class="nav-item ${location.pathname === 'bookings.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="9" x2="12" y2="13"></line></svg></span>
+                Bookings
+            </a>
+            <a href="guests.html" class="nav-item ${location.pathname === 'guests.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg></span>
+                Guests
+            </a>
+            <a href="room-status.html" class="nav-item ${location.pathname === 'room-status.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><circle cx="8.5" cy="4.5" r="1.5"></circle><circle cx="15.5" cy="4.5" r="1.5"></circle></svg></span>
+                Room Status
+            </a>
+            <a href="pricing-rules.html" class="nav-item ${location.pathname === 'pricing-rules.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></span>
+                Pricing Rules
+            </a>
+            <a href="reports.html" class="nav-item ${location.pathname === 'reports.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="20" height="20" rx="2" ry="2"></rect><path d="M3 9l9 -7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span>
+                Reports
+            </a>
+            <a href="settings.html" class="nav-item ${location.pathname === 'settings.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"></circle><path d="M2 12l10-7 10 7 10 7H2a2 2 0 0 1-2-2z"></path></svg></span>
+                Settings
+            </a>
+        </nav>
+        <div style="padding: 24px; border-top: 1px solid var(--line); text-align: center;">
+            <div class="avatar">SK</div>
+        </div>
+    </div>
+
+    <div class="page">
+        <!-- Top bar -->
+        <header class="top-bar" style="display:none at 768px;">
+            <button class="btn btn-icon btn-ghost" id="sidebarToggle" aria-label="Toggle sidebar">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></span>
+            </button>
+            <h1 class="display" style="font-size:32px; margin:0 24px 0 0;">Hotel CRM</h1>
+            <div class="top-bar-right">
+                <div class="input-search" placeholder="⌘K Global search">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                <select class="select">
+                    <option>All Rooms</option>
+                    <option>Floor 1</option>
+                    <option>Floor 2</option>
+                </select>
+                <button class="btn btn-primary" style="padding: 8px 16px; font-size: 12px;">Today</button>
+                <button class="btn btn-icon btn-ghost" aria-label="Notifications">
+                    <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="16"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>
+                    <span class="indicator" style="position:absolute; top:2px; right:2px; width:8px; height:8px; border-radius:50%; background:#Cf7"></span>
+                </button>
+            </div>
+        </header>
+
+        <main style="margin-top: 48px;">
+            <!-- Hero / Welcome section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <p class="uppercase-micro">Hotel CRM Design System</p>
+                    <h2 class="display" style="font-size:48px; margin:16px 0;">Comprehensive Design Package</h2>
+                    <p style="color:var(--ink-2); font-size:15px; line-height:1.6;">All 9 CRM pages rebuilt with a quiet‑luxury editorial aesthetic. From KPI dashboards to guest management, every screen follows the same design tokens and component library.</p>
+                    <button class="btn btn-primary">Start Exploring</button>
+                </div>
+
+                <div class="hero-stats" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:16px; margin-top:32px; justify-content:center;">
+                    <div class="kpi" style="text-align:left; margin:0;">
+                        <div class="kpi-value" style="font-size:28px;">9</div>
+                        <div class="kpi-label" style="font-size:10px;">CRM Pages</div>
+                    </div>
+                    <div class="kpi" style="text-align:left; margin:0;">
+                        <div class="kpi-value" style="font-size:28px;">1280</div>
+                        <div class="kpi-label" style="font-size:10px;">Max Width</div>
+                    </div>
+                    <div class="kpi" style="text-align:left; margin:0;">
+                        <div class="kpi-value" style="font-size:28px;">150ms</div>
+                        <div class="kpi-label" style="font-size:10px;">Transitions</div>
+                    </div>
+                    <div class="kpi" style="text-align:left; margin:0;">
+                        <div class="kpi-value" style="font-size:28px;">6</div>
+                        <div class="kpi-label" style="font-size:10px;">Status Types</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Page grid preview -->
+            <section class="page-grid" style="margin-top: 64px;">
+                <h2 class="display" style="font-size:32px; margin-bottom:24px;">Page Preview Cards</h2>
+                <div class="page-grid-cards" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; margin-top:32px;">
+                    <!-- Dashboard card -->
+                    <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; height:100%; transition:box-shadow 150ms ease; cursor:pointer; user-select:none;" onclick="window.location.href='dashboard.html'">
+                        <div style="width:48px; height:48px; background:var(--surface-2); border-radius:10px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <h3 style="font-family:'Fraunces',serif; font-size:18px; margin:0 0 8px 0; display:flex; align-items:center; gap:4px;"><span style="color:var(--accent);">▲</span> Dashboard</h3>
+                        <p style="color:var(--ink-2); font-size:12px; line-height:1.4;">KPI strip, occupancy chart, today's activity</p>
+                    </div>
+
+                    <!-- Bookings card -->
+                    <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; height:100%; transition:box-shadow 150ms ease; cursor:pointer; user-select:none;" onclick="window.location.href='bookings.html'">
+                        <div style="width:48px; height:48px; background:var(--surface-2); border-radius:10px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="9" x2="12" y2="13"></line></svg>
+                        </div>
+                        <h3 style="font-family:'Fraunces',serif; font-size:18px; margin:0 0 8px 0; display:flex; align-items:center; gap:4px;"><span style="color:var(--accent);">▲</span> Bookings</h3>
+                        <p style="color:var(--ink-2); font-size:12px; line-height:1.4;">Channel filter, guest table, status pills</p>
+                    </div>
+
+                    <!-- Guests card -->
+                    <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; height:100%; transition:box-shadow 150ms ease; cursor:pointer; user-select:none;" onclick="window.location.href='guests.html'">
+                        <div style="width:48px; height:48px; background:var(--surface-2); border-radius:10px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+                        </div>
+                        <h3 style="font-family:'Fraunces',serif; font-size:18px; margin:0 0 8px 0; display:flex; align-items:center; gap:4px;"><span style="color:var(--accent);">▲</span> Guests</h3>
+                        <p style="color:var(--ink-2); font-size:12px; line-height:1.4;">Searchable table, VIP tags, profile drawer</p>
+                    </div>
+
+                    <!-- Room Status card -->
+                    <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; height:100%; transition:box-shadow 150ms ease; cursor:pointer; user-select:none;" onclick="window.location.href='room-status.html'">
+                        <div style="width:48px; height:48px; background:var(--surface-2); border-radius:10px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><circle cx="8.5" cy="4.5" r="1.5"></circle><circle cx="15.5" cy="4.5" r="1.5"></circle></svg>
+                        </div>
+                        <h3 style="font-family:'Fraunces',serif; font-size:18px; margin:0 0 8px 0; display:flex; align-items:center; gap:4px;"><span style="color:var(--accent);">▲</span> Room Status</h3>
+                        <p style="color:var(--ink-2); font-size:12px; line-height:1.4;">Floor grid, room tiles, housekeeping</p>
+                    </div>
+
+                    <!-- Pricing Rules card -->
+                    <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; height:100%; transition:box-shadow 150ms ease; cursor:pointer; user-select:none;" onclick="window.location.href='pricing-rules.html'">
+                        <div style="width:48px; height:48px; background:var(--surface-2); border-radius:10px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        </div>
+                        <h3 style="font-family:'Fraunces',serif; font-size:18px; margin:0 0 8px 0; display:flex; align-items:center; gap:4px;"><span style="color:var(--accent);">▲</span> Pricing Rules</h3>
+                        <p style="color:var(--ink-2); font-size:12px; line-height:1.4;">Rate cards, rule list, calendar heatmap</p>
+                    </div>
+
+                    <!-- Reports card -->
+                    <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; height:100%; transition:box-shadow 150ms ease; cursor:pointer; user-select:none;" onclick="window.location.href='reports.html'">
+                        <div style="width:48px; height:48px; background:var(--surface-2); border-radius:10px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="20" height="20" rx="2" ry="2"></rect><path d="M3 9l9 -7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                        </div>
+                        <h3 style="font-family:'Fraunces',serif; font-size:18px; margin:0 0 8px 0; display:flex; align-items:center; gap:4px;"><span style="color:var(--accent);">▲</span> Reports</h3>
+                        <p style="color:var(--ink-2); font-size:12px; line-height:1.4;">Chart.js charts, exportable tables</p>
+                    </div>
+
+                    <!-- Settings card -->
+                    <div class="kpi" style="background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; height:100%; transition:box-shadow 150ms ease; cursor:pointer; user-select:none;" onclick="window.location.href='settings.html'">
+                        <div style="width:48px; height:48px; background:var(--surface-2); border-radius:10px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"></circle><path d="M2 12l10-7 10 7 10 7H2a2 2 0 0 1-2-2z"></path></svg>
+                        </div>
+                        <h3 style="font-family:'Fraunces',serif; font-size:18px; margin:0 0 8px 0; display:flex; align-items:center; gap:4px;"><span style="color:var(--accent);">▲</span> Settings</h3>
+                        <p style="color:var(--ink-2); font-size:12px; line-height:1.4;">Sub-nav, integration cards, forms</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar toggle
+        const sidebar = document.getElementById('sidebar');
+        const toggle = document.getElementById('sidebarToggle');
+
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
+
+        // Check for dark mode preference
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+
+        // Nav active link highlighting
+        const navItems = document.querySelectorAll('.nav-item');
+        const currentPath = window.location.pathname;
+        navItems.forEach(item => {
+            const link = item.getAttribute('href');
+            if (currentPath === link || (currentPath === '/' && link === 'index.html')) {
+                item.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

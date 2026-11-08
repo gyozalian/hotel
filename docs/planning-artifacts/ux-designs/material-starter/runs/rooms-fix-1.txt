@@ -1,0 +1,33 @@
+I opened rooms.html in a browser. Fix these problems by editing rooms.html (do not create other files):
+
+1. NAV: you changed the nav. Copy the <nav class="nav"> block from dashboard.html EXACTLY
+   (Dashboard, Calendar, Rooms, Guests, ... in that order, Guests icon is "group").
+   The only change: move aria-current="page" from Dashboard to Rooms.
+2. TOP BAR: copy the whole <header class="top-bar" id="topBar"> from dashboard.html
+   (search field, icon buttons, avatar). Title is just "Rooms".
+3. CONTENT WRAPPER: everything below the top bar must be inside <main class="content">,
+   like dashboard.html. Right now the banner touches the screen edge.
+4. BUTTONS: "btn--outlined" alone does nothing. Use class="btn btn--outlined" and the
+   label "Change status". Put it at the bottom of each card, not in the header.
+5. NO CARD INSIDE CARD: remove the outer <section class="card card--outlined">.
+   Each room is one <article class="card card--outlined">.
+6. DATA must match dashboard.html "Room status" today:
+   1 Ready (Ana · 10:42), 2 Dirty (check-out 11:00), 3 Clean, 4 Inspect (waiting for Maria),
+   5 Out of order (boiler repair), 6 Ready (Luis · 08:50).
+   Guests tonight from the dashboard timeline: Room 1 Anna Petrosyan (Booking.com, arrives today),
+   Room 2 vacant (James Smith checked out), Room 3 vacant until Weber family on Mon 9 Nov,
+   Room 4 Novak family (Direct, arrives today), Room 5 out of order until Mon 9 Nov,
+   Room 6 vacant, Hyun Kim arrives Sun 8 Nov.
+   Show "Next arrival" as guest name + date + channel tag (.tag--booking etc).
+7. CHIPS: counts must match the cards (All 6, Ready 2, Clean 1, Dirty 1, Inspect 1,
+   Out of order 1). Use <button class="chip" aria-pressed="false">, selected one aria-pressed="true"
+   with <span class="icon">check</span>.
+8. BANNER: it's a notification, keep .banner--tip but use a t-title-small line
+   "Room 2 marked ready by Ana · 10:42" is wrong now since Room 2 is dirty. Change it to
+   "Room 1 marked ready by Ana · 10:42" with a text button "Undo".
+9. Add a page heading row like dashboard .page-head: "6 rooms · 2 ready for arrivals today"
+   with a tonal button "Housekeeping view".
+10. Copy the <script> from the end of dashboard.html so the chips and scrolled top bar work.
+
+Inside each card use a small layout class (e.g. .room-card with flex column + gap var(--sp-3)).
+Keep the rest of your layout. When done, list what you changed.

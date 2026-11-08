@@ -1,0 +1,30 @@
+PAGE: Settings (settings.html, nav item: Settings, top-bar title "Settings").
+Shows the "Pricing rules" section (PRD FR-3).
+
+LAYOUT
+.settings { display: grid; gap: var(--layout-gutter); }
+@media (min-width: 840px) { .settings { grid-template-columns: 240px minmax(0, 1fr); align-items: start; } }
+.sections { position: sticky; top: calc(var(--app-bar-height) + var(--sp-2)); }
+@media (max-width: 839px) { .sections .list { display: flex; overflow-x: auto; } }  (on phones the section list becomes a horizontal row)
+.rule { display: grid; gap: var(--sp-3); align-items: center; }
+@media (min-width: 1000px) { .rule { grid-template-columns: auto 1fr auto 1fr auto 140px auto; } }
+
+SECTIONS
+1. LEFT (.sections): card with <ul class="list"> of 5 items (icon + label, min-height 48px):
+   Property (icon home_work), Rooms & rates (bed), Pricing rules (trending_up, selected:
+   style background: var(--md-secondary-container)), Notifications (notifications), Billing (credit_card).
+2. RIGHT (a .stack):
+   a) Intro card: <h2 class="t-title-large">Pricing rules</h2>, muted "Rules adjust your base rate automatically on
+      all channels. They run every night at 02:00 and before each sync.", then .banner.banner--tip:
+      "Last week rules added €186" / "Weekend +10% applied 4 times · last-minute −15% filled Room 6 on 3 Nov."
+   b) One card per rule (3 cards). Each card: header row with rule name (t-title-medium), status tag,
+      and a .segmented On/Off; then the .rule row built from .field elements:
+        "If" [.field select: Occupancy] [.field select: is above] [.field input: 70 %] "then" [.field select: raise price by] [.field input: 10 %]
+      then muted line "Applies to: all rooms · Fri–Sat nights" and buttons class="btn btn--text" "Edit", class="btn btn--text" icon delete "Delete".
+      Rules:
+        1. "Busy weekend" — tag tag--ready "Active" — On — If occupancy is above 70% then raise price by 10% — Fri–Sat nights, all rooms
+        2. "Last-minute" — tag tag--ready "Active" — On — If days before arrival is below 3 then lower price by 15% — any night, rooms 2 and 6
+        3. "Long stay" — tag "Off" — Off — If nights is at least 7 then lower price by 8% — any night, all rooms
+   c) Floor/ceiling card: two .field inputs side by side: "Never below" €65, "Never above" €180, supporting text
+      "Rules never move the price outside this range."
+   d) Button row: class="btn btn--tonal" icon add "Add rule", spacer, class="btn btn--text" "Discard", class="btn btn--filled" "Save rules".

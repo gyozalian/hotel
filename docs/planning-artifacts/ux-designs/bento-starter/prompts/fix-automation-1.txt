@@ -1,0 +1,22 @@
+I opened automation.html in a browser at 1440px. The three cards and the activity list look good. Fix these by editing automation.html only:
+
+1. WHEN IT SENDS: each card shows the literal words "when it sends". Replace them with the real text:
+   Booking confirmation: "Right after a booking is made"
+   Pre-arrival instructions: "3 days before check-in, 10:00"
+   Upsell offer: "2 days before check-in"
+   Make that line `display: flex; align-items: center; gap: var(--sp-2);` so the icon sits next to the text.
+2. CHANNEL TAGS: WhatsApp and Email are not booking channels, so do not use tag--booking/--airbnb/--expedia/--direct.
+   Use plain <span class="tag"> for both in all three cards. The arrow between them is just <span class="icon">arrow_forward</span>
+   with no tag around it. Wrap the three in <div style="display:flex; align-items:center; gap: var(--sp-2);">.
+3. EDIT BUTTON: the class attribute holds the text. It must be:
+   <button class="btn btn--text"><span class="icon">edit</span>Edit template</button>
+4. PREVIEW: the first line ("Thank you, {first name}!", "See you on {weekday}, {first name}!", "Make it special") must be its own
+   <p class="t-title-small">, the rest a <p class="t-body-medium">. Remove the " / " between them.
+   Put the stats line ("Sent 18 · Read 16" etc.) OUTSIDE the .preview box, under it, as <p class="t-body-small muted">.
+5. ACTIVITY must be inside a card: <article class="card card--outlined"> with
+   <div class="card__header"><h2 class="t-title-medium">Activity</h2><span class="t-body-small muted">Last 24 hours</span></div>
+   and then the existing list. Supporting text must include the channel: "Pre-arrival instructions · WhatsApp",
+   "Pre-arrival instructions · Email", "ID reminder · WhatsApp", "Pre-arrival instructions · WhatsApp",
+   "Booking confirmation · held", "Booking confirmation · Email".
+
+Change nothing else. When done, list what you changed in one short list.

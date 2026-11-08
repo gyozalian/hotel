@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Channels · Hotel CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    .page-head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--sp-4);margin:var(--sp-2) 0 var(--sp-6)}
+    .page-head__text{flex:1 1 260px;min-width:0}
+    .page-head__actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);align-items:center}
+    .ch-cards{display:grid;gap:var(--layout-gutter)}
+    @media(min-width:600px){.ch-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(min-width:1200px){.ch-cards{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    .ch-card{display:flex;flex-direction:column;gap:var(--sp-3)}
+    .table-wrap{overflow-x:auto;margin:0 calc(var(--sp-4)*-1)}
+    @media(min-width:600px){.table-wrap{margin:0 calc(var(--sp-5)*-1)}}
+    .stack{display:grid;gap:var(--layout-gutter)}
+    .ch-card .btn--text { align-self: flex-start; margin-top: auto; margin-left: calc(var(--sp-3) * -1); }
+    .table .total td { font: var(--md-title-small); border-bottom: 0; }
+  </style>
+</head>
+<body>
+<div class="app">
+  <nav class="nav" aria-label="Main">
+    <div class="nav__brand"><span class="logo"><span class="icon filled">hotel</span></span>Casa Verde</div>
+    <button class="fab nav__fab" aria-label="New booking"><span class="icon">add</span></button>
+    <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">space_dashboard</span></span><span class="nav__label">Dashboard</span></a>
+    <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">calendar_month</span></span><span class="nav__label">Calendar</span><span class="nav__badge">1</span></a>
+    <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">bed</span></span><span class="nav__label">Rooms</span></a>
+    <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">group</span></span><span class="nav__label">Guests</span></a>
+    <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">forward_to_inbox</span></span><span class="nav__label">Automation</span></a>
+    <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">monitoring</span></span><span class="nav__label">Reports</span></a>
+    <a class="nav__item nav__item--extra" href="#" aria-current="page"><span class="nav__indicator"><span class="icon">hub</span></span><span class="nav__label">Channels</span></a>
+    <div class="nav__section">Admin</div>
+    <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">manage_accounts</span></span><span class="nav__label">Users</span></a>
+    <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">settings</span></span><span class="nav__label">Settings</span></a>
+    <a class="nav__item nav__item--more" href="#"><span class="nav__indicator"><span class="icon">menu</span></span><span class="nav__label">More</span></a>
+  </nav>
+  <div class="main">
+    <header class="top-bar" id="topBar">
+      <h1 class="top-bar__title">Channels</h1>
+      <label class="search"><span class="icon">search</span><input type="search" placeholder="Search guests, bookings, rooms" aria-label="Search"></label>
+      <div class="top-bar__actions">
+        <button class="icon-btn search-toggle" aria-label="Search"><span class="icon">search</span></button>
+        <button class="icon-btn" aria-label="Notifications, 2 unread"><span class="icon">notifications</span><span class="dot"></span></button>
+        <button class="icon-btn" aria-label="Account: Maria"><span class="avatar avatar--sm">M</span></button>
+      </div>
+    </header>
+    <main class="content">
+      <div class="stack">
+        <section class="page-head">
+          <div class="page-head__text">
+            <h2 class="t-headline-small">4 channels</h2>
+            <p class="muted">Availability syncs every 2 minutes</p>
+          </div>
+          <div class="page-head__actions">
+            <button class="btn btn--outlined"><span class="icon">sync</span>Sync now</button>
+            <button class="btn btn--filled"><span class="icon">add</span>Connect channel</button>
+          </div>
+        </section>
+        <section class="banner banner--error">
+          <span class="banner__icon"><span class="icon">sync_problem</span></span>
+          <div class="banner__body">
+            <p class="t-title-small">Airbnb sync paused for Room 3</p>
+            <p class="t-body-medium">Room 3 has an overlap on 11–13 Nov. Sync resumes when you resolve it.</p>
+            <div class="banner__actions">
+              <button class="btn btn--error">Resolve overlap</button>
+              <button class="btn btn--text">Details</button>
+            </div>
+          </div>
+        </section>
+        <section class="ch-cards">
+          <article class="card card--outlined ch-card">
+            <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
+              <div style="display:flex;align-items:center;gap:var(--sp-2)">
+                <span class="avatar" style="background:var(--ch-booking-container);color:var(--ch-on-booking-container)">B</span>
+                <h3 class="t-title-medium">Booking.com</h3>
+                <span class="tag tag--ready">Connected</span>
+              </div>
+              <div class="field"><label>Commission %</label><input type="number" value="15"></div>
+              <p class="muted">Last sync 2 min ago</p>
+              <p class="muted">6 of 6 rooms listed</p>
+              <button class="btn btn--text">Settings</button>
+            </div>
+          </article>
+          <article class="card card--outlined ch-card">
+            <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
+              <div style="display:flex;align-items:center;gap:var(--sp-2)">
+                <span class="avatar" style="background:var(--ch-airbnb-container);color:var(--ch-on-airbnb-container)">A</span>
+                <h3 class="t-title-medium">Airbnb</h3>
+                <span class="tag tag--dirty">Paused: Room 3</span>
+              </div>
+              <div class="field"><label>Commission %</label><input type="number" value="13"></div>
+              <p class="muted">Last sync 2 min ago</p>
+              <p class="muted">5 of 6 rooms listed</p>
+              <button class="btn btn--text">Settings</button>
+            </div>
+          </article>
+          <article class="card card--outlined ch-card">
+            <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
+              <div style="display:flex;align-items:center;gap:var(--sp-2)">
+                <span class="avatar" style="background:var(--ch-expedia-container);color:var(--ch-on-expedia-container)">E</span>
+                <h3 class="t-title-medium">Expedia</h3>
+                <span class="tag tag--ready">Connected</span>
+              </div>
+              <div class="field"><label>Commission %</label><input type="number" value="12"></div>
+              <p class="muted">Last sync 3 min ago</p>
+              <p class="muted">4 of 6 rooms listed</p>
+              <button class="btn btn--text">Settings</button>
+            </div>
+          </article>
+          <article class="card card--outlined ch-card">
+            <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
+              <div style="display:flex;align-items:center;gap:var(--sp-2)">
+                <span class="avatar" style="background:var(--ch-direct-container);color:var(--ch-on-direct-container)">D</span>
+                <h3 class="t-title-medium">Direct</h3>
+                <span class="tag tag--ready">Live</span>
+              </div>
+              <div class="field"><label>Commission %</label><input type="number" value="0"></div>
+              <p class="muted">Your website · casaverde.am</p>
+              <p class="muted">Last booking today 09:40</p>
+              <button class="btn btn--text">Settings</button>
+            </div>
+          </article>
+        </section>
+        <section>
+          <article class="card card--outlined">
+            <div class="card__header">
+              <h2>Reconciliation, November</h2>
+              <span class="muted">What each channel owes you, or you owe it.</span>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Channel</th><th class="num">Bookings</th><th class="num">Gross</th><th class="num">Commission</th><th class="num">Net</th><th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="tag tag--booking">Booking.com</span></td><td class="num">14</td><td class="num">€4,820</td><td class="num">€723</td><td class="num">€4,097</td><td><span class="tag tag--dirty">You owe €723 invoice 1 Dec</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="tag tag--airbnb">Airbnb</span></td><td class="num">9</td><td class="num">€3,150</td><td class="num">€410</td><td class="num">€2,740</td><td><span class="tag tag--ready">Paid out €2,740</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="tag tag--expedia">Expedia</span></td><td class="num">6</td><td class="num">€1,980</td><td class="num">€238</td><td class="num">€1,742</td><td><span class="tag tag--inspect">€1,742 payout 15 Dec</span></td>
+                  </tr>
+                  <tr>
+                    <td><span class="tag tag--direct">Direct</span></td><td class="num">11</td><td class="num">€3,630</td><td class="num">€0</td><td class="num">€3,630</td><td><span class="tag tag--ready">Paid by guests</span></td>
+                  </tr>
+                  <tr class="total">
+                    <td>Total</td><td class="num">40</td><td class="num">€13,580</td><td class="num">€1,371</td><td class="num">€12,209</td><td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+<script>
+  const bar=document.getElementById('topBar');addEventListener('scroll',()=>bar.classList.toggle('is-scrolled',scrollY>4),{passive:true});
+  document.querySelectorAll('.segmented,.chip-row').forEach(group=>{group.addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;group.querySelectorAll('button').forEach(b=>{b.setAttribute('aria-pressed','false');b.classList.remove('is-selected');b.querySelector('.icon')?.remove();});btn.setAttribute('aria-pressed','true');btn.classList.add('is-selected');btn.insertAdjacentHTML('afterbegin','<span class="icon'+(group.classList.contains('segmented')?' sm':'')+'">check</span>');});});
+</script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rooms · Hotel CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    /* Room grid layout */
+    .rooms-grid {
+      display: grid;
+      gap: var(--layout-gutter);
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 600px) { .rooms-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1200px) { .rooms-grid { grid-template-columns: repeat(6, 1fr); } }
+
+    /* Room card layout */
+    .room-card { flex-direction: column; gap: var(--sp-3); }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- ================= Navigation ================= -->
+    <nav class="nav" aria-label="Main">
+      <div class="nav__brand"><span class="logo"><span class="icon filled">hotel</span></span>Casa Verde</div>
+      <button class="fab nav__fab" aria-label="New booking"><span class="icon">add</span></button>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">calendar_month</span></span><span class="nav__label">Dashboard</span></a>
+      <a class="nav__item" href="#" aria-current="page"><span class="nav__indicator"><span class="icon">bed</span></span><span class="nav__label">Rooms</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">group</span></span><span class="nav__label">Guests</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">forward_to_inbox</span></span><span class="nav__label">Automation</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">monitoring</span></span><span class="nav__label">Reports</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">hub</span></span><span class="nav__label">Channels</span></a>
+      <div class="nav__section">Admin</div>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">manage_accounts</span></span><span class="nav__label">Users</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">settings</span></span><span class="nav__label">Settings</span></a>
+      <a class="nav__item nav__item--more" href="#"><span class="nav__indicator"><span class="icon">menu</span></span><span class="nav__label">More</span></a>
+    </nav>
+
+    <main class="content">
+      <!-- ================= Top app bar ================= -->
+      <header class="top-bar" id="topBar">
+        <h1 class="top-bar__title">Rooms</h1>
+        <label class="search"><span class="icon">search</span><input type="search" placeholder="Search guests, bookings, rooms" aria-label="Search"></label>
+        <div class="top-bar__actions">
+          <button class="icon-btn search-toggle" aria-label="Search"><span class="icon">search</span></button>
+          <button class="icon-btn" aria-label="Notifications, 2 unread"><span class="icon">notifications</span><span class="dot"></span></button>
+          <button class="icon-btn" aria-label="Account: Maria"><span class="avatar avatar--sm">M</span></button>
+        </div>
+      </header>
+
+      <!-- ================= Housekeeping notification banner ================= -->
+      <div class="banner banner--tip">
+        <span class="banner__icon"><span class="icon">info</span></span>
+        <div class="banner__body">
+          <p class="t-title-small">Room 1 marked ready by Ana · 10:42</p>
+          <button class="btn btn--text">Undo</button>
+        </div>
+      </div>
+
+      <!-- ================= Status filter chips ================= -->
+      <div class="chip-row">
+        <button class="chip is-selected" aria-pressed="true"><span class="icon">check</span>All <span class="muted">(6)</span></button>
+        <button class="chip" aria-pressed="false">Ready <span class="muted">(2)</span></button>
+        <button class="chip" aria-pressed="false">Clean <span class="muted">(1)</span></button>
+        <button class="chip" aria-pressed="false">Dirty <span class="muted">(1)</span></button>
+        <button class="chip" aria-pressed="false">Inspect <span class="muted">(1)</span></button>
+        <button class="chip" aria-pressed="false">Out of order <span class="muted">(1)</span></button>
+      </div>
+
+      <!-- ================= Room cards grid ================= -->
+      <div class="rooms-grid">
+        <!-- Room 1 -->
+        <article class="card card--outlined">
+          <div class="room-card" style="flex-direction: column; gap: var(--sp-3)">
+            <div class="card__header">
+              <span class="t-title-medium">1 Garden double</span>
+            </div>
+            <span class="tag tag--ready">Ready</span>
+            <div class="muted">Current guest: Anna Petrosyan</div>
+            <div class="muted">Next arrival: Anna Petrosyan · Sat 7 Nov · <span class="tag tag--booking">Booking.com</span></div>
+            <button class="btn btn--outlined">Change status</button>
+          </div>
+        </article>
+
+        <!-- Room 2 -->
+        <article class="card card--outlined">
+          <div class="room-card" style="flex-direction: column; gap: var(--sp-3)">
+            <div class="card__header">
+              <span class="t-title-medium">2 Garden twin</span>
+            </div>
+            <span class="tag tag--dirty">Dirty</span>
+            <div class="muted">Current guest: Vacant</div>
+            <div class="muted">Next arrival: —</div>
+            <button class="btn btn--outlined">Change status</button>
+          </div>
+        </article>
+
+        <!-- Room 3 -->
+        <article class="card card--outlined">
+          <div class="room-card" style="flex-direction: column; gap: var(--sp-3)">
+            <div class="card__header">
+              <span class="t-title-medium">3 Terrace suite</span>
+            </div>
+            <span class="tag tag--clean">Clean</span>
+            <div class="muted">Current guest: Vacant</div>
+            <div class="muted">Next arrival: Weber family · Mon 9 Nov · <span class="tag tag--booking">Booking.com</span></div>
+            <button class="btn btn--outlined">Change status</button>
+          </div>
+        </article>
+
+        <!-- Room 4 -->
+        <article class="card card--outlined">
+          <div class="room-card" style="flex-direction: column; gap: var(--sp-3)">
+            <div class="card__header">
+              <span class="t-title-medium">4 Courtyard double</span>
+            </div>
+            <span class="tag tag--inspect">Inspect</span>
+            <div class="muted">Current guest: Novak family</div>
+            <div class="muted">Next arrival: Novak family · Today · <span class="tag tag--direct">Direct</span></div>
+            <button class="btn btn--outlined">Change status</button>
+          </div>
+        </article>
+
+        <!-- Room 5 -->
+        <article class="card card--outlined">
+          <div class="room-card" style="flex-direction: column; gap: var(--sp-3)">
+            <div class="card__header">
+              <span class="t-title-medium">5 Family room</span>
+            </div>
+            <span class="tag tag--ooo">Out of order</span>
+            <div class="muted">Current guest: —</div>
+            <div class="muted">Next arrival: —</div>
+            <button class="btn btn--outlined">Change status</button>
+          </div>
+        </article>
+
+        <!-- Room 6 -->
+        <article class="card card--outlined">
+          <div class="room-card" style="flex-direction: column; gap: var(--sp-3)">
+            <div class="card__header">
+              <span class="t-title-medium">6 Attic single</span>
+            </div>
+            <span class="tag tag--ready">Ready</span>
+            <div class="muted">Current guest: Vacant</div>
+            <div class="muted">Next arrival: Hyun Kim · Sun 8 Nov · <span class="tag tag--booking">Booking.com</span></div>
+            <button class="btn btn--outlined">Change status</button>
+          </div>
+        </article>
+      </div>
+    </main>
+  </div>
+
+  <!-- ================= Script from dashboard.html ================= -->
+  <script>
+    // Top app bar gets a tinted surface once content scrolls under it (M3 behaviour)
+    const bar = document.getElementById('topBar');
+    addEventListener('scroll', () => bar.classList.toggle('is-scrolled', scrollY > 4), { passive: true });
+    // Toggle groups
+    document.querySelectorAll('.segmented, .chip-row').forEach(group => {
+      group.addEventListener('click', e => {
+        const btn = e.target.closest('button'); if (!btn) return;
+        group.querySelectorAll('button').forEach(b => { b.setAttribute('aria-pressed', 'false'); b.classList.remove('is-selected'); b.querySelector('.icon')?.remove(); });
+        btn.setAttribute('aria-pressed', 'true'); btn.classList.add('is-selected');
+        btn.insertAdjacentHTML('afterbegin', '<span class="icon' + (group.classList.contains('segmented') ? ' sm' : '') + '">check</span>');
+      });
+    });
+  </script>
+</body>
+</html>

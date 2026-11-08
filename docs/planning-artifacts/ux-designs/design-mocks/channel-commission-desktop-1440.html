@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device=device-width, initial-scale=1.0">
+    <title>Hotel CRM — Channel Commission (Desktop)</title>
+    <style>
+        :root {
+            /* Colors - Material Design Green Theme */
+            --primary: #4CAF50;
+            --on-primary: #FFFFFF;
+            --primary-container: #81D4FA;
+            --on-primary-container: #000000;
+            --primary-fixed: #C8E6C9;
+            --primary-fixed-dim: #A5D6A7;
+            --on-primary-fixed: #000000;
+            --on-primary-fixed-variant: #1B5E20;
+
+            --secondary: #FFC107;
+            --on-secondary: #000000;
+            --secondary-container: #FFCC80;
+            --on-secondary-container: #000000;
+
+            --surface: #FFFFFF;
+            --surface-dim: #F5F5F5;
+            --surface-bright: #FFFFFF;
+            --surface-container-lowest: #FAFAFA;
+            --surface-container-low: #F0F0F0;
+            --surface-container: #E0E0E0;
+            --surface-container-high: #BDBDBD;
+            --surface-container-highest: #9E9E9E;
+            --on-surface: #212121;
+            --on-surface-variant: #616161;
+            --inverse-surface: #212121;
+            --inverse-on-surface: #FFFFFF;
+            --outline: #757575;
+            --outline-variant: #B0B0B0;
+            --error: #E53935;
+            --on-error: #FFFFFF;
+            --error-container: #FDEDEC;
+            --on-error-container: #B00000;
+
+            --background: #FAFAFA;
+            --on-background: #212121;
+            --surface-variant: #EEEEEE;
+            --on-surface-variant-on: #616161;
+            --surface-variant-lowest: #F5F5F5;
+            --surface-variant-low: #F0F0F0;
+            --surface-variant-high: #E0E0E0;
+            --surface-variant-highest: #E0E0E0;
+
+            --font-family: 'Roboto', 'DM Sans', sans-serif;
+            --font-display-large: 48px;
+            --font-headline-large: 32px;
+            --font-title-large: 20px;
+            --font-body-large: 16px;
+            --font-label-large: 13px;
+
+            --spacing-unit: 8px;
+            --spacing-gutter: 24px;
+            --spacing-mobile: 16px;
+            --spacing-desktop: 64px;
+            --spacing-editorial-gap: 80px;
+
+            --shadow-level1: 0 1px 3px 0 rgba(0,0,0,0.12), 0 1px 2px 0 rgba(0,0,0,0.24);
+            --shadow-level2: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px -1px rgba(0,0,0,0.14);
+            --shadow-level3: 0 4px 6px -1px rgba(0,0,0,0.1), 0 1px 3px 0 rgba(0,0,0,0.08);
+            --shadow-level4: 0 10px 20px -1px rgba(0,0,0,0.04), 0 10px 20px -2px rgba(0,0,0,0.04);
+
+            --radius-medium: 8px;
+            --radius-small: 4px;
+            --radius-tiny: 2px;
+
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-family), sans-serif;
+            font-size: var(--font-body-large);
+            color: var(--on-surface);
+            background: var(--background);
+            min-height: 100vh;
+            padding: var(--spacing-desktop);
+        }
+
+        img { max-width: 100%; height: auto; display: block; }
+        a { text-decoration: none; color: inherit; }
+        button { font-family: inherit; font-size: inherit; cursor: pointer; border: none; background: none; }
+
+        /* --- Page Header --- */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-gutter);
+        }
+
+        .page-header h2 {
+            font-size: var(--font-headline-large);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+
+        /* --- Channel Commission Cards --- */
+        .commission-card {
+            background: var(--surface);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-medium);
+            padding: var(--spacing-gutter);
+            margin-bottom: var(--spacing-gutter);
+            transition: var(--transition-fast);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .commission-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-level2);
+        }
+
+        .commission-info {
+            flex: 1;
+        }
+
+        .commission-info h3 {
+            font-size: var(--font-title-large);
+            font-weight: 500;
+            margin: 0 0 var(--spacing-unit) 0;
+        }
+
+        .commission-info p {
+            font-size: var(--font-body-small);
+            color: var(--on-surface-variant);
+            margin: 0;
+        }
+
+        .commission-rate {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+            font-size: var(--font-body-large);
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .commission-rate svg {
+            color: var(--primary);
+        }
+
+        .commission-rate span {
+            color: var(--on-surface-variant);
+            font-size: var(--font-body-small);
+        }
+
+        /* --- Commission Breakdown --- */
+        .commission-breakdown {
+            background: var(--surface);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-medium);
+            padding: var(--spacing-gutter);
+            margin-top: var(--spacing-gutter);
+        }
+
+        .commission-breakdown h3 {
+            font-size: var(--font-headline-large);
+            font-weight: 500;
+            margin: 0 0 var(--spacing-gutter) 0;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+        }
+
+        .commission-breakdown h3 svg {
+            color: var(--on-surface-variant);
+        }
+
+        .commission-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-unit) 0;
+            border-bottom: 1px solid var(--outline-variant);
+        }
+
+        .commission-item:last-child { border-bottom: none; }
+
+        .commission-item-label {
+            font-size: var(--font-body-small);
+            color: var(--on-surface-variant);
+        }
+
+        .commission-item-value {
+            font-size: var(--font-body-large);
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .commission-item-percent {
+            font-size: var(--font-body-small);
+            color: var(--on-surface-variant);
+        }
+
+        /* --- Commission by Channel --- */
+        .commission-by-channel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-gutter);
+            margin-top: var(--spacing-gutter);
+        }
+
+        .channel-commission-item {
+            background: var(--surface);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-medium);
+            padding: var(--spacing-gutter);
+            transition: var(--transition-fast);
+        }
+
+        .channel-commission-item:hover {
+            border-color: var(--primary);
+        }
+
+        .channel-commission-item h4 {
+            font-size: var(--font-title-large);
+            font-weight: 500;
+            margin: 0 0 var(--spacing-unit) 0;
+        }
+
+        .channel-commission-rate {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-unit);
+            font-size: var(--font-body-large);
+            color: var(--primary);
+        }
+
+        .channel-commission-rate svg {
+            color: var(--primary);
+        }
+
+        .channel-commission-item p {
+            font-size: var(--font-body-small);
+            color: var(--on-surface-variant);
+            margin: 0;
+        }
+
+        /* --- Performance Summary --- */
+        .performance-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-gutter);
+            margin-top: var(--spacing-gutter);
+        }
+
+        .performance-item {
+            background: var(--surface);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-medium);
+            padding: var(--spacing-gutter);
+            text-align: center;
+        }
+
+        .performance-value {
+            font-size: var(--font-display-large);
+            font-weight: 300;
+            color: var(--primary);
+            margin-bottom: var(--spacing-tiny);
+        }
+
+        .performance-label {
+            font-size: var(--font-body-small);
+            color: var(--on-surface-variant);
+        }
+
+        /* --- RESPONSIVE BREAKPOINTS --- */
+        @media (min-width: 600px) {
+            .page-header { padding: 0 var(--spacing-gutter); }
+        }
+
+        @media (min-width: 960px) {
+            .page-header { padding: 0 var(--spacing-desktop); }
+        }
+
+        @media (min-width: 1280px) {
+            .page-header { padding: 0 var(--spacing-desktop); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .commission-card, .channel-commission-item { transition: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h2>Channel Commission</h2>
+    </header>
+
+    <!-- Commission Cards -->
+    <section class="commission-card">
+        <div class="commission-info">
+            <h3>Total Commission</h3>
+            <p>Current period</p>
+        </div>
+        <div class="commission-rate">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M19.07 4.93a10 10 0 0 1-1.42 1.97"/>
+                <line x1="12" y1="2" x2="12" y2="22"/>
+            </svg>
+            12.5%
+            <span>of bookings</span>
+        </div>
+    </section>
+
+    <section class="commission-card">
+        <div class="commission-info">
+            <h3>Net Revenue</h3>
+            <p>After commissions</p>
+        </div>
+        <div class="commission-rate">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M19.07 4.93a10 10 0 0 1-1.42 1.97"/>
+                <line x1="12" y1="2" x2="12" y2="22"/>
+            </svg>
+            $87,430
+            <span>this month</span>
+        </div>
+    </section>
+
+    <!-- Commission Breakdown -->
+    <section class="commission-breakdown">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M19.07 4.93a10 10 0 0 1-1.42 1.97"/>
+            <line x1="12" y1="2" x2="12" y2="22"/>
+        </svg>Commission Breakdown</h3>
+
+        <div class="commission-item">
+            <span class="commission-item-label">Booking.com</span>
+            <span class="commission-item-value">$24,500</span>
+            <span class="commission-item-percent">15%</span>
+        </div>
+
+        <div class="commission-item">
+            <span class="commission-item-label">Airbnb</span>
+            <span class="commission-item-value">$18,230</span>
+            <span class="commission-item-percent">13.5%</span>
+        </div>
+
+        <div class="commission-item">
+            <span class="commission-item-label">Expedia</span>
+            <span class="commission-item-value">$8,940</span>
+            <span class="commission-item-percent">12%</span>
+        </div>
+
+        <div class="commission-item">
+            <span class="commission-item-label">Direct</span>
+            <span class="commission-item-value">$32,120</span>
+            <span class="commission-item-percent">0%</span>
+        </div>
+    </section>
+
+    <!-- Commission by Channel -->
+    <section class="commission-by-channel">
+        <div class="channel-commission-item">
+            <h4>Booking.com</h4>
+            <div class="channel-commission-rate">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M19.07 4.93a10 10 0 0 1-1.42 1.97"/>
+                    <line x1="12" y1="2" x2="12" y2="22"/>
+                </svg>
+                15%
+            </div>
+            <p>320 bookings</p>
+        </div>
+
+        <div class="channel-commission-item">
+            <h4>Airbnb</h4>
+            <div class="channel-commission-rate">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M19.07 4.93a10 10 0 0 1-1.42 1.97"/>
+                    <line x1="12" y1="2" x2="12" y2="22"/>
+                </svg>
+                13.5%
+            </div>
+            <p>215 bookings</p>
+        </div>
+
+        <div class="channel-commission-item">
+            <h4>Expedia</h4>
+            <div class="channel-commission-rate">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M19.07 4.93a10 10 0 0 1-1.42 1.97"/>
+                    <line x1="12" y1="2" x2="12" y2="22"/>
+                </svg>
+                12%
+            </div>
+            <p>98 bookings</p>
+        </div>
+
+        <div class="channel-commission-item">
+            <h4>Direct</h4>
+            <div class="channel-commission-rate">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M19.07 4.93a10 10 0 0 1-1.42 1.97"/>
+                    <line x1="12" y1="2" x2="12" y2="22"/>
+                </svg>
+                0%
+            </div>
+            <p>412 bookings</p>
+        </div>
+    </section>
+
+    <!-- Performance Summary -->
+    <section class="performance-summary">
+        <div class="performance-item">
+            <div class="performance-value">$87,430</div>
+            <div class="performance-label">Total Revenue</div>
+        </div>
+
+        <div class="performance-item">
+            <div class="performance-value">$10,870</div>
+            <div class="performance-label">Total Commission</div>
+        </div>
+
+        <div class="performance-item">
+            <div class="performance-value">12.5%</div>
+            <div class="performance-label">Avg. Rate</div>
+        </div>
+
+        <div class="performance-item">
+            <div class="performance-value">482</div>
+            <div class="performance-label">Total Bookings</div>
+        </div>
+    </section>
+
+</body>
+</html>

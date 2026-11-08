@@ -1,0 +1,88 @@
+You are building one HTML mockup page for a hotel CRM, using an existing
+design system ("friendly bento": borderless white tiles on a soft grey-green
+background, big rounded corners, Plus Jakarta Sans). You are composing pages,
+not designing a new style.
+
+READ FIRST, in this order:
+1. docs/planning-artifacts/ux-designs/bento-starter/tokens.css
+2. docs/planning-artifacts/ux-designs/bento-starter/components.css
+3. docs/planning-artifacts/ux-designs/bento-starter/dashboard.html  (the reference page)
+4. docs/planning-artifacts/ux-designs/bento-starter/rooms.html      (a second finished page)
+
+HARD RULES
+- Create exactly ONE file: docs/planning-artifacts/ux-designs/bento-starter/<name>.html
+- It must be responsive (one file for all widths). Never create -mobile/-tablet/-desktop copies.
+- Copy the <head> links and the whole <nav class="nav"> block from dashboard.html.
+  Change only which nav item has aria-current="page".
+- Copy <header class="top-bar" id="topBar"> from dashboard.html; change only the <h1> title.
+  It goes directly inside <div class="main">, ABOVE <main class="content">.
+- Link tokens.css and components.css. Do NOT copy their contents into the page.
+- Do NOT define new CSS variables. Do NOT write hex colors, rgb() or font sizes in the page.
+  Use only var(--md-*), var(--ch-*), var(--st-*), var(--warn*), var(--sp-*), the .t-* type classes,
+  and the components in components.css (.card, .btn--filled/.btn--tonal/.btn--outlined/.btn--text,
+  .chip, .tag, .list, .table, .field, .banner, .segmented, .avatar, .icon, .progress, .divider).
+- Icons: <span class="icon">icon_name</span> using Material Symbols Rounded names.
+- Every card is <article class="card card--outlined"> (a white tile). Never put a card inside a card.
+  For a tinted box inside a card use a <div> with background: var(--md-surface-container-low)
+  and border-radius: var(--md-shape-sm).
+- Buttons always need two classes: class="btn btn--filled" (or --tonal/--outlined/--text).
+- Put the page sections inside <div class="stack"> with
+  `.stack { display: grid; gap: var(--layout-gutter); }` so they never touch.
+- Every page grid you define needs `grid-template-columns: minmax(0, 1fr)` for the one-column (phone)
+  case, and minmax(0, …) for its columns, otherwise a table or timeline stretches the page on phones.
+- Elements inside a card need a layout class (flex column + gap var(--sp-3)), otherwise
+  they run together on one line.
+- A page-specific <style> block is allowed ONLY for layout (grid, flex, gap, widths, position)
+  and must stay under about 70 lines.
+- Use EXACTLY the data given in the page brief. Do not invent other guests, prices or dates.
+- Copy the <script> from the end of dashboard.html (chips, segmented buttons, scrolled top bar).
+- Before writing, list the sections of the page and which component each one uses.
+  Then write the file in one go.
+- When done, say which parts you are unsure about. Do not write a validation report and do
+  not claim everything is correct: a person will check it in a browser.
+
+SHARED FACTS (Casa Verde, a 6-room guest house; today is Saturday 7 November 2026)
+Rooms: 1 Garden double, 2 Garden twin, 3 Terrace suite, 4 Courtyard double, 5 Family room, 6 Attic single.
+Staff: Maria Avetisyan (owner), Sofia Hakobyan (reception), Ana Grigoryan and Luis Ortega (housekeeping).
+Channels and commission: Booking.com 15%, Airbnb 13%, Expedia 12%, Direct 0%.
+Channel tag classes: tag--booking, tag--airbnb, tag--expedia, tag--direct.
+Room status tag classes: tag--ready, tag--clean, tag--dirty, tag--inspect, tag--ooo.
+Bookings, 7–20 Nov (check-in → check-out date):
+  Room 1: Anna Petrosyan, Booking.com, 7→10 · Léa Moreau, Direct, 11→15 · Kenji Tanaka, Airbnb, 17→20
+  Room 2: James Smith, Airbnb, 5→7 (departed today) · Marco Rossi, Expedia, 13→17
+  Room 3: Weber family, Booking.com, 9→13 · Rita Silva, Airbnb, 11→13 (OVERLAP with Weber, unresolved)
+  Room 4: Novak family, Direct, 7→11 · Wei Chen, Booking.com, 15→20
+  Room 5: out of order 7→9 (boiler repair) · García family, Expedia, 12→16
+  Room 6: Hyun Kim, Booking.com, 8→10 · Sofia Ivanova, Direct, 14→17 · Thomas Müller, Airbnb, 18→20
+November so far: gross €13,580, commission €1,371, net €12,209. Occupancy next 7 days 65%, ADR €94, RevPAR €61.
+
+PAGE: Login (login.html). THIS PAGE HAS NO APP SHELL.
+Override of the hard rules for this page only: do NOT copy the <nav> or the top bar, and do not use
+<div class="app"> / <div class="main">. Still copy the <head> links and link tokens.css + components.css.
+No script needed.
+
+LAYOUT
+body { min-height: 100vh; display: grid; place-items: center; padding: var(--sp-4); background: var(--md-surface); }
+.login { width: min(400px, 100%); display: flex; flex-direction: column; gap: var(--sp-4); }
+.login .card { display: flex; flex-direction: column; gap: var(--sp-4); padding: var(--sp-8) var(--sp-6); }
+.brand { display: flex; align-items: center; gap: var(--sp-3); justify-content: center; }
+.brand .logo { width: 40px; height: 40px; border-radius: var(--md-shape-sm); display: grid; place-items: center;
+  background: var(--md-primary); color: var(--md-on-primary); }
+
+CONTENT (.login)
+1. .brand: .logo with <span class="icon filled">hotel</span> + "Casa Verde" in t-title-large.
+2. <article class="card card--outlined">:
+   - <h1 class="t-headline-small">Sign in</h1> and muted "to Casa Verde CRM"
+   - .field label "Email", input type email, value "maria@casaverde.am"
+   - .field label "Password", input type password with a value, in the ERROR state:
+     give the field class "field is-error" and add in the page style:
+       .field.is-error input { border: 2px solid var(--md-error); }
+       .field.is-error label, .field.is-error .supporting { color: var(--md-error); }
+     supporting text with icon error: "Wrong password. 2 tries left before a 5-minute lock."
+     Put an icon button visibility (aria-label "Show password") inside the field on the right
+     (position absolute, right 4px, top 4px).
+   - row: checkbox "Keep me signed in" (native checkbox, accent-color: var(--md-primary)) and on the right
+     class="btn btn--text" "Forgot password?"
+   - class="btn btn--filled" "Sign in", full width (style width: 100%; height: 48px)
+3. Under the card, centered muted t-body-small: "New to Casa Verde CRM? " + a text link "Start a free trial"
+   (a <a> with color var(--md-primary), font-weight 600).

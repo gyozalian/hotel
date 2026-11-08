@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Access Levels · Hotel CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    /* ---- Page-specific layout only. Colors come from tokens. ---- */
+    .page-head { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--sp-4); margin: var(--sp-2) 0 var(--sp-6); }
+    .page-head__text { flex: 1 1 260px; min-width: 0; }
+    .page-head__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+    @media (max-width: 599px) { .page-head .segmented { display: none; } }
+
+    .stack { display: grid; gap: var(--layout-gutter); grid-template-columns: minmax(0, 1fr); }
+
+    /* Table */
+    .table thead th { position: sticky; top: var(--app-bar-height); background: var(--md-surface-container-lowest); z-index: 1; }
+    .table td.c, .table th.c { text-align: center; }
+
+    /* Checkbox cell */
+    .cb { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: var(--md-shape-sm); cursor: pointer; }
+    .cb:hover { background: var(--md-surface-container-low); }
+    .cb input { width: 20px; height: 20px; accent-color: var(--md-primary); }
+
+    /* Group row */
+    .group th { font: var(--md-title-small); background: var(--md-surface-container-low); }
+    .group tr { background: var(--md-surface-container-low); }
+
+    /* Save bar */
+    .savebar { position: sticky; bottom: 0; display: flex; justify-content: flex-end; align-items: center; gap: var(--sp-2); padding: var(--sp-3) var(--layout-margin); background: var(--md-surface-container-lowest); box-shadow: var(--md-elev-2); }
+    @media (max-width: 599px) { .savebar { bottom: var(--nav-bar-height); } }
+
+    /* Unsaved change highlight */
+    .unsaved { background: var(--md-secondary-container) !important; }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- ================= Navigation (drawer ≥1200 · rail 600–1199 · bottom bar <600) ================= -->
+    <nav class="nav" aria-label="Main">
+      <div class="nav__brand"><span class="logo"><span class="icon filled">hotel</span></span>Casa Verde</div>
+      <button class="fab nav__fab" aria-label="New booking"><span class="icon">add</span></button>
+
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">space_dashboard</span></span><span class="nav__label">Dashboard</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">calendar_month</span></span><span class="nav__label">Calendar</span><span class="nav__badge">1</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">bed</span></span><span class="nav__label">Rooms</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">group</span></span><span class="nav__label">Guests</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">forward_to_inbox</span></span><span class="nav__label">Automation</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">monitoring</span></span><span class="nav__label">Reports</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">hub</span></span><span class="nav__label">Channels</span></a>
+
+      <div class="nav__section">Admin</div>
+      <a class="nav__item nav__item--extra" href="#" aria-current="page"><span class="nav__indicator"><span class="icon">manage_accounts</span></span><span class="nav__label">Users</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">settings</span></span><span class="nav__label">Settings</span></a>
+      <a class="nav__item nav__item--more" href="#"><span class="nav__indicator"><span class="icon">menu</span></span><span class="nav__label">More</span></a>
+    </nav>
+
+    <div class="main">
+      <!-- ================= Top app bar ================= -->
+      <header class="top-bar" id="topBar">
+        <h1 class="top-bar__title">Access levels</h1>
+        <label class="search"><span class="icon">search</span><input type="search" placeholder="Search guests, bookings, rooms" aria-label="Search"></label>
+        <div class="top-bar__actions">
+          <button class="icon-btn search-toggle" aria-label="Search"><span class="icon">search</span></button>
+          <button class="icon-btn" aria-label="Notifications, 2 unread"><span class="icon">notifications</span><span class="dot"></span></button>
+          <button class="icon-btn" aria-label="Account: Maria"><span class="avatar avatar--sm">M</span></button>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="stack">
+
+          <!-- Section 1: Page head -->
+          <section class="page-head">
+            <div class="page-head__text">
+              <a class="icon-btn" href="users.html" aria-label="Back to users"><span class="icon">arrow_back</span></a>
+              <h2 class="t-headline-small">Access levels</h2>
+              <p class="t-body-medium muted">4 roles · changes apply the next time someone signs in</p>
+            </div>
+          </section>
+
+          <!-- Section 2: Access matrix -->
+          <article class="card card--outlined">
+            <div class="table-wrap"><table class="table">
+              <thead>
+                <tr>
+                  <th>Permission</th>
+                  <th class="c">Owner</th>
+                  <th class="c">Manager</th>
+                  <th class="c">Reception</th>
+                  <th class="c">Housekeeping</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <!-- Group: Bookings -->
+                  <tr class="group"><th colspan="5">Bookings</th></tr>
+                  <tr>
+                    <td>View bookings</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+                  <tr>
+                    <td>Create and edit bookings</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+                  <tr class="unsaved">
+                    <td>Cancel bookings</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+
+                  <!-- Group: Rooms -->
+                  <tr class="group"><th colspan="5">Rooms</th></tr>
+                  <tr>
+                    <td>See room status</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                  </tr>
+                  <tr>
+                    <td>Change room status</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                  </tr>
+                  <tr>
+                    <td>Edit rooms and rates</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+
+                  <!-- Group: Guests -->
+                  <tr class="group"><th colspan="5">Guests</th></tr>
+                  <tr>
+                    <td>View guest profiles</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+                  <tr>
+                    <td>See ID documents</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+                  <tr>
+                    <td>Message guests</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+
+                  <!-- Group: Pricing -->
+                  <tr class="group"><th colspan="5">Pricing</th></tr>
+                  <tr>
+                    <td>Change prices</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+                  <tr>
+                    <td>Edit pricing rules</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+
+                  <!-- Group: Reports -->
+                  <tr class="group"><th colspan="5">Reports</th></tr>
+                  <tr>
+                    <td>View revenue reports</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+                  <tr>
+                    <td>Export CSV</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+
+                  <!-- Group: Users -->
+                  <tr class="group"><th colspan="5">Users</th></tr>
+                  <tr>
+                    <td>Invite and remove users</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+
+                  <!-- Group: Settings -->
+                  <tr class="group"><th colspan="5">Settings</th></tr>
+                  <tr>
+                    <td>Property settings</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox" checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+                  <tr>
+                    <td>Billing and plan</td>
+                    <td class="c"><label class="cb"><input type="checkbox" disabled checked></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                    <td class="c"><label class="cb"><input type="checkbox"></label></td>
+                  </tr>
+                </tbody>
+              </table></div>
+          </article>
+
+        </div>
+
+        <!-- Save bar -->
+        <div class="savebar">
+          <span class="t-body-medium muted" style="flex:1">1 unsaved change</span>
+          <button class="btn btn--text">Discard</button>
+          <button class="btn btn--filled">Save changes</button>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Top app bar gets a tinted surface once content scrolls under it (M3 behaviour)
+    const bar = document.getElementById('topBar');
+    addEventListener('scroll', () => bar.classList.toggle('is-scrolled', scrollY > 4), { passive: true });
+    // Toggle groups
+    document.querySelectorAll('.segmented, .chip-row').forEach(group => {
+      group.addEventListener('click', e => {
+        const btn = e.target.closest('button'); if (!btn) return;
+        group.querySelectorAll('button').forEach(b => { b.setAttribute('aria-pressed', 'false'); b.classList.remove('is-selected'); b.querySelector('.icon')?.remove(); });
+        btn.setAttribute('aria-pressed', 'true'); btn.classList.add('is-selected');
+        btn.insertAdjacentHTML('afterbegin', '<span class="icon' + (group.classList.contains('segmented') ? ' sm' : '') + '">check</span>');
+      });
+    });
+  </script>
+</body>
+</html>

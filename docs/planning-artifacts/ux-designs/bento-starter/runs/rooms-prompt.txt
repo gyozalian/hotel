@@ -1,0 +1,54 @@
+You are building one HTML mockup page for a hotel CRM, using an existing
+design system ("friendly bento": borderless white tiles on a soft grey-green
+background, big rounded corners, Plus Jakarta Sans). You are composing pages,
+not designing a new style.
+
+READ FIRST, in this order:
+1. docs/planning-artifacts/ux-designs/bento-starter/tokens.css
+2. docs/planning-artifacts/ux-designs/bento-starter/components.css
+3. docs/planning-artifacts/ux-designs/bento-starter/dashboard.html  (the reference page)
+
+HARD RULES
+- Create exactly ONE file: docs/planning-artifacts/ux-designs/bento-starter/<name>.html
+- It must be responsive (one file for all widths). Never create -mobile/-tablet/-desktop copies.
+- Copy the <head> links and the whole <nav class="nav"> block from dashboard.html.
+  Change only which nav item has aria-current="page".
+- Link tokens.css and components.css. Do NOT copy their contents into the page.
+- Do NOT define new CSS variables. Do NOT write hex colors, rgb() or font sizes in the page.
+  Use only var(--md-*), var(--ch-*), var(--st-*), var(--sp-*), the .t-* type classes,
+  and the components in components.css (.card, .btn--filled/.btn--tonal/.btn--outlined/.btn--text,
+  .chip, .tag, .list, .table, .field, .banner, .segmented, .avatar, .icon).
+- Icons: <span class="icon">icon_name</span> using Material Symbols Rounded names.
+- Every card is <article class="card card--outlined"> (a white tile). Never put a card inside a card.
+- Buttons always need two classes: class="btn btn--filled" (or --tonal/--outlined/--text).
+- The <header class="top-bar"> goes directly inside <div class="main">, ABOVE <main class="content">.
+- A page-specific <style> block is allowed ONLY for layout (grid, flex, gap, widths) and must
+  stay under about 60 lines.
+- Use realistic data for a 6-room guest house called "Casa Verde" (rooms 1–6, euros,
+  channels Booking.com / Airbnb / Expedia / Direct, staff Maria (owner), Ana and Luis
+  (housekeeping)). No lorem ipsum, no "$0/night".
+- Before writing, list the sections of the page and which component each one uses.
+  Then write the file in one go.
+- When done, say which parts you are unsure about. Do not write a validation report.
+
+PAGE: Rooms (rooms.html, nav: Rooms).
+- Top bar: copy <header class="top-bar" id="topBar"> from dashboard.html, title "Rooms".
+- Page heading row like dashboard .page-head: "6 rooms · 2 ready for arrivals today",
+  tonal button "Housekeeping view".
+- Banner (.banner--tip): "Room 1 marked ready by Ana · 10:42" with a text button "Undo".
+- Status filter chips with counts: All 6, Ready 2, Clean 1, Dirty 1, Inspect 1, Out of order 1.
+  Use <button class="chip" aria-pressed="false">; the selected one has aria-pressed="true"
+  and <span class="icon">check</span>.
+- Grid of 6 room cards: 1 column on phone, 2 at 600px, 3 at 1200px.
+  Each card: room number + name, status tag, current guest or "Vacant",
+  next arrival (guest name + date + channel tag), and class="btn btn--outlined" "Change status"
+  at the bottom of the card.
+- Copy the <script> from the end of dashboard.html.
+
+DATA (must match the dashboard, today is Saturday 7 November 2026):
+1 Garden double: Ready (Ana · 10:42). Tonight: Anna Petrosyan, Booking.com, arrives 14:00 today.
+2 Garden twin: Dirty (check-out 11:00). Vacant. Next: M. Rossi, Fri 13 Nov, Expedia.
+3 Terrace suite: Clean (Ana · 09:15). Vacant. Next: Weber family, Mon 9 Nov, Booking.com.
+4 Courtyard double: Inspect (waiting for Maria). Tonight: Novak family, Direct, arrives 16:30 today.
+5 Family room: Out of order (boiler repair until Mon 9 Nov). Next: García family, Fri 13 Nov, Expedia.
+6 Attic single: Ready (Luis · 08:50). Vacant. Next: Hyun Kim, Sun 8 Nov, Booking.com.

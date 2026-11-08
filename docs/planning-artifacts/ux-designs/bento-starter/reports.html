@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reports · Hotel CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    .page-head { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--sp-4); margin: var(--sp-2) 0 var(--sp-6); }
+    .page-head__text { flex: 1 1 260px; min-width: 0; }
+    .page-head__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+    .stack { display: grid; gap: var(--layout-gutter); grid-template-columns: minmax(0, 1fr); }
+    .rep-grid { display: grid; gap: var(--layout-gutter); grid-template-columns: minmax(0, 1fr); }
+    @media (min-width: 1200px) { .rep-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; }
+      .rep-rooms { grid-column: 2; grid-row: 1; } .rep-wide { grid-column: 1 / -1; } }
+    .kpis { display: grid; gap: var(--sp-3); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (min-width: 840px) { .kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--layout-gutter); } }
+    .kpi { display: flex; flex-direction: column; gap: var(--sp-1); }
+    .kpi__label { font: var(--md-label-large); color: var(--md-on-surface-variant); display: flex; align-items: center; gap: var(--sp-2); }
+    .kpi__value { font: var(--md-headline-medium); letter-spacing: var(--tracking-headline); font-variant-numeric: tabular-nums; }
+    @media (min-width: 840px) { .kpi__value { font: var(--md-display-small); } }
+    .kpi__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); margin-top: var(--sp-2); }
+    .delta { font: var(--md-label-medium); color: var(--md-primary); display: inline-flex; align-items: center; gap: 2px; }
+    .spark { width: 72px; height: 28px; color: var(--md-primary); flex-shrink: 0; }
+    .t-label-medium { font: var(--md-label-medium); letter-spacing: var(--md-tracking-label); }
+    .room-row { display: grid; grid-template-columns: minmax(0, 170px) minmax(0, 1fr) 110px; gap: var(--sp-3); align-items: center; padding: var(--sp-2) 0; }
+    .room-row .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .table .total td { font: var(--md-title-small); border-bottom: 0; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <nav class="nav" aria-label="Main">
+      <div class="nav__brand"><span class="logo"><span class="icon filled">hotel</span></span>Casa Verde</div>
+      <button class="fab nav__fab" aria-label="New booking"><span class="icon">add</span></button>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">space_dashboard</span></span><span class="nav__label">Dashboard</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">calendar_month</span></span><span class="nav__label">Calendar</span><span class="nav__badge">1</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">bed</span></span><span class="nav__label">Rooms</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">group</span></span><span class="nav__label">Guests</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">forward_to_inbox</span></span><span class="nav__label">Automation</span></a>
+      <a class="nav__item nav__item--extra" href="#" aria-current="page"><span class="nav__indicator"><span class="icon">monitoring</span></span><span class="nav__label">Reports</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">hub</span></span><span class="nav__label">Channels</span></a>
+      <div class="nav__section">Admin</div>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">manage_accounts</span></span><span class="nav__label">Users</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">settings</span></span><span class="nav__label">Settings</span></a>
+      <a class="nav__item nav__item--more" href="#"><span class="nav__indicator"><span class="icon">menu</span></span><span class="nav__label">More</span></a>
+    </nav>
+    <div class="main">
+      <header class="top-bar" id="topBar">
+        <h1 class="top-bar__title">Reports</h1>
+        <label class="search"><span class="icon">search</span><input type="search" placeholder="Search guests, bookings, rooms" aria-label="Search"></label>
+        <div class="top-bar__actions">
+          <button class="icon-btn search-toggle" aria-label="Search"><span class="icon">search</span></button>
+          <button class="icon-btn" aria-label="Notifications, 2 unread"><span class="icon">notifications</span><span class="dot"></span></button>
+          <button class="icon-btn" aria-label="Account: Maria"><span class="avatar avatar--sm">M</span></button>
+        </div>
+      </header>
+      <main class="content">
+        <div class="stack">
+          <!-- Section 1: page head -->
+          <section class="page-head">
+            <div class="page-head__text">
+              <h2 class="t-headline-small">November 2026</h2>
+              <p class="t-body-medium muted">1–7 Nov actual · 8–30 Nov on the books</p>
+            </div>
+            <div class="page-head__actions">
+              <div class="segmented" role="group" aria-label="Period">
+                <button aria-pressed="true">This month</button>
+                <button aria-pressed="false">Last month</button>
+                <button aria-pressed="false">Year</button>
+              </div>
+              <button class="btn btn--outlined"><span class="icon">download</span>Export CSV</button>
+            </div>
+          </section>
+
+          <!-- Section 2: KPI row -->
+          <section class="kpis" aria-label="Key metrics">
+            <article class="card card--outlined kpi">
+              <span class="kpi__label"><span class="icon sm">hotel</span>Occupancy</span>
+              <span class="kpi__value">71%</span>
+              <div class="kpi__foot">
+                <span class="delta"><span class="icon sm">arrow_upward</span>6 pts vs Oct</span>
+                <svg class="spark" viewBox="0 0 72 28" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="2,22 12,20 22,21 32,15 42,16 52,10 62,8 70,6"/></svg>
+              </div>
+            </article>
+            <article class="card card--outlined kpi">
+              <span class="kpi__label"><span class="icon sm">sell</span>ADR</span>
+              <span class="kpi__value">€96</span>
+              <div class="kpi__foot">
+                <span class="delta"><span class="icon sm">arrow_upward</span>€4</span>
+                <svg class="spark" viewBox="0 0 72 28" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="2,18 12,19 22,16 32,17 42,13 52,14 62,11 70,10"/></svg>
+              </div>
+            </article>
+            <article class="card card--outlined kpi">
+              <span class="kpi__label"><span class="icon sm">payments</span>RevPAR</span>
+              <span class="kpi__value">€68</span>
+              <div class="kpi__foot">
+                <span class="delta"><span class="icon sm">arrow_upward</span>€7</span>
+                <svg class="spark" viewBox="0 0 72 28" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="2,24 12,21 22,22 32,17 42,15 52,12 62,10 70,7"/></svg>
+              </div>
+            </article>
+            <article class="card card--outlined kpi">
+              <span class="kpi__label"><span class="icon sm">account_balance_wallet</span>Net revenue</span>
+              <span class="kpi__value">€12,209</span>
+              <div class="kpi__foot">
+                <span class="t-label-medium muted">after €1,371 commission</span>
+              </div>
+            </article>
+          </section>
+
+          <!-- Section 3: rep-grid -->
+          <section class="rep-grid">
+            <!-- a) Net revenue by month -->
+            <article class="card card--outlined">
+              <div class=card__header><h2 class=t-title-medium>Net revenue by month</h2></div>
+              <svg viewBox="0 0 600 240" width="100%" aria-hidden="true">
+                <line x1="0" y1="210" x2="600" y2="210" stroke="var(--md-outline-variant)" stroke-width="1"/>
+                <line x1="0" y1="150" x2="600" y2="150" stroke="var(--md-outline-variant)" stroke-width="1"/>
+                <line x1="0" y1="90" x2="600" y2="90" stroke="var(--md-outline-variant)" stroke-width="1"/>
+                <line x1="0" y1="35" x2="600" y2="35" stroke="var(--md-outline-variant)" stroke-width="1"/>
+                <line x1="0" y1="150" x2="600" y2="150" stroke="var(--md-outline-variant)" stroke-width="1"/>
+                <text x="0" y="155" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>€5k</text>
+                <text x="0" y="95" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>€10k</text>
+                <text x="0" y="35" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>€15k</text>
+                <rect x="0" y="128" width="50" height="82" rx="6" fill="var(--md-primary-container)"/>
+                <rect x="50" y="148" width="50" height="62" rx="6" fill="var(--md-primary-container)"/>
+                <rect x="100" y="141" width="50" height="69" rx="6" fill="var(--md-primary-container)"/>
+                <rect x="150" y="122" width="50" height="88" rx="6" fill="var(--md-primary-container)"/>
+                <rect x="200" y="102" width="50" height="108" rx="6" fill="var(--md-primary-container)"/>
+                <rect x="250" y="76" width="50" height="134" rx="6" fill="var(--md-primary-container)"/>
+                <rect x="300" y="45" width="50" height="165" rx="6" fill="var(--md-primary-container)"/>
+                <rect x="350" y="25" width="50" height="185" rx="6" fill="var(--md-primary-container)"/>
+                <rect x="400" y="18" width="50" height="192" rx="6" fill="var(--md-primary-container)"/>
+                <rect x="450" y="54" width="50" height="156" rx="6" fill="var(--md-primary-container)"/>
+                <rect x="500" y="70" width="50" height="140" rx="6" fill="var(--md-primary-container)"/>
+                <rect x="550" y="65" width="50" height="145" rx="6" fill="var(--md-primary)"/>
+                <!-- Month labels under each bar -->
+                <text x="25" y="230" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>Dec</text>
+                <text x="75" y="230" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>Jan</text>
+                <text x="125" y="230" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>Feb</text>
+                <text x="175" y="230" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>Mar</text>
+                <text x="225" y="230" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>Apr</text>
+                <text x="275" y="230" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>May</text>
+                <text x="325" y="230" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>Jun</text>
+                <text x="375" y="230" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>Jul</text>
+                <text x="425" y="230" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>Aug</text>
+                <text x="475" y="230" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>Sep</text>
+                <text x="525" y="230" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>Oct</text>
+                <text x="575" y="230" class=t-label-medium fill=var(--md-on-surface-variant) font-size=12>Nov</text>
+              </svg>
+              <p class="muted">Best month: August €16,200 · Year to date €128,509</p>
+            </article>
+
+            <!-- b) By channel, November -->
+            <article class="card card--outlined rep-wide">
+              <div class=card__header><h2 class=t-title-medium>By channel, November</h2></div>
+              <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Channel</th>
+                    <th class=num>Bookings</th>
+                    <th class=num>Nights</th>
+                    <th class=num>Gross</th>
+                    <th class=num>Commission</th>
+                    <th class=num>Net</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="tag tag--booking">Booking.com</span></td>
+                    <td class="num">14</td>
+                    <td class="num">38</td>
+                    <td class="num">€4,820</td>
+                    <td class="num">€723</td>
+                    <td class="num">€4,097</td>
+                  </tr>
+                  <tr>
+                    <td><span class="tag tag--direct">Direct</span></td>
+                    <td class="num">11</td>
+                    <td class="num">31</td>
+                    <td class="num">€3,630</td>
+                    <td class="num">€0</td>
+                    <td class="num">€3,630</td>
+                  </tr>
+                  <tr>
+                    <td><span class="tag tag--airbnb">Airbnb</span></td>
+                    <td class="num">9</td>
+                    <td class="num">24</td>
+                    <td class="num">€3,150</td>
+                    <td class="num">€410</td>
+                    <td class="num">€2,740</td>
+                  </tr>
+                  <tr>
+                    <td><span class="tag tag--expedia">Expedia</span></td>
+                    <td class="num">6</td>
+                    <td class="num">17</td>
+                    <td class="num">€1,980</td>
+                    <td class="num">€238</td>
+                    <td class="num">€1,742</td>
+                  </tr>
+                  <tr class=total>
+                    <td>Total</td>
+                    <td class="num t-title-small">40</td>
+                    <td class="num t-title-small">110</td>
+                    <td class="num t-title-small">€13,580</td>
+                    <td class="num t-title-small">€1,371</td>
+                    <td class="num t-title-small">€12,209</td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </article>
+
+            <!-- c) Room performance -->
+            <article class="card card--outlined rep-rooms">
+              <div class=card__header><h2 class=t-title-medium>Room performance</h2></div>
+              <div class="room-row"><span>Room 1 · Garden double</span><div class=progress><span style="width:83%"></span></div><span class=num>83% · €2,480</span></div>
+              <div class="room-row"><span>Room 2 · Garden twin</span><div class=progress><span style="width:70%"></span></div><span class=num>70% · €1,960</span></div>
+              <div class="room-row"><span>Room 3 · Terrace suite</span><div class=progress><span style="width:77%"></span></div><span class=num>77% · €2,750</span></div>
+              <div class="room-row"><span>Room 4 · Courtyard double</span><div class=progress><span style="width:73%"></span></div><span class=num>73% · €2,190</span></div>
+              <div class="room-row"><span>Room 5 · Family room</span><div class=progress><span style="width:50%"></span></div><span class=num>50% · €1,610</span></div>
+              <p class="t-body-small muted" style="margin-top: calc(var(--sp-2) * -1);">Room 5: 5 days out of order</p>
+              <div class="room-row"><span>Room 6 · Attic single</span><div class=progress><span style="width:73%"></span></div><span class=num>73% · €1,219</span></div>
+            </article>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script>
+    const bar = document.getElementById('topBar');
+    addEventListener('scroll', () => bar.classList.toggle('is-scrolled', scrollY > 4), { passive: true });
+    document.querySelectorAll('.segmented, .chip-row').forEach(group => {
+      group.addEventListener('click', e => {
+        const btn = e.target.closest('button'); if (!btn) return;
+        group.querySelectorAll('button').forEach(b => { b.setAttribute('aria-pressed', 'false'); b.classList.remove('is-selected'); b.querySelector('.icon')?.remove(); });
+        btn.setAttribute('aria-pressed', 'true'); btn.classList.add('is-selected');
+        btn.insertAdjacentHTML('afterbegin', '<span class="icon' + (group.classList.contains('segmented') ? ' sm' : '') + '">check</span>');
+      });
+    });
+  </script>
+</body>
+</html>

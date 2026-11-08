@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Users · Hotel CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    .page-head { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--sp-4); margin: var(--sp-2) 0 var(--sp-6); }
+    .page-head__text { flex: 1 1 260px; min-width: 0; }
+    .page-head__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+    @media (max-width: 599px) { .page-head .segmented { display: none; } }
+
+    .stack { display: grid; gap: var(--layout-gutter); grid-template-columns: minmax(0, 1fr); }
+
+    .staff-table { display: none; }
+    @media (min-width: 600px) { .staff-table { display: block; } .staff-list { display: none; } }
+
+    .scrim { position: fixed; inset: 0; z-index: 30; background: color-mix(in srgb, var(--md-scrim) 40%, transparent); }
+    .dialog { position: fixed; z-index: 31; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(440px, calc(100vw - 32px)); background: var(--md-surface-container-lowest); border-radius: var(--md-shape-xl); box-shadow: var(--md-elev-3); padding: var(--sp-6); display: flex; flex-direction: column; gap: var(--sp-4); }
+    .dialog__actions { display: flex; justify-content: flex-end; gap: var(--sp-2); }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- ================= Navigation (drawer ≥1200 · rail 600–1199 · bottom bar <600) ================= -->
+    <nav class="nav" aria-label="Main">
+      <div class="nav__brand"><span class="logo"><span class="icon filled">hotel</span></span>Casa Verde</div>
+      <button class="fab nav__fab" aria-label="New booking"><span class="icon">add</span></button>
+
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">space_dashboard</span></span><span class="nav__label">Dashboard</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">calendar_month</span></span><span class="nav__label">Calendar</span><span class="nav__badge">1</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">bed</span></span><span class="nav__label">Rooms</span></a>
+      <a class="nav__item" href="#"><span class="nav__indicator"><span class="icon">group</span></span><span class="nav__label">Guests</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">forward_to_inbox</span></span><span class="nav__label">Automation</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">monitoring</span></span><span class="nav__label">Reports</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">hub</span></span><span class="nav__label">Channels</span></a>
+
+      <div class="nav__section">Admin</div>
+      <a class="nav__item nav__item--extra" href="#" aria-current="page"><span class="nav__indicator"><span class="icon">manage_accounts</span></span><span class="nav__label">Users</span></a>
+      <a class="nav__item nav__item--extra" href="#"><span class="nav__indicator"><span class="icon">settings</span></span><span class="nav__label">Settings</span></a>
+      <a class="nav__item nav__item--more" href="#"><span class="nav__indicator"><span class="icon">menu</span></span><span class="nav__label">More</span></a>
+    </nav>
+
+    <div class="main">
+      <!-- ================= Top app bar ================= -->
+      <header class="top-bar" id="topBar">
+        <h1 class="top-bar__title">Users</h1>
+        <label class="search"><span class="icon">search</span><input type="search" placeholder="Search guests, bookings, rooms" aria-label="Search"></label>
+        <div class="top-bar__actions">
+          <button class="icon-btn search-toggle" aria-label="Search"><span class="icon">search</span></button>
+          <button class="icon-btn" aria-label="Notifications, 2 unread"><span class="icon">notifications</span><span class="dot"></span></button>
+          <button class="icon-btn" aria-label="Account: Maria"><span class="avatar avatar--sm">M</span></button>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="stack">
+
+          <!-- Section 1: Page head -->
+          <section class="page-head">
+            <div class="page-head__text">
+              <h2 class="t-headline-small">4 people</h2>
+              <p class="t-body-medium muted">Owner, reception and housekeeping</p>
+            </div>
+            <div class="page-head__actions">
+              <button class="btn btn--outlined"><span class="icon">shield_person</span>Access levels</button>
+              <button class="btn btn--filled"><span class="icon">person_add</span>Invite user</button>
+            </div>
+          </section>
+
+          <!-- Section 2: Staff card -->
+          <article class="card card--outlined">
+            <div class="table-wrap staff-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th class=num>Last active</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:var(--sp-3);"><span class=avatar>MA</span>Maria Avetisyan</div>
+                    </td>
+                    <td>maria@casaverde.am</td>
+                    <td><span class="tag tag--direct">Owner</span></td>
+                    <td class=num>Now</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:var(--sp-3);"><span class=avatar>SH</span>Sofia Hakobyan</div>
+                    </td>
+                    <td>sofia@casaverde.am</td>
+                    <td><span class="tag tag--booking">Reception</span></td>
+                    <td class=num>Today 09:12</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:var(--sp-3);"><span class=avatar>AG</span>Ana Grigoryan</div>
+                    </td>
+                    <td>ana@casaverde.am</td>
+                    <td><span class="tag tag--clean">Housekeeping</span></td>
+                    <td class=num>Today 10:42</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="display:flex;align-items:center;gap:var(--sp-3);"><span class=avatar>LO</span>Luis Ortega</div>
+                    </td>
+                    <td>luis@casaverde.am</td>
+                    <td><span class="tag tag--clean">Housekeeping</span></td>
+                    <td class=num>Today 08:50</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <ul class="list staff-list">
+              <li class="list__item">
+                <span class="avatar">MA</span>
+                <div class="list__text">
+                  <p class="list__headline">Maria Avetisyan</p>
+                  <p class="list__supporting">Owner · Now</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="icon">more_vert</span>
+                </div>
+              </li>
+              <li class="list__item">
+                <span class="avatar">SH</span>
+                <div class="list__text">
+                  <p class="list__headline">Sofia Hakobyan</p>
+                  <p class="list__supporting">Reception · Today 09:12</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="icon">more_vert</span>
+                </div>
+              </li>
+              <li class="list__item">
+                <span class="avatar">AG</span>
+                <div class="list__text">
+                  <p class="list__headline">Ana Grigoryan</p>
+                  <p class="list__supporting">Housekeeping · Today 10:42</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="icon">more_vert</span>
+                </div>
+              </li>
+              <li class="list__item">
+                <span class="avatar">LO</span>
+                <div class="list__text">
+                  <p class="list__headline">Luis Ortega</p>
+                  <p class="list__supporting">Housekeeping · Today 08:50</p>
+                </div>
+                <div class="list__trailing">
+                  <span class="icon">more_vert</span>
+                </div>
+              </li>
+            </ul>
+          <!-- Section 3: Pending invite row -->
+          <div class="pending-invite">
+            <div style="display:flex;align-items:center;gap:var(--sp-3);flex-wrap:wrap;"><span class="t-body-medium muted" style="flex:1">Invite sent to nina@casaverde.am (Reception) · 2 days ago</span><button class=btn btn--text>Resend</button></div>
+          </div>
+        </article>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="scrim"></div>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">
+    <div style="width:40px; height:40px; display:grid; place-items:center; background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: var(--md-shape-sm);"><span class="icon">person_add</span></div>
+    <h2 id="dlgTitle" class="t-title-large">Invite a team member</h2>
+    <p class="muted">They get an email link to set a password. You can change their role later.</p>
+    <div class="field">
+      <label>Full name</label>
+      <input type="text" value="Karen Melkonyan">
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" value="karen@casaverde.am">
+    </div>
+    <div class="field">
+      <label>Role</label>
+      <select>
+        <option value="Owner">Owner</option>
+        <option value="Manager">Manager</option>
+        <option value="Reception" selected>Reception</option>
+        <option value="Housekeeping">Housekeeping</option>
+      </select>
+      <p class="supporting">Reception can manage bookings and guests, not pricing or users.</p>
+    </div>
+    <div class="dialog__actions">
+      <button class="btn btn--text">Cancel</button>
+      <button class="btn btn--filled">Send invite</button>
+    </div>
+  </div>
+
+  <script>
+    // Top app bar gets a tinted surface once content scrolls under it (M3 behaviour)
+    const bar = document.getElementById('topBar');
+    addEventListener('scroll', () => bar.classList.toggle('is-scrolled', scrollY > 4), { passive: true });
+    // Toggle groups
+    document.querySelectorAll('.segmented, .chip-row').forEach(group => {
+      group.addEventListener('click', e => {
+        const btn = e.target.closest('button'); if (!btn) return;
+        group.querySelectorAll('button').forEach(b => { b.setAttribute('aria-pressed', 'false'); b.classList.remove('is-selected'); b.querySelector('.icon')?.remove(); });
+        btn.setAttribute('aria-pressed', 'true'); btn.classList.add('is-selected');
+        btn.insertAdjacentHTML('afterbegin', '<span class="icon' + (group.classList.contains('segmented') ? ' sm' : '') + '">check</span>');
+      });
+    });
+  </script>
+</body>
+</html>

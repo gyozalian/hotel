@@ -1,0 +1,27 @@
+I opened calendar.html in a browser at 1440px. The overall layout is good. Fix these by editing calendar.html only:
+
+1. DAY HEADER MISSING: the timeline has no row of days. Add the header row first inside .tl, exactly like
+   dashboard.html: <div class="tl-row tl-head" role="row"><span></span> then 14 <span class="tl-day">Sat<b>7</b></span>
+   ... up to Fri<b>20</b>. Sat 7 gets "is-today"; Sun 8, Sat 14, Sun 15 get "is-weekend".
+2. MONTH SWITCHER: the arrows and the title are stacked on 3 lines. Put them in one row:
+   <div class="month-nav"> icon button chevron_left, <h2 class="t-headline-small">November 2026</h2>, icon button chevron_right,
+   class="btn btn--text" "Today" </div> with `.month-nav { display: flex; align-items: center; gap: var(--sp-1); }`.
+   The page-head must be one row: .month-nav on the left, segmented + New booking on the right.
+3. SEGMENTED labels: "2 weeks" (pressed) and "Month".
+4. BANNER second button label: "Keep both, move Silva".
+5. SELECTED BOOKING: the Weber family bar must show it is selected: add to the <style>
+   `.tl-bar.is-selected { outline: 2px solid var(--md-on-surface); outline-offset: -2px; }` and give that bar class is-selected.
+6. DETAILS CARD rows: the labels and values are misaligned. Use one definition grid:
+   `.dl { display: grid; grid-template-columns: auto 1fr; gap: var(--sp-2) var(--sp-4); }`
+   `.dl dt { color: var(--md-on-surface-variant); } .dl dd { margin: 0; text-align: right; }`
+   <dl class="dl"> Room / 3 · Terrace suite, Dates / Mon 9 → Fri 13 Nov · 4 nights, Guests / 2 adults, 1 child,
+   Rate / €110 per night </dl>, then .divider, then a second <dl class="dl"> Gross / €440, Commission (15%) / −€66,
+   Net to you / €374 (dt and dd of this last row in t-title-medium).
+7. PRE-ARRIVAL TAGS are broken. Use exactly:
+   <div class="tags"><span class="tag tag--ready"><span class="icon sm">task_alt</span>ID received</span>
+   <span class="tag"><span class="icon sm">mail</span>Instructions sent 6 Nov</span></div>
+   with `.tags { display: flex; flex-wrap: wrap; gap: var(--sp-2); }`, and put the two buttons in their own row below
+   (`.actions { display: flex; gap: var(--sp-2); }`).
+8. The details card content needs vertical spacing: give the card `display: flex; flex-direction: column; gap: var(--sp-4);`.
+
+Change nothing else. When done, list what you changed in one short list.

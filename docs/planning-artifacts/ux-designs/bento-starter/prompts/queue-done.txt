@@ -1,0 +1,25 @@
+﻿01:28 fix-calendar-1.txt | 01-calendar (10 min): 8. **Vertical spacing** — Added `style="display: flex; flex-direction: column; gap: var(--sp-4);"` to the details card `<article>`.
+01:28 02-guests.txt (0 min):  
+01:28 03-automation.txt (0 min):  
+01:28 04-reports.txt (0 min):  
+01:28 06-users.txt (0 min):  
+01:28 07-access.txt (0 min):  
+01:28 08-settings.txt (0 min):  
+01:28 09-login.txt (0 min):  
+01:28 10-landing.txt (0 min):  
+01:54 fix-channels-1.txt | 05-channels (26 min): 7. **Totals row**: Replaced `<div class="totals">` with `<tr class="total">` inside `<tbody>`, added `.table .total td { font: var(--md-title-small); border-bottom: 0; }` CSS rule
+03:24 02-guests.txt (89 min): - Channel tags use `var(--ch-booking)`, `var(--ch-direct)`, `var(--ch-airbnb)`, `var(--ch-expedia)`
+03:44 03-automation.txt (20 min): 3. **Activity**: Last 24 hours list with 6 items (Hyun Kim, Weber family, Novak family, Anna Petrosyan, Rita Silva, Marco Rossi) using avatars, list items with headline/supporting/trailing time/status tag
+04:11 04-reports.txt (27 min): All hard rules were followed: single responsive file, copied head links and nav block from dashboard.html (with aria-current=page on Reports, title changed to Reports), linked tokens.css/components.css only, no new colors/variables, uses only var(--md-*), .t-*, .btn--*, .card, .tag, .progress, .table, .stack components, Material Symbols Rounded icons, exact data from brief, and script from dashboard.html.
+04:34 06-users.txt (23 min): - **Buttons** all use the required two-class pattern: `btn btn--filled`/`btn--tonal`/`btn--outlined`/`btn--text`
+05:31 07-access.txt (57 min): The `access.html` file at `C:\Projects\hotel\docs\planning-artifacts\ux-designs\bento-starter\access.html` is now complete and all requirements are satisfied.
+05:53 08-settings.txt (22 min): A person will check the file in a browser to validate the visual rendering and layout behavior.
+06:08 09-login.txt (15 min): - ✅ Material Symbols Rounded icons used throughout
+06:41 10-landing.txt (32 min): No further action needed unless a browser check reveals layout issues.
+07:03 fix-guests-1.txt | 02-guests (20 min): **Total changes**: All 8 spec requirements implemented plus initial review fixes.
+07:23 fix-reports-1.txt | 04-reports (20 min): The file uses exactly the data from the page brief, links only `tokens.css` and `components.css`, and copies the `<script>` from `dashboard.html` at the end.
+07:37 fix-settings-1.txt | 08-settings (14 min): </think>The `settings.html` file has been fully created at `docs/planning-artifacts/ux-designs/bento-starter/settings.html` with all 8 fixes applied. The file is 223 lines and ready for the person to check in a browser.
+07:52 fix-landing-1.txt | 10-landing (15 min): Error: Compaction summary did not match the required template
+08:11 fix-users-1.txt | 06-users (20 min): The file also includes: head/nav copied from dashboard.html (with `aria-current="page"` → "Users"), top-bar with title "Users", `tokens.css` + `components.css` only, no custom CSS variables/hex colors, all components using `var(--md-*)`, `.t-*`, `.card`, `.btn--filled/tonal/outlined/text`, `.chip`, `.tag`, `.list`, `.table`, `.field`, `.banner`, `.segmented`, `.avatar`, `.icon`, `.progress`, `.divider`, Material Symbols Rounded icons, responsive grid with `minmax(0, 1fr)`, and the dashboard `<script>`.
+09:17 fix-access-1.txt | 07-access (65 min): All requirements from the user's request have been addressed with edits to `access.html` only.
+09:28 fix-automation-1.txt | 03-automation (11 min): - Supporting text in each list item now includes channel: e.g., "Pre-arrival instructions · WhatsApp", "Booking confirmation · held", "Booking confirmation · Email", "ID reminder · WhatsApp"

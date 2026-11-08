@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRM for Guest Houses — Brainstorm Session Keepsake</title>
+  <style>
+    :root { --primary: #2d5a5e; --accent: #e88d4e; --bg: #f7fafd; --card: #ffffff; --text: #2d3748; --muted: #718096; --success: #38a169; --warning: #d69e2e; --risk: #e53e3e; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 800px; margin: 0 auto; }
+    h1 { font-size: 2rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    h2 { font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--primary); }
+    h3 { font-size: 1.25rem; margin: 1.5rem 0 0.5rem; color: var(--accent); }
+    .container { background: var(--card); padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+    .tech-badge { display: inline-block; padding: 0.25rem 0.75rem; background: var(--primary); color: white; border-radius: 12px; font-size: 0.75rem; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .category { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem; display: block; }
+    .insight { background: #ebf8ff; border-left: 3px solid var(--primary); padding: 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; }
+    .stat { display: inline-block; background: var(--primary); color: white; padding: 0.5rem 1rem; border-radius: 4px; font-size: 0.875rem; margin-right: 1rem; }
+    .footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e2e8f0; color: var(--muted); font-size: 0.875rem; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #1a202c; --card: #2d3748; --text: #e2e8f0; --muted: #a0aec0; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CRM for Guest Houses & Small Hotels</h1>
+    <p><em>Brainstorming session — 9 dimensions, 7 core MVP features identified</em></p>
+    
+    <div class="stats">
+      <span class="stat">7 MVP Features</span>
+      <span class="stat">9 Dimensions Explored</span>
+      <span class="stat">1 Focus: Affordable Web CRM</span>
+    </div>
+
+    <section>
+      <h2>🎯 The Problem</h2>
+      <p>Small guest houses and hotels struggle with expensive, complex property management systems. Double-bookings, fragmented platform integration, and manual operational tasks drain revenue and staff time. Existing solutions cost $50-100+/month plus new hardware — prohibitive for small properties.</p>
+    </section>
+
+    <section>
+      <h2>🔍 Nine Dimensions Brainstormed</h2>
+      <ul>
+        <li><strong>Booking Integration:</strong> Double-bookings is the #1 frustration — it destroys trust and can represent 20-30% of daily revenue</li>
+        <li><strong>Daily Operations:</strong> All tasks are tedious — housekeeping coordination, shift handovers, inventory management stand out</li>
+        <li><strong>Guest Communication:</strong> Pre-arrival is the #1 touchpoint — sets expectations, reduces no-shows, starts guest relationship right</li>
+        <li><strong>Rate & Inventory:</strong> Dynamic pricing is game-changing — small properties either underprice (lost revenue) or overprice (no bookings)</li>
+        <li><strong>Guest Profiling:</strong> Unified profile (complete picture) enables personalization & repeat business</li>
+        <li><strong>Reporting & Analytics:</strong> Full suite is the #1 decision-confidence builder</li>
+        <li><strong>Team Coordination:</strong> Internal messaging should integrate not replace existing tools (WhatsApp, etc.)</li>
+        <li><strong>Ease of Use/Affordability:</strong> Cost > complexity > new hardware are the #1-3 adoption barriers</li>
+        <li><strong>Delivery Model:</strong> Web application — zero installation, works anywhere, automatic updates, responsive design</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>⚡ Seven MVP Features</h2>
+      <div class="container">
+        <div><span class="tech-badge">Booking Sync</span> Real-time multi-platform sync (Booking.com, Airbnb, Expedia, direct website) — prevents double-bookings, central calendar</div>
+        <div><span class="tech-badge">Dynamic Pricing</span> Simple rules engine (e.g., "increase 10% if occupancy > 70%", "decrease 20% if < 2 nights available")</div>
+        <div><span class="tech-badge">Guest Profile</span> Unified guest profile — one page per guest with basic info + preference history + stay history + communication notes</div>
+        <div><span class="tech-badge">Pre-arrival Auto.</span> Automated booking confirmation, check-in instructions, required docs, upsell opportunities</div>
+        <div><span class="tech-badge">Commission Track</span> Channel commission tracking — net rate after each platform's cut; total owed per month</div>
+        <div><span class="tech-badge">Reporting Dshbd</span> Basic dashboard — occupancy, ADR, RevPAR, revenue by channel, growth trends</div>
+        <div><span class="tech-badge">Task Lite</span> Task coordination Lite — room status updates, housekeeping notifications, works on phones they already have</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>💡 Key Insight</h2>
+      <div class="insight">
+        <strong>The sweet spot:</strong> Combining double-booking prevention + dynamic pricing + unified guest profiles at <$50/month with zero new hardware creates immediate revenue impact and daily workflow reduction for properties that currently pay thousands for fragmented solutions.
+      </div>
+    </section>
+
+    <section>
+      <h2>📊 Session Statistics</h2>
+      <p>Ideas generated: <strong>>100</strong> across 9 dimensions</p>
+      <p>Session stance: Facilitator — all ideas generated by the user, guided by facilitator questions</p>
+      <p>Topic: CRM application for guest houses and small hotels with booking platform integration</p>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <p>Brainstorming keepsake generated from a BMad-facilitated session</p>
+    <p>Topic: CRM for Guest Houses | Generated on November 3, 2026</p>
+  </footer>
+</body>
+</html>

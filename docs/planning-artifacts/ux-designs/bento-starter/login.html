@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login · Hotel CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    body { min-height: 100vh; display: grid; place-items: center; padding: var(--sp-4); background: var(--md-surface); }
+    .login { width: min(400px, 100%); display: flex; flex-direction: column; gap: var(--sp-4); }
+    .login .card { display: flex; flex-direction: column; gap: var(--sp-4); padding: var(--sp-8) var(--sp-6); }
+    .brand { display: flex; align-items: center; gap: var(--sp-3); justify-content: center; }
+    .brand .logo { width: 40px; height: 40px; border-radius: var(--md-shape-sm); display: grid; place-items: center; background: var(--md-primary); color: var(--md-on-primary); }
+    .field.is-error input { border: 2px solid var(--md-error); }
+    .field.is-error label, .field.is-error .supporting { color: var(--md-error); }
+  </style>
+</head>
+<body>
+  <div class="login">
+    <!-- Brand -->
+    <div class="brand">
+      <div class="logo"><span class="icon filled">hotel</span></div>
+      <h1 class="t-title-large">Casa Verde</h1>
+    </div>
+
+    <!-- Sign in card -->
+    <article class="card card--outlined">
+      <h1 class="t-headline-small">Sign in</h1>
+      <p class="muted">Casa Verde CRM</p>
+
+      <!-- Email field -->
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" value="maria@casaverde.am">
+      </div>
+
+      <!-- Password field (error state) -->
+      <div class="field is-error">
+        <label for="password">Password</label>
+        <input type="password" id="password">
+        <span class="icon" aria-label="Show password" style="position: absolute; right: 4px; top: 4px;">visibility</span>
+        <p class="supporting">Wrong password. 2 tries left before a 5-minute lock.</p>
+      </div>
+
+      <!-- Keep me signed in and Forgot password row -->
+      <div style="display: flex; gap: var(--sp-2); margin-top: var(--sp-2); justify-content: space-between;">
+        <label style="display: flex; align-items: center; gap: var(--sp-1);">
+          <input type="checkbox" style="accent-color: var(--md-primary);">
+          Keep me signed in
+        </label>
+        <button class="btn btn--text">Forgot password?</button>
+      </div>
+
+      <!-- Sign in button -->
+      <button class="btn btn--filled" style="width: 100%; height: 48px;">Sign in</button>
+    </article>
+
+    <!-- New to Casa Verde CRM? -->
+    <p class="t-body-medium" style="display: flex; justify-content: center; align-items: baseline; gap: var(--sp-1); margin-top: var(--sp-2);">
+      <span class="muted">New to Casa Verde CRM?</span>
+      <a href="landing.html" style="color: var(--md-on-primary-container); font-weight: 600;">Start a free trial</a>
+    </p>
+  </div>
+</body>
+</html>

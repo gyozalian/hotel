@@ -1,0 +1,33 @@
+PAGE: Channels & commission (channels.html, nav item: Channels, top-bar title "Channels").
+Booking channels, their sync state and commission (PRD FR-1, FR-8).
+
+LAYOUT
+.ch-cards { display: grid; gap: var(--layout-gutter); }
+@media (min-width: 600px)  { .ch-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1200px) { .ch-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.ch-card { display: flex; flex-direction: column; gap: var(--sp-3); }
+
+SECTIONS
+1. .page-head: <h2 class="t-headline-small">4 channels</h2>, muted "Availability syncs every 2 minutes",
+   right: class="btn btn--outlined" icon sync "Sync now", class="btn btn--filled" icon add "Connect channel".
+2. .banner.banner--error: "Airbnb sync paused for Room 3" / "Room 3 has an overlap on 11–13 Nov. Sync resumes
+   when you resolve it." / buttons class="btn btn--error" "Resolve overlap", class="btn btn--text" "Details".
+3. .ch-cards, 4 cards (<article class="card card--outlined ch-card">). Each card:
+   - top row: .avatar with the channel initial (B, A, E, D) and inline style
+     background: var(--ch-…-container); color: var(--ch-on-…-container); then the name in t-title-medium,
+     and a status tag on the right
+   - .field with label "Commission %" and input value
+   - muted lines: "Last sync …" and "Rooms listed …"
+   - class="btn btn--text" "Settings"
+   Data:
+     Booking.com — tag tag--ready "Connected" — 15 — "Last sync 2 min ago" — "6 of 6 rooms listed"
+     Airbnb — tag tag--dirty "Paused: Room 3" — 13 — "Last sync 2 min ago" — "5 of 6 rooms listed"
+     Expedia — tag tag--ready "Connected" — 12 — "Last sync 3 min ago" — "4 of 6 rooms listed"
+     Direct (your website) — tag tag--ready "Live" — 0 — "Booking widget on casaverde.am" — "6 of 6 rooms"
+4. "Reconciliation, November" card: .card__header with <h2> + muted "What each channel owes you, or you owe it".
+   .table-wrap > .table, columns Channel / Bookings / Gross / Commission / Net / Status (numbers .num):
+     Booking.com tag · 14 · €4,820 · €723 · €4,097 · tag tag--dirty "You owe €723 · invoice 1 Dec"
+     Airbnb tag · 9 · €3,150 · €410 · €2,740 · tag tag--ready "Paid out €2,740"
+     Expedia tag · 6 · €1,980 · €238 · €1,742 · tag tag--inspect "€1,742 payout 15 Dec"
+     Direct tag · 11 · €3,630 · €0 · €3,630 · tag tag--ready "Paid by guests"
+   Totals row (t-title-small): 40 · €13,580 · €1,371 · €12,209 · (empty)

@@ -1,0 +1,32 @@
+I opened guests.html in a browser at 1440px. The data is right but the layout is broken: everything is in
+one narrow 380px column, so the profile sits under the list instead of beside it. Fix these by editing guests.html only:
+
+1. STRUCTURE. The page-head must NOT be inside .guests, and .guests must have exactly two direct children:
+   the list card and the profile. Inside <main class="content"> it must be:
+     <div class="stack">
+       <section class="page-head"> ... </section>
+       <div class="guests">
+         <article class="card card--outlined"> (search field, chips, guest list) </article>
+         <div class="profile stack"> (header card, .profile-row, Stay history card, Notes card) </div>
+       </div>
+     </div>
+   Count your </div> tags: the profile must close before .guests closes.
+2. PAGE-HEAD CSS is broken (missing spaces and gap). Replace the three .page-head rules with:
+   .page-head { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--sp-4); margin: var(--sp-2) 0 var(--sp-6); }
+   .page-head__text { flex: 1 1 260px; min-width: 0; }
+   .page-head__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+   Put the Export and Add guest buttons inside <div class="page-head__actions">.
+3. LIST CARD: add to the <style>: `.guest-card { display: flex; flex-direction: column; gap: var(--sp-3); }`
+   and give the list card class="card card--outlined guest-card". Remove its "Search guests" card header (the field label is enough).
+4. GUEST LIST supporting text must be the exact brief text: "Staying now · Room 1" for Anna, "Staying now · Room 4" for Novak.
+   Do not repeat the channel name in the supporting text (the tag already shows it).
+5. HEADER CARD: the contact chips must show "WhatsApp +374 91 234 567" and "anna.petrosyan@example.com".
+   Wrap the buttons in <div style="display:flex; gap: var(--sp-2); flex-wrap: wrap;">. Give the header card the class guest-card too.
+6. PREFERENCES: the tags are written as <div class="tag--booking">. Use plain neutral tags:
+   <div style="display:flex; flex-wrap:wrap; gap: var(--sp-2);"><span class="tag">Late check-in</span><span class="tag">Vegetarian breakfast</span><span class="tag">Quiet room</span><span class="tag">Speaks Russian</span></div>
+7. STAY HISTORY: the table has no card and no header row. Put it in
+   <article class="card card--outlined"><div class="card__header"><h2 class="t-title-medium">Stay history</h2></div> ...table... </article>
+   and add <thead><tr><th>Dates</th><th>Room</th><th>Channel</th><th>Nights</th><th class="num">Net</th></tr></thead>.
+8. Give Preferences, Current stay and Notes cards the class guest-card so their contents have gaps.
+
+Change nothing else. When done, list what you changed in one short list.

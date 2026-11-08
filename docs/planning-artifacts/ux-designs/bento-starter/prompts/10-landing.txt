@@ -1,0 +1,111 @@
+You are building one HTML mockup page for a hotel CRM, using an existing
+design system ("friendly bento": borderless white tiles on a soft grey-green
+background, big rounded corners, Plus Jakarta Sans). You are composing pages,
+not designing a new style.
+
+READ FIRST, in this order:
+1. docs/planning-artifacts/ux-designs/bento-starter/tokens.css
+2. docs/planning-artifacts/ux-designs/bento-starter/components.css
+3. docs/planning-artifacts/ux-designs/bento-starter/dashboard.html  (the reference page)
+4. docs/planning-artifacts/ux-designs/bento-starter/rooms.html      (a second finished page)
+
+HARD RULES
+- Create exactly ONE file: docs/planning-artifacts/ux-designs/bento-starter/<name>.html
+- It must be responsive (one file for all widths). Never create -mobile/-tablet/-desktop copies.
+- Copy the <head> links and the whole <nav class="nav"> block from dashboard.html.
+  Change only which nav item has aria-current="page".
+- Copy <header class="top-bar" id="topBar"> from dashboard.html; change only the <h1> title.
+  It goes directly inside <div class="main">, ABOVE <main class="content">.
+- Link tokens.css and components.css. Do NOT copy their contents into the page.
+- Do NOT define new CSS variables. Do NOT write hex colors, rgb() or font sizes in the page.
+  Use only var(--md-*), var(--ch-*), var(--st-*), var(--warn*), var(--sp-*), the .t-* type classes,
+  and the components in components.css (.card, .btn--filled/.btn--tonal/.btn--outlined/.btn--text,
+  .chip, .tag, .list, .table, .field, .banner, .segmented, .avatar, .icon, .progress, .divider).
+- Icons: <span class="icon">icon_name</span> using Material Symbols Rounded names.
+- Every card is <article class="card card--outlined"> (a white tile). Never put a card inside a card.
+  For a tinted box inside a card use a <div> with background: var(--md-surface-container-low)
+  and border-radius: var(--md-shape-sm).
+- Buttons always need two classes: class="btn btn--filled" (or --tonal/--outlined/--text).
+- Put the page sections inside <div class="stack"> with
+  `.stack { display: grid; gap: var(--layout-gutter); }` so they never touch.
+- Every page grid you define needs `grid-template-columns: minmax(0, 1fr)` for the one-column (phone)
+  case, and minmax(0, …) for its columns, otherwise a table or timeline stretches the page on phones.
+- Elements inside a card need a layout class (flex column + gap var(--sp-3)), otherwise
+  they run together on one line.
+- A page-specific <style> block is allowed ONLY for layout (grid, flex, gap, widths, position)
+  and must stay under about 70 lines.
+- Use EXACTLY the data given in the page brief. Do not invent other guests, prices or dates.
+- Copy the <script> from the end of dashboard.html (chips, segmented buttons, scrolled top bar).
+- Before writing, list the sections of the page and which component each one uses.
+  Then write the file in one go.
+- When done, say which parts you are unsure about. Do not write a validation report and do
+  not claim everything is correct: a person will check it in a browser.
+
+SHARED FACTS (Casa Verde, a 6-room guest house; today is Saturday 7 November 2026)
+Rooms: 1 Garden double, 2 Garden twin, 3 Terrace suite, 4 Courtyard double, 5 Family room, 6 Attic single.
+Staff: Maria Avetisyan (owner), Sofia Hakobyan (reception), Ana Grigoryan and Luis Ortega (housekeeping).
+Channels and commission: Booking.com 15%, Airbnb 13%, Expedia 12%, Direct 0%.
+Channel tag classes: tag--booking, tag--airbnb, tag--expedia, tag--direct.
+Room status tag classes: tag--ready, tag--clean, tag--dirty, tag--inspect, tag--ooo.
+Bookings, 7–20 Nov (check-in → check-out date):
+  Room 1: Anna Petrosyan, Booking.com, 7→10 · Léa Moreau, Direct, 11→15 · Kenji Tanaka, Airbnb, 17→20
+  Room 2: James Smith, Airbnb, 5→7 (departed today) · Marco Rossi, Expedia, 13→17
+  Room 3: Weber family, Booking.com, 9→13 · Rita Silva, Airbnb, 11→13 (OVERLAP with Weber, unresolved)
+  Room 4: Novak family, Direct, 7→11 · Wei Chen, Booking.com, 15→20
+  Room 5: out of order 7→9 (boiler repair) · García family, Expedia, 12→16
+  Room 6: Hyun Kim, Booking.com, 8→10 · Sofia Ivanova, Direct, 14→17 · Thomas Müller, Airbnb, 18→20
+November so far: gross €13,580, commission €1,371, net €12,209. Occupancy next 7 days 65%, ADR €94, RevPAR €61.
+
+PAGE: Landing (landing.html). Marketing page for the product. THIS PAGE HAS NO APP SHELL.
+Override of the hard rules for this page only: do NOT copy the <nav> or the app top bar, and do not use
+<div class="app"> / <div class="main">. Still copy the <head> links and link tokens.css + components.css.
+The page <style> may be up to about 110 lines (it is a bigger layout). Still no hex, rgb or font sizes.
+Product name: "Casa Verde CRM" — a booking and guest manager for small hotels and guest houses (3–30 rooms).
+
+LAYOUT HELPERS
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 var(--layout-margin); }
+section { padding: var(--sp-12) 0; }
+.grid3 { display: grid; gap: var(--layout-gutter); }
+@media (min-width: 840px) { .grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+SECTIONS
+1. Header (sticky, background var(--md-surface)): .wrap with flex row: logo square (like the nav brand
+   in dashboard.html) + "Casa Verde CRM" in t-title-medium; links Features, Pricing, FAQ (hidden below 840px);
+   class="btn btn--text" "Sign in"; class="btn btn--filled" "Start free trial".
+2. Hero (centered text, max-width 760px):
+   - tag tag--direct "New: automatic overlap protection"
+   - <h1 class="t-display-small"> "All your bookings in one calm place" (at ≥840px also font: var(--md-display-medium))
+   - t-body-large muted: "No more double bookings across Booking.com, Airbnb and Expedia. Casa Verde CRM keeps your
+     calendar in sync, messages guests for you and shows what you really earn after commission."
+   - buttons: class="btn btn--filled" "Start free trial" (height 48px), class="btn btn--outlined" icon play_circle "Watch 2-min demo"
+   - muted t-body-small "14 days free · no card needed · cancel anytime"
+   - Screenshot: a white rounded frame (background var(--md-surface-container-lowest), radius var(--md-shape-xl),
+     box-shadow var(--md-elev-4), padding var(--sp-2), overflow hidden) containing
+     <iframe src="dashboard.html" title="Dashboard preview" loading="lazy"> with width 100%, height 640px,
+     border 0, border-radius var(--md-shape-md), pointer-events none. At <600px height 480px.
+3. Logos/proof strip: muted "Trusted by 1,200+ small hotels" and 4 channel tags (Booking.com, Airbnb, Expedia, Direct)
+   with the text "Works with".
+4. Features (id="features"): <h2 class="t-headline-medium"> "Built for owners who also make breakfast" + .grid3 of
+   3 cards (<article class="card card--outlined">), each with a 48px tinted icon square, title t-title-medium, text:
+   - icon sync_problem — "No more overlaps" — "Every booking closes the room on all channels within 2 minutes. If two land at once, you decide, not the robot."
+   - icon forward_to_inbox — "Guests get what they need" — "Confirmation, check-in instructions and ID upload go out by WhatsApp or email, on time."
+   - icon account_balance_wallet — "See real earnings" — "Gross, commission and net per channel, so you know which one actually pays."
+5. Pricing (id="pricing"): <h2 class="t-headline-medium"> "Simple pricing" + .segmented "Monthly" (pressed) / "Yearly −20%".
+   .grid3 with 3 plan cards, each: name t-title-large, price t-display-small + muted "/ month", short line,
+   list of 4 features with icon check, button.
+   - Starter €19 — "Up to 5 rooms" — 2 channels · Calendar & room status · Guest list · Email support — class="btn btn--outlined" "Start free trial"
+   - Pro €39 — "Up to 15 rooms" — all channels · Automations (WhatsApp + email) · Pricing rules · Reports & CSV — class="btn btn--filled" "Start free trial".
+     This card is highlighted: background var(--md-primary-container), color var(--md-on-primary-container),
+     plus tag "Most popular".
+   - Multi-property €79 — "Up to 30 rooms, many properties" — everything in Pro · Staff roles · Multiple properties · Priority support — class="btn btn--outlined" "Talk to us"
+6. FAQ (id="faq"): <h2 class="t-headline-medium"> "Questions" + 5 <details> elements inside one card
+   (summary in t-title-small, answer in t-body-medium muted, .divider between them):
+   - "Do I need a channel manager too?" — "No. Casa Verde CRM connects to Booking.com, Airbnb and Expedia directly."
+   - "What happens when two bookings overlap?" — "The room closes on all channels immediately and you choose which booking to keep."
+   - "Can my housekeeper use it on her phone?" — "Yes. Staff get their own login and only see what their role allows."
+   - "Is guest ID data safe?" — "Documents are stored encrypted in the EU and deleted automatically after the legal period."
+   - "Can I cancel anytime?" — "Yes, from Settings → Billing. You keep your data export."
+7. Final CTA card (background var(--md-inverse-surface), color var(--md-inverse-on-surface), radius var(--md-shape-xl),
+   centered): "Try it with your own rooms" + class="btn btn--filled" "Start free trial".
+8. Footer: muted t-body-small row: "© 2026 Casa Verde CRM" · Privacy · Terms · Contact.
+No <script> needed except the segmented toggle from dashboard.html.

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel CRM — Guests</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@8..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <!-- Shared App Shell -->
+    <div class="drawer" id="sidebar" aria-label="Main navigation">
+        <div class="drawer-header">
+            <h1 class="drawer-title display">Hotel CRM</h1>
+            <p class="uppercase-micro">Hotelsky</p>
+        </div>
+        <nav class="drawer-nav">
+            <a href="index.html" class="nav-item ${location.pathname === '/' || location.pathname === '' || location.pathname === 'index.html' ? 'active' : ''}" aria-current="page">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11h3a5 5 0 0 1 5 5v2a5 5 0 0 1-5 5h-3"></path></svg></span>
+                Dashboard
+            </a>
+            <a href="dashboard.html" class="nav-item ${location.pathname === 'dashboard.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+                Dashboard
+            </a>
+            <a href="bookings.html" class="nav-item ${location.pathname === 'bookings.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="9" x2="12" y2="13"></line></svg></span>
+                Bookings
+            </a>
+            <a href="guests.html" class="nav-item ${location.pathname === 'guests.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg></span>
+                Guests
+            </a>
+            <a href="room-status.html" class="nav-item ${location.pathname === 'room-status.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><circle cx="8.5" cy="4.5" r="1.5"></circle><circle cx="15.5" cy="4.5" r="1.5"></circle></svg></span>
+                Room Status
+            </a>
+            <a href="pricing-rules.html" class="nav-item ${location.pathname === 'pricing-rules.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg></span>
+                Pricing Rules
+            </a>
+            <a href="reports.html" class="nav-item ${location.pathname === 'reports.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="20" height="20" rx="2" ry="2"></rect><path d="M3 9l9 -7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span>
+                Reports
+            </a>
+            <a href="settings.html" class="nav-item ${location.pathname === 'settings.html' ? 'active' : ''}">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"></circle><path d="M2 12l10-7 10 7 10 7H2a2 2 0 0 1-2-2z"></path></svg></span>
+                Settings
+            </a>
+        </nav>
+        <div class="section-wrapper">
+            <div class="avatar">SK</div>
+        </div>
+    </div>
+
+    <div class="page">
+        <!-- Top bar -->
+        <header class="top-bar">
+            <button class="btn btn-icon btn-ghost" id="sidebarToggle" aria-label="Toggle sidebar">
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></span>
+            </button>
+            <h1 class="display">Guests</h1>
+            <div class="top-bar-right">
+                <div class="input-search" placeholder="⌘K Search guests...;">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                <select class="select">
+                    <option>All Guests</option>
+                    <option>VIP Guests</option>
+                    <option>Returning Guests</option>
+                </select>
+                <button class="btn btn-primary">Add Guest</button>
+                <button class="btn btn-icon btn-ghost" aria-label="Notifications">
+                    <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="16"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>
+                    <span class="dot-indicator"></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="margin-top-48">
+            <!-- Search and KPIs -->
+            <section class="grid-fill">
+                <!-- Search -->
+                <div class="grid-col-1">
+                    <div class="input-search w-full" placeholder="Search guests...">
+
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </div>
+                </div>
+
+                <!-- KPI cards -->
+                <div class="grid-kpi">
+                    <div class="kpi">
+                        <div class="kpi-value display">1,247</div>
+                        <div class="kpi-label uppercase-micro">Total Guests</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-value display">89</div>
+                        <div class="kpi-label uppercase-micro">VIP Guests</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-value display">42</div>
+                        <div class="kpi-label uppercase-micro">Returning</div>
+                    </div>
+                    <div class="kpi">
+                        <div class="kpi-value display">$487k</div>
+                        <div class="kpi-label uppercase-micro">Lifetime Value</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Guest Table -->
+            <section class="section-wrapper">
+                <h2 class="display">Guest List</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Guest</th>
+                            <th>Email</th>
+                            <th>VIP</th>
+                            <th>Returning</th>
+                            <th>Stays</th>
+                            <th>Lifetime Value</th>
+                            <th>Last Stay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1 -->
+                        <tr class="table-row">
+                            <td>
+                                <div class="avatar">AS</div>
+                                <div class="avatar-text">Anna Singh</div>
+                                <div class="uppercase-micro" style="">VIP</div>
+                            </td>
+                            <td class="table-cell">anna.singh@email.com</td>
+                            <td>
+                                <span class="pill success">Yes</span>
+                            </td>
+                            <td>
+                                <span class="pill warning">Yes</span>
+                            </td>
+                            <td class="td-small">12</td>
+                            <td class="number" class="td-medium">$8,240</td>
+                            <td class="td-date">2023-11-20</td>
+                        </tr>
+
+                        <!-- Row 2 -->
+                        <tr class="table-row">
+                            <td>
+                                <div class="avatar">JM</div>
+                                <div class="avatar-text">James Morrison</div>
+                            </td>
+                            <td class="table-cell">james.m@email.com</td>
+                            <td>
+                                <span class="pill neutral">No</span>
+                            </td>
+                            <td>
+                                <span class="pill info">Yes</span>
+                            </td>
+                            <td class="td-small">7</td>
+                            <td class="number" class="td-medium">$3,120</td>
+                            <td class="td-date">2023-10-15</td>
+                        </tr>
+
+                        <!-- Row 3 -->
+                        <tr class="table-row">
+                            <td>
+                                <div class="avatar">LR</div>
+                                <div class="avatar-text">Lisa Rodriguez</div>
+                                <div class="uppercase-micro" style="">VIP</div>
+                            </td>
+                            <td class="table-cell">lisa.r@email.com</td>
+                            <td>
+                                <span class="pill success">Yes</span>
+                            </td>
+                            <td>
+                                <span class="pill info">Yes</span>
+                            </td>
+                            <td class="td-small">15</td>
+                            <td class="number" class="td-medium">$12,560</td>
+                            <td class="td-date">2023-12-05</td>
+                        </tr>
+
+                        <!-- Row 4 -->
+                        <tr class="table-row">
+                            <td>
+                                <div class="avatar">CS</div>
+                                <div class="avatar-text">Carlos Silva</div>
+                            </td>
+                            <td class="table-cell">carlos.s@email.com</td>
+                            <td>
+                                <span class="pill warning">No</span>
+                            </td>
+                            <td>
+                                <span class="pill neutral">No</span>
+                            </td>
+                            <td class="td-small">4</td>
+                            <td class="number" class="td-medium">$2,890</td>
+                            <td class="td-date">2023-09-28</td>
+                        </tr>
+
+                        <!-- Row 5 -->
+                        <tr class="table-row">
+                            <td>
+                                <div class="avatar">EM</div>
+                                <div class="avatar-text">Emma Mitchell</div>
+                            </td>
+                            <td class="table-cell">emma.m@email.com</td>
+                            <td>
+                                <span class="pill info">Yes</span>
+                            </td>
+                            <td>
+                                <span class="pill neutral">No</span>
+                            </td>
+                            <td class="td-small">9</td>
+                            <td class="number" class="td-medium">$6,450</td>
+                            <td class="td-date">2023-11-10</td>
+                        </tr>
+
+                        <!-- Row 6 -->
+                        <tr class="table-row">
+                            <td>
+                                <div class="avatar">SK</div>
+                                <div class="avatar-text">Sarah Kim</div>
+                                <div class="uppercase-micro" style="">VIP</div>
+                            </td>
+                            <td class="table-cell">sarah.k@email.com</td>
+                            <td>
+                                <span class="pill success">Yes</span>
+                            </td>
+                            <td>
+                                <span class="pill info">Yes</span>
+                            </td>
+                            <td class="td-small">23</td>
+                            <td class="number" class="td-medium">$18,760</td>
+                            <td class="td-date">2023-12-20</td>
+                        </tr>
+
+                        <!-- Row 7 -->
+                        <tr class="table-row">
+                            <td>
+                                <div class="avatar">BM</div>
+                                <div class="avatar-text">Brian Moore</div>
+                            </td>
+                            <td class="table-cell">brian.m@email.com</td>
+                            <td>
+                                <span class="pill warning">No</span>
+                            </td>
+                            <td>
+                                <span class="pill neutral">No</span>
+                            </td>
+                            <td class="td-small">5</td>
+                            <td class="number" class="td-medium">$4,210</td>
+                            <td class="td-date">2023-10-05</td>
+                        </tr>
+
+                        <!-- Row 8 -->
+                        <tr class="table-row">
+                            <td>
+                                <div class="avatar">ND</div>
+                                <div class="avatar-text">Nina Davidson</div>
+                            </td>
+                            <td class="table-cell">nina.d@email.com</td>
+                            <td>
+                                <span class="pill neutral">No</span>
+                            </td>
+                            <td>
+                                <span class="pill warning">Yes</span>
+                            </td>
+                            <td class="td-small">11</td>
+                            <td class="number" class="td-medium">$9,340</td>
+                            <td class="td-date">2023-11-25</td>
+                        </tr>
+
+                        <!-- Row 9 -->
+                        <tr class="table-row">
+                            <td>
+                                <div class="avatar">JD</div>
+                                <div class="avatar-text">Julia Diaz</div>
+                            </td>
+                            <td class="table-cell">julia.d@email.com</td>
+                            <td>
+                                <span class="pill danger">No</span>
+                            </td>
+                            <td>
+                                <span class="pill info">Yes</span>
+                            </td>
+                            <td class="td-small">8</td>
+                            <td class="number" class="td-medium">$7,120</td>
+                            <td class="td-date">2023-10-20</td>
+                        </tr>
+
+                        <!-- Row 10 -->
+                        <tr class="table-row">
+                            <td>
+                                <div class="avatar">MR</div>
+                                <div class="avatar-text">Mike Roberts</div>
+                            </td>
+                            <td class="table-cell">mike.r@email.com</td>
+                            <td>
+                                <span class="pill warning">No</span>
+                            </td>
+                            <td>
+                                <span class="pill neutral">No</span>
+                            </td>
+                            <td class="td-small">6</td>
+                            <td class="number" class="td-medium">$5,890</td>
+                            <td class="td-date">2023-09-30</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Empty state or profile drawer trigger -->
+            <div class="hint-text">
+                <p>Click a guest row to open profile drawer</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar toggle
+        const sidebar = document.getElementById('sidebar');
+        const toggle = document.getElementById('sidebarToggle');
+
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+        }
+
+        // Check for dark mode preference
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+
+        // Nav active link highlighting
+        const navItems = document.querySelectorAll('.nav-item');
+        const currentPath = window.location.pathname;
+        navItems.forEach(item => {
+            const link = item.getAttribute('href');
+            if (currentPath === link || (currentPath === '/' && link === 'index.html')) {
+                item.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

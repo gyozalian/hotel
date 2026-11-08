@@ -1,0 +1,29 @@
+PAGE: Reports (reports.html, nav item: Reports, top-bar title "Reports").
+
+SECTIONS
+1. .page-head: <h2 class="t-headline-small">November 2026</h2>, muted "1–7 Nov actual · 8–30 Nov on the books",
+   right: .segmented "This month" (pressed) / "Last month" / "Year", class="btn btn--outlined" icon download "Export CSV".
+2. KPI row: copy the .kpis / .kpi CSS and markup pattern from dashboard.html, 4 cards:
+   Occupancy 71% (delta "↑ 6 pts vs Oct") · ADR €96 ("↑ €4") · RevPAR €68 ("↑ €7") · Net revenue €12,209 ("after €1,371 commission").
+   Keep the sparklines from the dashboard.
+3. .rep-grid { display: grid; gap: var(--layout-gutter); }
+   @media (min-width: 1200px) { .rep-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; } }
+   a) "Net revenue by month" card: inline SVG bar chart, viewBox="0 0 600 240", width 100%.
+      12 bars (rx="6"), fill var(--md-primary-container), the last bar (Nov) fill var(--md-primary).
+      Values (€): Dec 6,900 · Jan 5,200 · Feb 5,800 · Mar 7,400 · Apr 9,100 · May 11,300 · Jun 13,900 ·
+      Jul 15,600 · Aug 16,200 · Sep 13,100 · Oct 11,800 · Nov 12,209.
+      Scale: 0 at y=210, €16,000 at y=20. Month labels under each bar as <text> with class t-label-medium
+      and fill var(--md-on-surface-variant). Three thin gridlines (stroke var(--md-outline-variant)) at
+      €5k, €10k, €15k with labels on the left.
+      Below the chart: muted "Best month: August €16,200 · Year to date €128,509".
+   b) "By channel, November" card: .table-wrap > .table, columns Channel / Bookings / Nights / Gross / Commission / Net
+      (numbers .num). Channel cell = channel tag.
+        Booking.com · 14 · 38 · €4,820 · €723 · €4,097
+        Direct · 11 · 31 · €3,630 · €0 · €3,630
+        Airbnb · 9 · 24 · €3,150 · €410 · €2,740
+        Expedia · 6 · 17 · €1,980 · €238 · €1,742
+      Totals row in t-title-small: 40 · 110 · €13,580 · €1,371 · €12,209
+   c) "Room performance" card spanning full width (grid-column: 1 / -1 at ≥1200px): 6 rows, each
+      "Room N · name" + .progress bar with inner <span style="width:X%"> + "X% · €net":
+        Room 1 83% €2,480 · Room 2 70% €1,960 · Room 3 77% €2,750 · Room 4 73% €2,190 ·
+        Room 5 50% €1,610 (muted note "5 days out of order") · Room 6 73% €1,219
